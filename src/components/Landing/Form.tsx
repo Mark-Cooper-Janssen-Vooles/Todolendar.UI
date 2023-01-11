@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from "react-hook-form";
 import { displayStates } from "./LoginSignupBar";
-import '../App.css';
+import '../../App.css';
 import {Simulate} from "react-dom/test-utils";
 import submit = Simulate.submit;
 

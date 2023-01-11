@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Form from "./Form";
-import '../App.css'
+import '../../App.css'
 import './LoginSignupBar.css'
 
 export const displayStates = {

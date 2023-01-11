@@ -1,10 +1,10 @@
 import React from 'react';
-import Landing from "./components/Landing";
-import TodolenderHome from "./components/TodolenderHome";
+import Landing from "./components/Landing/Landing";
+import TodolenderHome from "./components/TodolenderHome/TodolenderHome";
 import './App.css';
 
 const App = () => {
-    const loggedIn = false; // todo: grab this from redux state
+    const loggedIn = true; // todo: grab this from redux state
 
     return (
         <div className="App">
