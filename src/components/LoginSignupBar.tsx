@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import LoginForm from "./LoginForm";
+import Form from "./Form";
 import '../App.css'
 import './LoginSignupBar.css'
 
-const displayStates = {
+export const displayStates = {
     LoginAndSignup: 'LoginAndSignup',
-    LoginForm: 'LoginForm',
+    LoginForm: 'Form',
     SignupForm: 'SignupForm'
 }
 
@@ -28,14 +28,8 @@ const LoginSignupBar = () => {
                     <button className="Button" onClick={handleSignupOnClick}>Signup</button>
                 </div>
             }
-
-            { display === displayStates.LoginForm &&
-                <LoginForm />
-            }
-
-            { display === displayStates.SignupForm &&
-                <div>signup form</div>
-            }
+            { display === displayStates.LoginForm && <Form formType={displayStates.LoginForm} submitButtonText="Login"/> }
+            { display === displayStates.SignupForm && <Form formType={displayStates.SignupForm} submitButtonText="Signup"/> }
         </div>
     )
 }

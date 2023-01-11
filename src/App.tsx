@@ -8,13 +8,8 @@ const App = () => {
 
     return (
         <div className="App">
-            { !loggedIn &&
-                <Landing />
-            }
-
-            {
-                loggedIn && <TodolenderHome />
-            }
+            { !loggedIn && <Landing /> }
+            { loggedIn && <TodolenderHome />}
         </div>
     );
 }
