@@ -8,6 +8,11 @@
   height: 20px;
 }
 
+.ButtonSmall {
+  width: 100px;
+  height: 20px;
+}
+
 .Input {
   width: 192px;
   height: 14px;
@@ -22,4 +27,12 @@
 
 .BottomMargin {
   margin-bottom: 10px;
+}
+
+.LeftMargin {
+  margin-left: 10px;
+}
+
+.RightMargin {
+  margin-right: 10px;
 }
