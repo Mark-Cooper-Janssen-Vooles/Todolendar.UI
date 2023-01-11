@@ -4,7 +4,7 @@ import TodolenderHome from "./components/TodolenderHome";
 import './App.css';
 
 const App = () => {
-    const loggedIn = false;
+    const loggedIn = false; // todo: grab this from redux state
 
     return (
         <div className="App">

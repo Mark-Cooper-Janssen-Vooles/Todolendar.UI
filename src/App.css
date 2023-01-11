@@ -2,3 +2,8 @@
   border: 4px solid black;
   box-sizing: border-box;
 }
+
+.Button {
+  width: 200px;
+  height: 20px;
+}

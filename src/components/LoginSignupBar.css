@@ -3,4 +3,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    row-gap: 20px;
+    column-gap: 20px;
+}
+
+.LoginButton {
+    margin-right: 10px;
 }
