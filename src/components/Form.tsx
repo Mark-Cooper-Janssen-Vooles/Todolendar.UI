@@ -26,7 +26,7 @@ const Form = (props: FormProps) => {
         }
         if (formType == displayStates.SignupForm) {
             // do redux signup call
-            // display success message + new button to try logging in
+            // display success message + new button to try logging in. new button sets LoginSignupBar's state as "displayStates.LoginAndSignup"
         }
         console.log(data);
     }
