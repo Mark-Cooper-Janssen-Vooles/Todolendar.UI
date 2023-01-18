@@ -106,6 +106,19 @@ const ProfileSettingsPortal = () => {
         cancelEditMobile();
     }
 
+    const handleEditPlanReminder = () => setEditingPlanReminderForm(true)
+    const handlePlanReminderChange = (event: { target:
+            { value: React.SetStateAction<{ planReminderOn: boolean; frequency: string; description: string }> }
+    }) => setPlanReminder(event.target.value)
+    const cancelEditPlanReminder = () => setEditingPlanReminderForm(false)
+    const handleSaveEditPlanReminder= (event: { preventDefault: () => void }) => {
+        event.preventDefault()
+        // api call to save and update email
+        // re-fetch data
+
+        cancelEditMobile();
+    }
+
     return ReactDOM.createPortal(
         <div className="ProfileSettingsMenu Border">
             <div className="ProfileSettingsTop">
@@ -128,7 +141,7 @@ const ProfileSettingsPortal = () => {
                     { editingFirstNameForm ?
                         <>
                             <form onSubmit={handleSaveEditFirstName}>
-                                <input type="text" name="email" onChange={handleFirstNameChange} placeholder="First Name"/>
+                                <input type="text" name="firstname" onChange={handleFirstNameChange} placeholder="First Name"/>
                                 <input type="submit" value="save" />
                             </form>
                             <button onClick={cancelEditFirstName}>Cancel</button>
@@ -143,7 +156,7 @@ const ProfileSettingsPortal = () => {
                     { editingLastNameForm ?
                         <>
                             <form onSubmit={handleSaveEditLastName}>
-                                <input type="text" name="email" onChange={handleLastNameChange} placeholder="Last Name"/>
+                                <input type="text" name="lastname" onChange={handleLastNameChange} placeholder="Last Name"/>
                                 <input type="submit" value="save" />
                             </form>
                             <button onClick={cancelEditLastName}>Cancel</button>
@@ -158,7 +171,7 @@ const ProfileSettingsPortal = () => {
                     { editingMobileForm ?
                         <>
                             <form onSubmit={handleSaveEditMobile}>
-                                <input type="text" name="email" onChange={handleMobileChange} placeholder="Email"/>
+                                <input type="text" name="mobile" onChange={handleMobileChange} placeholder="Email"/>
                                 <input type="submit" value="save" />
                             </form>
                             <button onClick={cancelEditMobile}>Cancel</button>
@@ -170,8 +183,28 @@ const ProfileSettingsPortal = () => {
                     }
                 </div>
                 <div className="ProfileSettingsSection">
-                    &nbsp;
-                    <button>Edit Plan Reminder</button>
+                    { editingPlanReminderForm ?
+                        <>
+                            <form onSubmit={handleSaveEditPlanReminder}>
+                                <input type="radio" name="planReminderOn"
+                                       // onChange={handlePlanReminderChange}
+                                       value="plan Reminder On"/>
+                                <input type="text" name="planReminderFreq"
+                                       // onChange={handlePlanReminderChange}
+                                       placeholder="Frequency"/>
+                                <input type="text" name="planReminderDesc"
+                                       // onChange={handlePlanReminderChange}
+                                       placeholder="description"/>
+
+                                <input type="submit" value="save" />
+                            </form>
+                            <button onClick={cancelEditPlanReminder}>Cancel</button>
+                        </> :
+                        <>
+                            &nbsp;
+                            <button onClick={handleEditPlanReminder}>Edit Plan Reminder</button>
+                        </>
+                    }
                 </div>
                 <div className="ProfileSettingsSection">
                     &nbsp;
