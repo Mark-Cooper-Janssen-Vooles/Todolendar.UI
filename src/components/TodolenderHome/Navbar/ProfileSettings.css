@@ -1,5 +1,7 @@
 .ProfileSettingsMenu {
-    position: absolute;
+    position: fixed;
+    z-index: 10;
+    right: 0;
     top: 15vh;
     height: 60vh;
     width: 20vw;
