@@ -25,8 +25,8 @@ const MonthNavigation = () => {
     return (
         <div className="MonthlyNavigation">
             <button className="ButtonSmall" onClick={handleTodayOnClick}>Today</button>
-            <div onClick={() => dispatch(decreaseWeek())}>{'<'}</div>
-            <div onClick={() => dispatch(increaseWeek())}>{'>'}</div>
+            <div className="HandOnHover" onClick={() => dispatch(decreaseWeek())}>{'<'} &nbsp; </div>
+            <div className="HandOnHover" onClick={() => dispatch(increaseWeek())}>{'>'} &nbsp;</div>
 
             <div>
                 { months[dayjs(viewingTime, "DD-MM-YYYY").month()] }

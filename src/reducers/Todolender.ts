@@ -30,7 +30,6 @@ export const todolenderSlice = createSlice({
             state.viewingTime = dayjs(state.viewingTime, "DD-MM-YYYY").subtract(7, 'day').format("DD-MM-YYYY")
         },
         resetToCurrentWeek: (state) => {
-            console.log('hmm')
             state.viewingTime = date;
         }
     }
