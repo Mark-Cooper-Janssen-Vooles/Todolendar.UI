@@ -140,12 +140,15 @@ const ProfileSettingsPortal = () => {
     }
 
     const handleDeleteAccount = () => setDeleteAccountActive(!deleteAccountActive)
-    const handleConfirmedDeletion = (event: { preventDefault: () => void }) => {
-        event.preventDefault()
+    const handleConfirmedDeletion = () => {
         // api call to delete user
-        // sign user out, clear cookies or something
-
         window.alert("Your account has been deleted")
+        handleLogout();
+    }
+
+    const handleLogout = () => {
+        // sign user out, clear cookies or something
+        window.alert("You have been signed out")
     }
 
     return ReactDOM.createPortal(
