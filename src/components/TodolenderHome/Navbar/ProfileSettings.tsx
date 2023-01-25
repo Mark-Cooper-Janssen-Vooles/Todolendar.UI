@@ -12,17 +12,8 @@ const ProfileSettings = () => {
 
     return (
         <div className="RightMargin">
-            {/*<label htmlFor="settings-dropdown">Settings</label>*/}
-            {/*<select name="settings-dropdown" id="settings-dropdown" defaultValue="Settings">*/}
-            {/*    <option value="day">Day</option>*/}
-            {/*    <option value="Week">Week</option>*/}
-            {/*    <option value="Month">Month</option>*/}
-            {/*</select>*/}
-
             <button className="ButtonSmall" onClick={handleButtonOnClick}>Settings</button>
-            {
-                expanded && <ProfileSettingsPortal />
-            }
+            { expanded && <ProfileSettingsPortal /> }
         </div>
     )
 }
@@ -38,7 +29,7 @@ const ProfileSettingsPortal = () => {
         mobile: '0431175219',
         planReminder: {
             planReminderOn: true,
-            frequency: "week",
+            frequency: "weekly",
             description: "text message about plan reminder"
         }
     }
@@ -107,16 +98,46 @@ const ProfileSettingsPortal = () => {
     }
 
     const handleEditPlanReminder = () => setEditingPlanReminderForm(true)
-    const handlePlanReminderChange = (event: { target:
-            { value: React.SetStateAction<{ planReminderOn: boolean; frequency: string; description: string }> }
-    }) => setPlanReminder(event.target.value)
+    const handlePlanReminderChange = (event: any,
+                                      // formType: string
+      // { target: { value: React.SetStateAction<{ planReminderOn: boolean; frequency: string; description: string }> }}
+    ) => {
+        let setNewPlanReminder = planReminder;
+
+        if (event.target.type === 'checkbox') {
+            setNewPlanReminder = {
+                planReminderOn: event.target.checked,
+                frequency: planReminder.frequency,
+                description: planReminder.description
+            }
+        }
+
+        if (event.target.type === 'select-one' && event.target.id === 'frequency') {
+            setNewPlanReminder = {
+                planReminderOn: planReminder.planReminderOn,
+                frequency: event.target.value,
+                description: planReminder.description
+            }
+        }
+
+        if (event.target.type === 'text' && event.target.id === 'description') {
+            setNewPlanReminder = {
+                planReminderOn: planReminder.planReminderOn,
+                frequency: planReminder.frequency,
+                description: event.target.value
+            }
+        }
+
+        setPlanReminder(setNewPlanReminder)
+        console.log(planReminder)
+    }
     const cancelEditPlanReminder = () => setEditingPlanReminderForm(false)
     const handleSaveEditPlanReminder= (event: { preventDefault: () => void }) => {
         event.preventDefault()
         // api call to save and update email
         // re-fetch data
 
-        cancelEditMobile();
+        cancelEditPlanReminder()
     }
 
     return ReactDOM.createPortal(
@@ -186,19 +207,25 @@ const ProfileSettingsPortal = () => {
                     { editingPlanReminderForm ?
                         <>
                             <form onSubmit={handleSaveEditPlanReminder}>
-                                <input type="radio" name="planReminderOn"
-                                       // onChange={handlePlanReminderChange}
-                                       value="plan Reminder On"/>
-                                <input type="text" name="planReminderFreq"
-                                       // onChange={handlePlanReminderChange}
-                                       placeholder="Frequency"/>
-                                <input type="text" name="planReminderDesc"
-                                       // onChange={handlePlanReminderChange}
-                                       placeholder="description"/>
-
-                                <input type="submit" value="save" />
+                                <div>
+                                    <label htmlFor="planReminderOn">Plan reminder on?</label>
+                                    <input type="checkbox" name="planReminderOn" id ="planReminderOn" onChange={handlePlanReminderChange}
+                                           defaultChecked={planReminder.planReminderOn} />
+                                </div>
+                                <select id="frequency" name="frequency" defaultValue={planReminder.frequency} onChange={handlePlanReminderChange}>
+                                    <option value="daily">Daily</option>
+                                    <option value="weekly">Weekly</option>
+                                    <option value="monthly">Monthly</option>
+                                </select>
+                                <input type="text" name="planReminderDesc" id="description" defaultValue={planReminder.description}
+                                       onChange={handlePlanReminderChange}
+                                       placeholder="description" />
+                                <div>
+                                    <input type="submit" value="save" />
+                                    <button onClick={cancelEditPlanReminder}>Cancel</button>
+                                </div>
                             </form>
-                            <button onClick={cancelEditPlanReminder}>Cancel</button>
+
                         </> :
                         <>
                             &nbsp;
