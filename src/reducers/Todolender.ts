@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import dayjs from "dayjs";
-var customParseFormat = require('dayjs/plugin/customParseFormat')
+const customParseFormat = require('dayjs/plugin/customParseFormat')
 dayjs.extend(customParseFormat)
 
 const date = dayjs().format('DD-MM-YYYY')
@@ -9,15 +9,6 @@ const initialState = {
     currentTime: date,
     viewingTime: date
 }
-//
-// const todolenderReducer = (state = initialState, action: { type: string, payload: {}}) => {
-//     switch (action.type) {
-//         default:
-//             return state
-//     }
-// }
-//
-// export default todolenderReducer
 
 export const todolenderSlice = createSlice({
     name: 'todolender',
