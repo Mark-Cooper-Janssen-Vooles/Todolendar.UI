@@ -129,7 +129,6 @@ const ProfileSettingsPortal = () => {
         }
 
         setPlanReminder(setNewPlanReminder)
-        console.log(planReminder)
     }
     const cancelEditPlanReminder = () => setEditingPlanReminderForm(false)
     const handleSaveEditPlanReminder= (event: { preventDefault: () => void }) => {
@@ -138,6 +137,15 @@ const ProfileSettingsPortal = () => {
         // re-fetch data
 
         cancelEditPlanReminder()
+    }
+
+    const handleDeleteAccount = () => setDeleteAccountActive(!deleteAccountActive)
+    const handleConfirmedDeletion = (event: { preventDefault: () => void }) => {
+        event.preventDefault()
+        // api call to delete user
+        // sign user out, clear cookies or something
+
+        window.alert("Your account has been deleted")
     }
 
     return ReactDOM.createPortal(
@@ -234,8 +242,17 @@ const ProfileSettingsPortal = () => {
                     }
                 </div>
                 <div className="ProfileSettingsSection">
-                    &nbsp;
-                    <button>Delete Account</button>
+                    { deleteAccountActive ?
+                        <>
+                            <button onClick={handleConfirmedDeletion}>Confirm Deletion</button>
+                            <button onClick={handleDeleteAccount}>Cancel</button>
+                        </>
+                        :
+                        <>
+                            &nbsp;
+                            <button onClick={handleDeleteAccount}>Delete Account</button>
+                        </>
+                    }
                 </div>
             </div>
             <button>Logout</button>
