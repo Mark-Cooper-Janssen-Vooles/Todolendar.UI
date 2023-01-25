@@ -18,10 +18,10 @@
 //
 
 import { configureStore } from '@reduxjs/toolkit'
-import todolenderReducer from './reducers/Todolender'
+import dateReducer from './reducers/dateSlice'
 
 export default configureStore({
     reducer: {
-        todolender: todolenderReducer
+        date: dateReducer
     },
 })

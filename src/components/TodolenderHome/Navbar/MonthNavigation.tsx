@@ -1,6 +1,6 @@
 import React from 'react'
 import './MonthlyNavigation.css'
-import { increaseWeek, decreaseWeek, resetToCurrentWeek } from '../../../reducers/Todolender'
+import { increaseWeek, decreaseWeek, resetToCurrentWeek } from '../../../reducers/dateSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import dayjs from "dayjs";
 var customParseFormat = require('dayjs/plugin/customParseFormat')
@@ -14,9 +14,9 @@ const months =  [
 const MonthNavigation = () => {
     const dispatch = useDispatch()
     // @ts-ignore
-    const currentTime = useSelector((state) => state.todolender.currentTime)
+    const currentTime = useSelector((state) => state.date.currentTime)
     // @ts-ignore
-    const viewingTime = useSelector((state) => state.todolender.viewingTime)
+    const viewingTime = useSelector((state) => state.date.viewingTime)
 
     const handleTodayOnClick = () => {
         dispatch(resetToCurrentWeek())

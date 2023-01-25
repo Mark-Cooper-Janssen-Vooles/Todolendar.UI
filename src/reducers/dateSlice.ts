@@ -10,8 +10,8 @@ const initialState = {
     viewingTime: date
 }
 
-export const todolenderSlice = createSlice({
-    name: 'todolender',
+export const dateSlice = createSlice({
+    name: 'date',
     initialState,
     reducers: {
         increaseWeek: (state) => {
@@ -26,6 +26,6 @@ export const todolenderSlice = createSlice({
     }
 })
 
-export const { increaseWeek, decreaseWeek, resetToCurrentWeek } = todolenderSlice.actions
+export const { increaseWeek, decreaseWeek, resetToCurrentWeek } = dateSlice.actions
 
-export default todolenderSlice.reducer
+export default dateSlice.reducer
