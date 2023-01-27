@@ -3,6 +3,29 @@
     height: 85vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.TodoTitle {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.TodolistUl {
+    list-style-type: none;
+    padding-inline-start: 0px;
+    margin-left: 10px;
+}
+
+.TodolistLi {
+    margin-bottom: 15px;
+}
+
+.TodoListLiTitle {
+    font-size: 13px;
+}
+
+.TodolistLiDescription {
+    font-size: 10px;
 }
