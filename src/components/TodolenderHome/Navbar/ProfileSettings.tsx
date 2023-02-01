@@ -120,7 +120,7 @@ const ProfileSettingsPortal = () => {
             }
         }
 
-        if (event.target.type === 'text' && event.target.id === 'description') {
+        if (event.target.id === 'description') {
             setNewPlanReminder = {
                 planReminderOn: planReminder.planReminderOn,
                 frequency: planReminder.frequency,
@@ -228,7 +228,7 @@ const ProfileSettingsPortal = () => {
                                     <option value="weekly">Weekly</option>
                                     <option value="monthly">Monthly</option>
                                 </select>
-                                <input type="text" name="planReminderDesc" id="description" defaultValue={planReminder.description}
+                                <textarea name="planReminderDesc" id="description" defaultValue={planReminder.description}
                                        onChange={handlePlanReminderChange}
                                        placeholder="description" />
                                 <div>
