@@ -1,0 +1,43 @@
+.Calendar {
+    width: 80vw;
+    height: 85vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.CalendarContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.CalendarWeeklyColumn {
+    width: calc(80vw / 7);
+    height: 100%;
+
+    border: 1px solid black;
+    box-sizing: border-box;
+}
+
+.CalendarWeeklyColumnDayContainer {
+    display: flex;
+
+    border-bottom: 1px solid black;
+    box-sizing: border-box;
+}
+
+.CalendarWeeklyColumnDay {
+    width: calc(80vw / 8);
+
+    /*display: flex;*/
+
+    /*border-bottom: 1px solid black;*/
+    /*box-sizing: border-box;*/
+}
+
+.CalendarWeeklyColumnTime {
+    width: calc(80vw / 9);
+    height: 85vh;
+}

@@ -5,6 +5,8 @@ dayjs.extend(customParseFormat)
 
 const date = dayjs().format('DD-MM-YYYY')
 
+console.log(date)
+
 type dateSliceState = {
     currentTime: string;
     viewingTime: string;

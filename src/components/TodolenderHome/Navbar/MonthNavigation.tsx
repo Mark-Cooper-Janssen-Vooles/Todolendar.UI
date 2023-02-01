@@ -4,8 +4,8 @@ import { increaseWeek, decreaseWeek, resetToCurrentWeek } from '../../../reducer
 import { useSelector, useDispatch } from 'react-redux'
 import dayjs from "dayjs";
 import { RootState } from "../../../store";
-var customParseFormat = require('dayjs/plugin/customParseFormat')
-dayjs.extend(customParseFormat)
+// var customParseFormat = require('dayjs/plugin/customParseFormat')
+// dayjs.extend(customParseFormat)
 
 const months =  [
     "January", "February", "March", "April", "May", "June", "July",

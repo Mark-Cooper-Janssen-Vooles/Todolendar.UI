@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from "./Navbar/Navbar";
 import Todolist from "./Todolist";
-import Calendar from "./Calendar";
+import Calendar from "./Calendar/Calendar";
 import './TodolenderHome.css';
 
 const TodolenderHome = () => {
