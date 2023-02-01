@@ -26,12 +26,32 @@ const todos = [
 ]
 
 const Todolist = () => {
+    const [createTodoActive, setCreateTodoActive] = useState(false)
+    const [createTodo, setCreateTodo] = useState({
+        title: '',
+        description: ''
+    })
+
     const [addActive, setAddActive] = useState(false)
     const [addDate, setAddDate] = useState('')
     const [addTime, setAddTime] = useState('')
 
     const [editTodo, setEditTodo] = useState(false)
     const [activeTodo, setActiveTodo] = useState({ id: 0, title: '', description: ''})
+
+    const handleCreateTodo = (e: any) => {
+        const title = e.target[0].value
+        const description = e.target[1].value
+        e.preventDefault()
+
+        if (title !== '' && description !== '') {
+            setCreateTodo({ title, description })
+            // make API call to create todo
+            setCreateTodoActive(false);
+        } else {
+            window.alert('you did not enter either a title, a description, or both!')
+        }
+    }
 
     const handleAdd = (todo: React.SetStateAction<{ id: number; title: string; description: string; }>) => {
         setAddActive(!addActive)
@@ -58,7 +78,7 @@ const Todolist = () => {
             console.log('api call')
             setAddActive(false)
         } else {
-            window.alert('you did not enter either a date, a time, or both')
+            window.alert('you did not enter either a date, a time, or both!')
         }
     }
 
@@ -113,7 +133,23 @@ const Todolist = () => {
 
     return (
         <div className="Todolist Border">
-            <div className="TodoTitle">Todo List</div>
+            <div className="TodoTitle">
+                <div>Todo List</div>
+                {
+                    createTodoActive
+                        ?
+                    <>
+                        <form onSubmit={handleCreateTodo}>
+                            <input type="text" name="title" placeholder="title"/>
+                            <textarea name="description" placeholder="description" />
+                            <input type="submit" value="save" />
+                        </form>
+                        <button onClick={() => setEditTodo(false)}>Cancel</button>
+                    </>
+                        :
+                    <button onClick={() => setCreateTodoActive(true)}>Create Todo</button>
+                }
+            </div>
             <ul className="TodolistUl">
                 {todos?.map((todo) => {
                     const currentTodo = todos.find(x => x.id == todo.id)
