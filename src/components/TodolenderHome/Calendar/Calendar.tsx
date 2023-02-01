@@ -19,7 +19,6 @@ const Calendar = () => {
         setDaysOfMonth(computeDaysOfMonth(dayjsTimeObject, currentTime))
     }, [])
 
-
     return (
         // <div className="Calendar Border">
         //     <h1>calendar</h1>
@@ -41,41 +40,52 @@ const Calendar = () => {
                                 <div key={id} className="CalendarWeeklyColumnDay">
                                     <div>{ day }</div>
                                     <div className="CurrentDay">{ daysOfMonth[id] }</div>
-                                </div>
-                            )
+                                </div>)
                         }
 
                         return (
                           <div key={id} className="CalendarWeeklyColumnDay">
                               <div>{ day }</div>
                               <div>{ daysOfMonth[id] }</div>
-                          </div>
-                        )
+                          </div>)
                     })}
-                    {/*<div className="CalendarWeeklyColumnDay">*/}
-                    {/*    <div>MON</div>*/}
-                    {/*    <div>{ dayjsTimeObject.date() }</div>*/}
-                    {/*</div>*/}
-                    {/*<div className="CalendarWeeklyColumnDay">TUE</div>*/}
-                    {/*<div className="CalendarWeeklyColumnDay">WED</div>*/}
-                    {/*<div className="CalendarWeeklyColumnDay">THU</div>*/}
-                    {/*<div className="CalendarWeeklyColumnDay">FRI</div>*/}
-                    {/*<div className="CalendarWeeklyColumnDay">SAT</div>*/}
-                    {/*<div className="CalendarWeeklyColumnDay">SUN</div>*/}
                 </div>
             </div>
 
-            {/*<div>Time Column</div>*/}
-            {/*<div className="CalendarWeeklyColumn">*/}
-            {/*    <div className="CalendarWeeklyColumnDay">mon</div>*/}
-            {/*    <div></div>*/}
-            {/*</div>*/}
-            {/*<div className="CalendarWeeklyColumn">tue</div>*/}
-            {/*<div className="CalendarWeeklyColumn">wed</div>*/}
-            {/*<div className="CalendarWeeklyColumn">thu</div>*/}
-            {/*<div className="CalendarWeeklyColumn">fri</div>*/}
-            {/*<div className="CalendarWeeklyColumn">sat</div>*/}
-            {/*<div className="CalendarWeeklyColumn">sun</div>*/}
+            <div className="CalenderContainerContent">
+                <div className="CalendarWeeklyColumnTimeContent">
+                    <div className="CalendarWeeklyColumnTimeContentItem">1 AM</div>
+                    <div className="CalendarWeeklyColumnTimeContentItem">2 AM</div>
+                    <div className="CalendarWeeklyColumnTimeContentItem">3 AM</div>
+                    <div className="CalendarWeeklyColumnTimeContentItem">4 AM</div>
+                    <div className="CalendarWeeklyColumnTimeContentItem">5 AM</div>
+                    <div className="CalendarWeeklyColumnTimeContentItem">6 AM</div>
+                    <div className="CalendarWeeklyColumnTimeContentItem">7 AM</div>
+                    <div className="CalendarWeeklyColumnTimeContentItem">8 AM</div>
+                    <div className="CalendarWeeklyColumnTimeContentItem">9 AM</div>
+                    <div className="CalendarWeeklyColumnTimeContentItem">10 AM</div>
+                    <div className="CalendarWeeklyColumnTimeContentItem">11 AM</div>
+                    <div className="CalendarWeeklyColumnTimeContentItem">12 PM</div>
+                    <div className="CalendarWeeklyColumnTimeContentItem">1 PM</div>
+                    <div className="CalendarWeeklyColumnTimeContentItem">2 PM</div>
+                    <div className="CalendarWeeklyColumnTimeContentItem">3 PM</div>
+                    <div className="CalendarWeeklyColumnTimeContentItem">4 PM</div>
+                    <div className="CalendarWeeklyColumnTimeContentItem">5 PM</div>
+                    <div className="CalendarWeeklyColumnTimeContentItem">6 PM</div>
+                    <div className="CalendarWeeklyColumnTimeContentItem">7 PM</div>
+                    <div className="CalendarWeeklyColumnTimeContentItem">8 PM</div>
+                    <div className="CalendarWeeklyColumnTimeContentItem">9 PM</div>
+                    <div className="CalendarWeeklyColumnTimeContentItem">10 PM</div>
+                    <div className="CalendarWeeklyColumnTimeContentItem">11 PM</div>
+                </div>
+                <div className="CalendarWeeklyColumn" id="sun-content"></div>
+                <div className="CalendarWeeklyColumn" id="mon-content"></div>
+                <div className="CalendarWeeklyColumn" id="tue-content"></div>
+                <div className="CalendarWeeklyColumn" id="wed-content"></div>
+                <div className="CalendarWeeklyColumn" id="thu-content"></div>
+                <div className="CalendarWeeklyColumn" id="fri-content"></div>
+                <div className="CalendarWeeklyColumn" id="sat-content"></div>
+            </div>
         </div>
     )
 }
