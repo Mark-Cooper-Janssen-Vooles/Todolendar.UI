@@ -67,6 +67,13 @@
     box-sizing: border-box;
 }
 
+.CalendarWeeklyColumnContentItem {
+    display: flex;
+    height: 40px;
+    border-bottom: 1px solid lightgray;
+    box-sizing: border-box;
+}
+
 .CurrentDay {
     color: blue;
     border-bottom: 1px solid blue;

@@ -80,30 +80,9 @@ const Calendar = () => {
                     <div className="CalendarWeeklyColumnTimeContentItem">12 PM</div>
                 </div>
                 <div className="CalendarWeeklyColumn" id="sun-content">
-                    <div className="CalendarWeeklyColumnTimeContentItem"></div>
-                    <div className="CalendarWeeklyColumnTimeContentItem"></div>
-                    <div className="CalendarWeeklyColumnTimeContentItem"></div>
-                    <div className="CalendarWeeklyColumnTimeContentItem"></div>
-                    <div className="CalendarWeeklyColumnTimeContentItem"></div>
-                    <div className="CalendarWeeklyColumnTimeContentItem"></div>
-                    <div className="CalendarWeeklyColumnTimeContentItem"></div>
-                    <div className="CalendarWeeklyColumnTimeContentItem"></div>
-                    <div className="CalendarWeeklyColumnTimeContentItem"></div>
-                    <div className="CalendarWeeklyColumnTimeContentItem"></div>
-                    <div className="CalendarWeeklyColumnTimeContentItem"></div>
-                    <div className="CalendarWeeklyColumnTimeContentItem"></div>
-                    <div className="CalendarWeeklyColumnTimeContentItem"></div>
-                    <div className="CalendarWeeklyColumnTimeContentItem"></div>
-                    <div className="CalendarWeeklyColumnTimeContentItem"></div>
-                    <div className="CalendarWeeklyColumnTimeContentItem"></div>
-                    <div className="CalendarWeeklyColumnTimeContentItem"></div>
-                    <div className="CalendarWeeklyColumnTimeContentItem"></div>
-                    <div className="CalendarWeeklyColumnTimeContentItem"></div>
-                    <div className="CalendarWeeklyColumnTimeContentItem"></div>
-                    <div className="CalendarWeeklyColumnTimeContentItem"></div>
-                    <div className="CalendarWeeklyColumnTimeContentItem"></div>
-                    <div className="CalendarWeeklyColumnTimeContentItem"></div>
-                    <div className="CalendarWeeklyColumnTimeContentItem"></div>
+                    <div className="CalendarWeeklyColumnContentItem" id="sun-1am"></div>
+                    <div className="CalendarWeeklyColumnContentItem" id="sun-2am"></div>
+                    <div className="CalendarWeeklyColumnContentItem" id="sun-3am"></div>
                 </div>
                 <div className="CalendarWeeklyColumn" id="mon-content"></div>
                 <div className="CalendarWeeklyColumn" id="tue-content"></div>
