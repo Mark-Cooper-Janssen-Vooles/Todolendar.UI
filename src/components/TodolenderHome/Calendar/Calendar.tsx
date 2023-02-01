@@ -1,17 +1,24 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import '../../../App.css'
 import './Calendar.css'
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../store";
 import dayjs from "dayjs";
+import { computeDaysOfMonth } from '../../../helpers/computeDaysOfMonth'
 
 const days = [ 'SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
 
 const Calendar = () => {
+    const [daysOfMonth, setDaysOfMonth] = useState([0, 0, 0, 0, 0, 0, 0]);
     const dispatch = useDispatch()
     const currentTime = useSelector((state: RootState) => state.date.currentTime)
     const dayjsTimeObject = dayjs(currentTime, "DD-MM-YYYY h:m:s")
     const currentDay = days[dayjsTimeObject.day()]
+
+    useEffect(() => {
+        setDaysOfMonth(computeDaysOfMonth(dayjsTimeObject, currentTime))
+    }, [])
+
 
     return (
         // <div className="Calendar Border">
@@ -30,22 +37,20 @@ const Calendar = () => {
                 <div className="CalendarWeeklyColumnDayContainer">
                     {days.map((day, id) => {
                         if (currentDay == day ) {
-                            console.log(currentDay)
-
                             return (
                                 <div key={id} className="CalendarWeeklyColumnDay">
                                     <div>{ day }</div>
-                                    <div className="CurrentDay">{ dayjsTimeObject.date() }</div>
+                                    <div className="CurrentDay">{ daysOfMonth[id] }</div>
                                 </div>
                             )
                         }
 
-                          return (
-                              <div key={id} className="CalendarWeeklyColumnDay">
-                                  <div>{ day }</div>
-                                  <div>{ dayjsTimeObject.date() }</div>
-                              </div>
-                          )
+                        return (
+                          <div key={id} className="CalendarWeeklyColumnDay">
+                              <div>{ day }</div>
+                              <div>{ daysOfMonth[id] }</div>
+                          </div>
+                        )
                     })}
                     {/*<div className="CalendarWeeklyColumnDay">*/}
                     {/*    <div>MON</div>*/}
