@@ -5,11 +5,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../store";
 import dayjs from "dayjs";
 
+const days = [ 'SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
+
 const Calendar = () => {
     const dispatch = useDispatch()
     const currentTime = useSelector((state: RootState) => state.date.currentTime)
-
-    const dayjsTimeObject = dayjs(currentTime, "DD-MM-YYYY")
+    const dayjsTimeObject = dayjs(currentTime, "DD-MM-YYYY h:m:s")
+    const currentDay = days[dayjsTimeObject.day()]
 
     return (
         // <div className="Calendar Border">
@@ -22,16 +24,39 @@ const Calendar = () => {
         // </div>
 
         <div className="Calendar Border">
-            <div className="CalendarContainer">
-                <div className="CalendarWeeklyColumnTime">Calender times / info</div>
+            <div className="CalendarContainerHeader">
+                {/*(get this from somewhere?)*/}
+                <div className="CalendarWeeklyColumnTime">GMT+11</div>
                 <div className="CalendarWeeklyColumnDayContainer">
-                    <div className="CalendarWeeklyColumnDay">mon</div>
-                    <div className="CalendarWeeklyColumnDay">tue</div>
-                    <div className="CalendarWeeklyColumnDay">wed</div>
-                    <div className="CalendarWeeklyColumnDay">thu</div>
-                    <div className="CalendarWeeklyColumnDay">fri</div>
-                    <div className="CalendarWeeklyColumnDay">sat</div>
-                    <div className="CalendarWeeklyColumnDay">sun</div>
+                    {days.map((day, id) => {
+                        if (currentDay == day ) {
+                            console.log(currentDay)
+
+                            return (
+                                <div key={id} className="CalendarWeeklyColumnDay">
+                                    <div>{ day }</div>
+                                    <div className="CurrentDay">{ dayjsTimeObject.date() }</div>
+                                </div>
+                            )
+                        }
+
+                          return (
+                              <div key={id} className="CalendarWeeklyColumnDay">
+                                  <div>{ day }</div>
+                                  <div>{ dayjsTimeObject.date() }</div>
+                              </div>
+                          )
+                    })}
+                    {/*<div className="CalendarWeeklyColumnDay">*/}
+                    {/*    <div>MON</div>*/}
+                    {/*    <div>{ dayjsTimeObject.date() }</div>*/}
+                    {/*</div>*/}
+                    {/*<div className="CalendarWeeklyColumnDay">TUE</div>*/}
+                    {/*<div className="CalendarWeeklyColumnDay">WED</div>*/}
+                    {/*<div className="CalendarWeeklyColumnDay">THU</div>*/}
+                    {/*<div className="CalendarWeeklyColumnDay">FRI</div>*/}
+                    {/*<div className="CalendarWeeklyColumnDay">SAT</div>*/}
+                    {/*<div className="CalendarWeeklyColumnDay">SUN</div>*/}
                 </div>
             </div>
 

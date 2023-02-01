@@ -6,11 +6,14 @@
     justify-content: space-between;
 }
 
-.CalendarContainer {
+.CalendarContainerHeader {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     justify-content: flex-start;
+
+    border-bottom: 1px solid black;
+    box-sizing: border-box;
 }
 
 .CalendarWeeklyColumn {
@@ -23,21 +26,30 @@
 
 .CalendarWeeklyColumnDayContainer {
     display: flex;
-
-    border-bottom: 1px solid black;
-    box-sizing: border-box;
 }
 
 .CalendarWeeklyColumnDay {
-    width: calc(80vw / 8);
+    width: calc((80vw - 40px) / 7.05);
+    height: 10vh;
 
-    /*display: flex;*/
-
-    /*border-bottom: 1px solid black;*/
-    /*box-sizing: border-box;*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .CalendarWeeklyColumnTime {
-    width: calc(80vw / 9);
-    height: 85vh;
+    width: 40px;
+    height: 10vh;
+    font-size: 10px;
+
+    display: flex;
+    align-items: flex-end;
+}
+
+.CurrentDay {
+    color: red;
+
+    border-bottom: 1px solid red;
+    box-sizing: border-box;
 }
