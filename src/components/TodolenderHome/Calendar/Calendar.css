@@ -3,15 +3,19 @@
     height: 85vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: flex-start;
+    overflow-y: scroll;
 }
 
 .CalendarContainerHeader {
+    position: fixed;
+    height: 70px;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     justify-content: flex-start;
+    background: white;
 
     border-bottom: 1px solid black;
     box-sizing: border-box;
@@ -41,10 +45,16 @@
     justify-content: center;
 }
 
+/*===== calendar container =====*/
+
+.CalenderContainerContent {
+    margin-top: 70px;
+    display: flex;
+}
+
 .CalendarWeeklyColumnTimeContent {
     width: 40px;
     font-size: 8px;
-
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -58,18 +68,14 @@
 }
 
 .CurrentDay {
-    color: red;
-
-    border-bottom: 1px solid red;
+    color: blue;
+    border-bottom: 1px solid blue;
     box-sizing: border-box;
 }
 
-.CalenderContainerContent {
-    display: flex;
-    /*height: 100%;*/
-    height: 200%;
-
-    overflow-y: scroll;
+::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
 }
 
 .CalendarWeeklyColumn {
