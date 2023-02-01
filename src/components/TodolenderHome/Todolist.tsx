@@ -28,6 +28,7 @@ const todos = [
 const Todolist = () => {
     const [addActive, setAddActive] = useState(false)
     const [addDate, setAddDate] = useState('')
+    const [addTime, setAddTime] = useState('')
 
     const [editTodo, setEditTodo] = useState(false)
     const [activeTodo, setActiveTodo] = useState({ id: 0, title: '', description: ''})
@@ -42,13 +43,23 @@ const Todolist = () => {
         setAddDate(e.target.value)
     }
 
+    const handleAddTime = (e: any) => {
+        e.preventDefault()
+        setAddTime(e.target.value)
+    }
+
     const handleSaveAdd = (e: any) => {
         e.preventDefault()
-        console.log(addDate)
-        // api call to add to calendar
-        // re-fetch data
 
-        setAddActive(false)
+        if (addDate !== '' && addTime !== '' ) {
+            // api call to add to calendar using the date and time
+            // re-fetch data
+
+            console.log('api call')
+            setAddActive(false)
+        } else {
+            window.alert('you did not enter either a date, a time, or both')
+        }
     }
 
     const handleEditTodo = (todo: React.SetStateAction<{ id: number; title: string; description: string; }>) => {
@@ -119,6 +130,7 @@ const Todolist = () => {
                             <>
                                 <form onSubmit={handleSaveAdd}>
                                     <input type="date" onChange={handleAddDate}/>
+                                    <input type="time" onChange={handleAddTime}/>
                                     <input type="submit" value="save" />
                                 </form>
                                 <button onClick={() => setAddActive(false)}>Cancel</button>
