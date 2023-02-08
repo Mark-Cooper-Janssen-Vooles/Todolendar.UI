@@ -19,6 +19,9 @@
 
     border-bottom: 1px solid black;
     box-sizing: border-box;
+
+    overflow: auto;
+    overflow-y: scroll;
 }
 
 .CalendarWeeklyColumnDayContainer {

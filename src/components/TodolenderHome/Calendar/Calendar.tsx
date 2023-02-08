@@ -12,11 +12,24 @@ const Calendar = () => {
     const [daysOfMonth, setDaysOfMonth] = useState([0, 0, 0, 0, 0, 0, 0]);
     const dispatch = useDispatch()
     const currentTime = useSelector((state: RootState) => state.date.currentTime)
-    const dayjsTimeObject = dayjs(currentTime, "DD-MM-YYYY h:m:s")
+    const dayjsTimeObject = dayjs(currentTime, "DD-MM-YYYY h:m:s a")
     const currentDay = days[dayjsTimeObject.day()]
 
     useEffect(() => {
         setDaysOfMonth(computeDaysOfMonth(dayjsTimeObject, currentTime))
+
+        console.log(dayjsTimeObject.format('h a'))
+
+        const calendarContainer = document.getElementsByClassName("CalenderContainerContent")[0]
+        calendarContainer.scrollIntoView()
+
+        // below doesn't seem to be working:
+        // hmm.scrollTo({
+        //     top: 0,
+        //     left: 500,
+        //     behavior: 'smooth'
+        // })
+
     }, [])
 
     return (

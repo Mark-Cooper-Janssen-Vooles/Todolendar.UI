@@ -27,8 +27,8 @@ const MonthNavigation = () => {
             <div className="HandOnHover" onClick={() => dispatch(increaseWeek())}>{'>'} &nbsp;</div>
 
             <div>
-                { months[dayjs(viewingTime, "DD-MM-YYYY h:m:s").month()] }
-                { dayjs(viewingTime, "DD-MM-YYYY h:m:s").year() }
+                { months[dayjs(viewingTime, "DD-MM-YYYY h:m:s a").month()] }
+                { dayjs(viewingTime, "DD-MM-YYYY h:m:s a").year() }
             </div>
         </div>
     )
