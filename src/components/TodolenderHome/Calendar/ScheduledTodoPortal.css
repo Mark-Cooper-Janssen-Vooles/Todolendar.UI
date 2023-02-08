@@ -1,25 +1,15 @@
-.ProfileSettingsMenu {
+.ScheduledTodoPortalContainer {
     position: fixed;
     background: white;
+
     z-index: 10;
-    right: 0;
-    top: 15vh;
+    top: 30vh;
+    right: 22.5vw;
     height: 60vh;
-    width: 20vw;
+    width: 30vw;
 
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-}
-
-.ProfileSettingsTop {
-    display: flex;
-    flex-direction: column;
-}
-
-.ProfileSettingsSection {
-    margin-bottom: 15px;
-    display: flex;
     justify-content: space-between;
 }
 

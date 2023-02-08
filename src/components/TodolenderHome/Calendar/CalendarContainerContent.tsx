@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from "react";
+import ScheduledTodoPortal from "./ScheduledTodoPortal";
+import { IActiveScheduledTodo } from "./ScheduledTodoPortal";
 
 type ICalendarContainerContent = {
     hours: string[];
     currentHour: string;
 }
 
-const scheduledTodos = [{
+const scheduledTodos: IActiveScheduledTodo[] = [{
     Id: '123',
     UserId: '1',
     Title: 'Scheduled Todo Example',
@@ -25,6 +27,23 @@ const scheduledTodos = [{
 
 const CalendarContainerContent = ({ hours, currentHour }: ICalendarContainerContent) => {
     const [scheduledTodoOpen, setScheduledTodoOpen] = useState(false);
+    const [activeScheduledTodo, setActiveScheduledTodo] = useState({
+        Id: '',
+        UserId: '',
+        Title: '',
+        Description: '',
+        Colour: '',
+        Active: false,
+        RecurCount: 0,
+        RecurFrequency: 0,
+        RecurFrequencyType: '',
+        RecurendDate: '',
+        NotifyBeforeTime: 0, // minutes?
+        CreatedAt: '',
+        UpdatedAt: '',
+        ScheduledAt: '',
+        TriggeredAt: ''
+    })
 
     useEffect(() => {
         setTimeout(() => {
@@ -35,11 +54,12 @@ const CalendarContainerContent = ({ hours, currentHour }: ICalendarContainerCont
 
     const handleScheduledTodoOpen = () => {
         setScheduledTodoOpen(true);
-        // open a modal similar to settings
+        setActiveScheduledTodo(scheduledTodos[0]) // need to work this out better somehow
     }
 
     return (
        <div className="CalenderContainerContent">
+           { scheduledTodoOpen && <ScheduledTodoPortal setScheduledTodoOpen={setScheduledTodoOpen} activeScheduledTodo={activeScheduledTodo} />}
             <div className="CalendarWeeklyColumnTimeContent">
                 {hours.map((hour, id) => {
                     if (currentHour === hour ) {
@@ -77,7 +97,7 @@ const CalendarContainerContent = ({ hours, currentHour }: ICalendarContainerCont
                     if (currentHour === hour ) {
                         return (
                             <div className="CalendarWeeklyColumnTimeContentItemCurrentHour" id={`wed-${hour}`} key={id}>
-                                <div className="CalendarWeeklyColumnContentItemEvent" onClick={handleScheduledTodoOpen}>Scheduled Todo</div>
+                                <div className="CalendarWeeklyColumnContentItemEvent" onClick={handleScheduledTodoOpen}>{scheduledTodos[0].Title}</div>
                             </div>
                         )
                     }
