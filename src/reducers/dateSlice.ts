@@ -3,7 +3,9 @@ import dayjs from "dayjs";
 const customParseFormat = require('dayjs/plugin/customParseFormat')
 dayjs.extend(customParseFormat)
 
-const date = dayjs().format('DD-MM-YYYY h:m:s a')
+export const dayjsFormat = 'DD-MM-YYYY h:m:s a';
+
+const date = dayjs().format(dayjsFormat)
 
 type dateSliceState = {
     currentTime: string;
@@ -20,10 +22,10 @@ export const dateSlice = createSlice({
     initialState,
     reducers: {
         increaseWeek: (state) => {
-            state.viewingTime = dayjs(state.viewingTime, "DD-MM-YYYY h:m:s a").add(7, 'day').format('DD-MM-YYYY h:m:s a')
+            state.viewingTime = dayjs(state.viewingTime, dayjsFormat).add(7, 'day').format(dayjsFormat)
         },
         decreaseWeek: (state) => {
-            state.viewingTime = dayjs(state.viewingTime, "DD-MM-YYYY h:m:s a").subtract(7, 'day').format("DD-MM-YYYY h:m:s a")
+            state.viewingTime = dayjs(state.viewingTime, dayjsFormat).subtract(7, 'day').format(dayjsFormat)
         },
         resetToCurrentWeek: (state) => {
             state.viewingTime = date;

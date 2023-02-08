@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../store";
 import dayjs from "dayjs";
 import { computeDaysOfMonth } from '../../../helpers/computeDaysOfMonth'
+import {dayjsFormat} from "../../../reducers/dateSlice";
 
 const days = [ 'SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
 
@@ -12,7 +13,7 @@ const Calendar = () => {
     const [daysOfMonth, setDaysOfMonth] = useState([0, 0, 0, 0, 0, 0, 0]);
     const dispatch = useDispatch()
     const currentTime = useSelector((state: RootState) => state.date.currentTime)
-    const dayjsTimeObject = dayjs(currentTime, "DD-MM-YYYY h:m:s a")
+    const dayjsTimeObject = dayjs(currentTime, dayjsFormat)
     const currentDay = days[dayjsTimeObject.day()]
 
     useEffect(() => {

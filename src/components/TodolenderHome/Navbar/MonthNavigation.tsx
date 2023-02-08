@@ -1,6 +1,6 @@
 import React from 'react'
 import './MonthlyNavigation.css'
-import { increaseWeek, decreaseWeek, resetToCurrentWeek } from '../../../reducers/dateSlice'
+import {increaseWeek, decreaseWeek, resetToCurrentWeek, dayjsFormat} from '../../../reducers/dateSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import dayjs from "dayjs";
 import { RootState } from "../../../store";
@@ -27,8 +27,8 @@ const MonthNavigation = () => {
             <div className="HandOnHover" onClick={() => dispatch(increaseWeek())}>{'>'} &nbsp;</div>
 
             <div>
-                { months[dayjs(viewingTime, "DD-MM-YYYY h:m:s a").month()] }
-                { dayjs(viewingTime, "DD-MM-YYYY h:m:s a").year() }
+                { months[dayjs(viewingTime, dayjsFormat).month()] }
+                { dayjs(viewingTime, dayjsFormat).year() }
             </div>
         </div>
     )
