@@ -7,6 +7,8 @@ import dayjs from "dayjs";
 import { computeDaysOfMonth } from '../../../helpers/computeDaysOfMonth'
 import {dayjsFormat} from "../../../reducers/dateSlice";
 import CalendarContainerContent from "./CalendarContainerContent";
+var utc = require('dayjs/plugin/utc')
+var timezone = require('dayjs/plugin/timezone')
 
 const days = [ 'SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
 const hours = ['1 AM', '2 AM', '3 AM', '4 AM', '5 AM', '6 AM', '7 AM', '8 AM', '9 AM', '10 AM', '11 AM', '12 PM',
@@ -20,10 +22,19 @@ const Calendar = () => {
     const currentDay = days[dayjsTimeObject.day()]
 
     const [currentHour, setCurrentHour] = useState('')
+    const [currentTimezone, setCurrentTimezone] = useState([])
 
     useEffect(() => {
         setDaysOfMonth(computeDaysOfMonth(dayjsTimeObject, currentTime))
         setCurrentHour(dayjsTimeObject.format('h A'))
+
+        dayjs.extend(utc)
+        dayjs.extend(timezone)
+        // @ts-ignore*/
+        const currentTimezoneArray = dayjs.tz.guess().split('/');
+        console.log(currentTimezoneArray)
+        setCurrentTimezone(currentTimezoneArray)
+
 
         const calendarContainer = document.getElementsByClassName("CalenderContainerContent")[0]
         calendarContainer.scrollIntoView()
@@ -40,7 +51,10 @@ const Calendar = () => {
         <div className="Calendar Border">
             <div className="CalendarContainerHeader">
                 {/*(get this from somewhere?)*/}
-                <div className="CalendarWeeklyColumnTime">GMT+11</div>
+                <div className="CalendarWeeklyColumnTime">
+                    <div>{currentTimezone[0]},</div>
+                    <div>{currentTimezone[1]}</div>
+                </div>
                 <div className="CalendarWeeklyColumnDayContainer">
                     {days.map((day, id) => {
                         if (currentDay === day ) {
