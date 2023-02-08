@@ -73,6 +73,10 @@
 
 .CalendarWeeklyColumnTimeContentItemCurrentHour {
     display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: column;
+
     height: 40px;
     border-bottom: 1px solid lightgray;
     box-sizing: border-box;
@@ -104,4 +108,11 @@
 
     border-left: 1px solid lightgray;
     box-sizing: border-box;
+}
+
+.CalendarWeeklyColumnContentItemEvent {
+    cursor: pointer;
+    font-size: 8px;
+    background: lightgray;
+    width: 100%;
 }

@@ -32,12 +32,11 @@ const Calendar = () => {
         dayjs.extend(timezone)
         // @ts-ignore*/
         const currentTimezoneArray = dayjs.tz.guess().split('/');
-        console.log(currentTimezoneArray)
         setCurrentTimezone(currentTimezoneArray)
 
 
-        const calendarContainer = document.getElementsByClassName("CalenderContainerContent")[0]
-        calendarContainer.scrollIntoView()
+        // const calendarContainer = document.getElementsByClassName("CalendarWeeklyColumnTimeContentItemCurrentHour")[0]
+        // calendarContainer.scrollIntoView()
 
         // below doesn't seem to be working:
         // hmm.scrollTo({
