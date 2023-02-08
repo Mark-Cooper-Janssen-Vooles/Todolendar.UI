@@ -6,6 +6,7 @@ import {RootState} from "../../../store";
 import dayjs from "dayjs";
 import { computeDaysOfMonth } from '../../../helpers/computeDaysOfMonth'
 import {dayjsFormat} from "../../../reducers/dateSlice";
+import CalendarContainerContent from "./CalendarContainerContent";
 
 const days = [ 'SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
 const hours = ['1 AM', '2 AM', '3 AM', '4 AM', '5 AM', '6 AM', '7 AM', '8 AM', '9 AM', '10 AM', '11 AM', '12 PM',
@@ -42,7 +43,7 @@ const Calendar = () => {
                 <div className="CalendarWeeklyColumnTime">GMT+11</div>
                 <div className="CalendarWeeklyColumnDayContainer">
                     {days.map((day, id) => {
-                        if (currentDay == day ) {
+                        if (currentDay === day ) {
                             return (
                                 <div key={id} className="CalendarWeeklyColumnDay">
                                     <div>{ day }</div>
@@ -59,72 +60,7 @@ const Calendar = () => {
                 </div>
             </div>
 
-            <div className="CalenderContainerContent">
-                <div className="CalendarWeeklyColumnTimeContent">
-                    {hours.map((hour, id) => {
-                        if (currentHour == hour ) {
-                            return <div className="CalendarWeeklyColumnTimeContentItemCurrentHour" key={id}>{hour}</div>
-                        }
-                        return <div className="CalendarWeeklyColumnTimeContentItem" key={id}>{hour}</div>
-                    })}
-                </div>
-                <div className="CalendarWeeklyColumn" id="sun-content">
-                    {hours.map((hour, id) => {
-                        if (currentHour == hour ) {
-                            return <div className="CalendarWeeklyColumnTimeContentItemCurrentHour" id={`sun-${hour}`} key={id}></div>
-                        }
-                        return <div className="CalendarWeeklyColumnContentItem" id={`sun-${hour}`} key={id}></div>
-                    })}
-                </div>
-                <div className="CalendarWeeklyColumn" id="mon-content">
-                    {hours.map((hour, id) => {
-                        if (currentHour == hour ) {
-                            return <div className="CalendarWeeklyColumnTimeContentItemCurrentHour" id={`mon-${hour}`} key={id}></div>
-                        }
-                        return <div className="CalendarWeeklyColumnContentItem" id={`mon-${hour}`} key={id}></div>
-                    })}
-                </div>
-                <div className="CalendarWeeklyColumn" id="tue-content">
-                    {hours.map((hour, id) => {
-                        if (currentHour == hour ) {
-                            return <div className="CalendarWeeklyColumnTimeContentItemCurrentHour" id={`tue-${hour}`} key={id}></div>
-                        }
-                        return <div className="CalendarWeeklyColumnContentItem" id={`tue-${hour}`} key={id}></div>
-                    })}
-                </div>
-                <div className="CalendarWeeklyColumn" id="wed-content">
-                    {hours.map((hour, id) => {
-                        if (currentHour == hour ) {
-                            return <div className="CalendarWeeklyColumnTimeContentItemCurrentHour" id={`wed-${hour}`} key={id}></div>
-                        }
-                        return <div className="CalendarWeeklyColumnContentItem" id={`wed-${hour}`} key={id}></div>
-                    })}
-                </div>
-                <div className="CalendarWeeklyColumn" id="thu-content">
-                    {hours.map((hour, id) => {
-                        if (currentHour == hour ) {
-                            return <div className="CalendarWeeklyColumnTimeContentItemCurrentHour" id={`thu-${hour}`} key={id}></div>
-                        }
-                        return <div className="CalendarWeeklyColumnContentItem" id={`thu-${hour}`} key={id}></div>
-                    })}
-                </div>
-                <div className="CalendarWeeklyColumn" id="fri-content">
-                    {hours.map((hour, id) => {
-                        if (currentHour == hour ) {
-                            return <div className="CalendarWeeklyColumnTimeContentItemCurrentHour" id={`fri-${hour}`} key={id}></div>
-                        }
-                        return <div className="CalendarWeeklyColumnContentItem" id={`fri-${hour}`} key={id}></div>
-                    })}
-                </div>
-                <div className="CalendarWeeklyColumn" id="sat-content">
-                    {hours.map((hour, id) => {
-                        if (currentHour == hour ) {
-                            return <div className="CalendarWeeklyColumnTimeContentItemCurrentHour" id={`sat-${hour}`} key={id}></div>
-                        }
-                        return <div className="CalendarWeeklyColumnContentItem" id={`sat-${hour}`} key={id}></div>
-                    })}
-                </div>
-            </div>
+            <CalendarContainerContent hours={hours} currentHour={currentHour} />
         </div>
     )
 }
