@@ -70,6 +70,15 @@
     box-sizing: border-box;
 }
 
+.CalendarWeeklyColumnTimeContentItemCurrentHour {
+    display: flex;
+    height: 40px;
+    border-bottom: 1px solid lightgray;
+    box-sizing: border-box;
+    color: blue;
+    border-top: 1px solid blue;
+}
+
 .CalendarWeeklyColumnContentItem {
     display: flex;
     height: 40px;

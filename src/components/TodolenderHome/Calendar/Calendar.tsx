@@ -8,6 +8,8 @@ import { computeDaysOfMonth } from '../../../helpers/computeDaysOfMonth'
 import {dayjsFormat} from "../../../reducers/dateSlice";
 
 const days = [ 'SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
+const hours = ['1 AM', '2 AM', '3 AM', '4 AM', '5 AM', '6 AM', '7 AM', '8 AM', '9 AM', '10 AM', '11 AM', '12 PM',
+    '1 PM', '2 PM', '3 PM', '4 PM', '5 PM', '6 PM', '7 PM', '8 PM', '9 PM', '10 PM', '11 PM']
 
 const Calendar = () => {
     const [daysOfMonth, setDaysOfMonth] = useState([0, 0, 0, 0, 0, 0, 0]);
@@ -16,10 +18,11 @@ const Calendar = () => {
     const dayjsTimeObject = dayjs(currentTime, dayjsFormat)
     const currentDay = days[dayjsTimeObject.day()]
 
+    const [currentHour, setCurrentHour] = useState('')
+
     useEffect(() => {
         setDaysOfMonth(computeDaysOfMonth(dayjsTimeObject, currentTime))
-
-        console.log(dayjsTimeObject.format('h a'))
+        setCurrentHour(dayjsTimeObject.format('h A'))
 
         const calendarContainer = document.getElementsByClassName("CalenderContainerContent")[0]
         calendarContainer.scrollIntoView()
@@ -30,7 +33,6 @@ const Calendar = () => {
         //     left: 500,
         //     behavior: 'smooth'
         // })
-
     }, [])
 
     return (
@@ -59,29 +61,12 @@ const Calendar = () => {
 
             <div className="CalenderContainerContent">
                 <div className="CalendarWeeklyColumnTimeContent">
-                    <div className="CalendarWeeklyColumnTimeContentItem">1 AM</div>
-                    <div className="CalendarWeeklyColumnTimeContentItem">2 AM</div>
-                    <div className="CalendarWeeklyColumnTimeContentItem">3 AM</div>
-                    <div className="CalendarWeeklyColumnTimeContentItem">4 AM</div>
-                    <div className="CalendarWeeklyColumnTimeContentItem">5 AM</div>
-                    <div className="CalendarWeeklyColumnTimeContentItem">6 AM</div>
-                    <div className="CalendarWeeklyColumnTimeContentItem">7 AM</div>
-                    <div className="CalendarWeeklyColumnTimeContentItem">8 AM</div>
-                    <div className="CalendarWeeklyColumnTimeContentItem">9 AM</div>
-                    <div className="CalendarWeeklyColumnTimeContentItem">10 AM</div>
-                    <div className="CalendarWeeklyColumnTimeContentItem">11 AM</div>
-                    <div className="CalendarWeeklyColumnTimeContentItem">12 PM</div>
-                    <div className="CalendarWeeklyColumnTimeContentItem">1 PM</div>
-                    <div className="CalendarWeeklyColumnTimeContentItem">2 PM</div>
-                    <div className="CalendarWeeklyColumnTimeContentItem">3 PM</div>
-                    <div className="CalendarWeeklyColumnTimeContentItem">4 PM</div>
-                    <div className="CalendarWeeklyColumnTimeContentItem">5 PM</div>
-                    <div className="CalendarWeeklyColumnTimeContentItem">6 PM</div>
-                    <div className="CalendarWeeklyColumnTimeContentItem">7 PM</div>
-                    <div className="CalendarWeeklyColumnTimeContentItem">8 PM</div>
-                    <div className="CalendarWeeklyColumnTimeContentItem">9 PM</div>
-                    <div className="CalendarWeeklyColumnTimeContentItem">10 PM</div>
-                    <div className="CalendarWeeklyColumnTimeContentItem">11 PM</div>
+                    {hours.map((hour, id) => {
+                        if (currentHour == hour ) {
+                            return <div className="CalendarWeeklyColumnTimeContentItemCurrentHour" key={id}>{hour}</div>
+                        }
+                        return <div className="CalendarWeeklyColumnTimeContentItem" key={id}>{hour}</div>
+                    })}
                 </div>
 
                 <div className="CalendarWeeklyColumn" id="sun-content">
