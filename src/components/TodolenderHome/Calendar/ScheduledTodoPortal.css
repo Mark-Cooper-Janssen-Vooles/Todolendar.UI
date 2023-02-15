@@ -20,3 +20,9 @@
     margin-right: 5px;
     cursor: pointer;
 }
+
+.ScheduledTodoPortalSection {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+}
