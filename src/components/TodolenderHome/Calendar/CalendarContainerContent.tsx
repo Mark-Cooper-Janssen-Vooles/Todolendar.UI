@@ -7,7 +7,7 @@ type ICalendarContainerContent = {
     currentHour: string;
 }
 
-const scheduledTodos: IActiveScheduledTodo[] = [{
+const scheduledTodosDummyData: IActiveScheduledTodo[] = [{
     Id: '123',
     UserId: '1',
     Title: 'Scheduled Todo Example',
@@ -21,13 +21,47 @@ const scheduledTodos: IActiveScheduledTodo[] = [{
     NotifyBeforeTime: 10, // minutes?
     CreatedAt: 'some date',
     UpdatedAt: 'some date',
-    ScheduledAt: 'some date',
+    ScheduledAt: '15-02-2023 3:4:15 PM', // not sure of exact time, but something like this!
+    TriggeredAt: 'some date'
+},
+{
+    Id: '123',
+    UserId: '1',
+    Title: 'Later Example',
+    Description: 'A description of the scheduled todo',
+    Colour: 'red',
+    Active: true,
+    RecurCount: 0,
+    RecurFrequency: 0,
+    RecurFrequencyType: 'none',
+    RecurendDate: 'some date',
+    NotifyBeforeTime: 10, // minutes?
+    CreatedAt: 'some date',
+    UpdatedAt: 'some date',
+    ScheduledAt: '15-02-2023 3:5:15 PM', // not sure of exact time, but something like this!
+    TriggeredAt: 'some date'
+},
+{
+    Id: '123',
+    UserId: '1',
+    Title: 'Later Example',
+    Description: 'A description of the scheduled todo',
+    Colour: 'red',
+    Active: true,
+    RecurCount: 0,
+    RecurFrequency: 0,
+    RecurFrequencyType: 'none',
+    RecurendDate: 'some date',
+    NotifyBeforeTime: 10, // minutes?
+    CreatedAt: 'some date',
+    UpdatedAt: 'some date',
+    ScheduledAt: '15-02-2023 3:6:15 PM', // not sure of exact time, but something like this!
     TriggeredAt: 'some date'
 }]
 
 const CalendarContainerContent = ({ hours, currentHour }: ICalendarContainerContent) => {
-    const [scheduledTodoOpen, setScheduledTodoOpen] = useState(false);
-    const [activeScheduledTodo, setActiveScheduledTodo] = useState({
+    const [scheduledTodoOpen, setScheduledTodoOpen] = useState(false)
+    const [activeScheduledTodo, setActiveScheduledTodo] = useState<IActiveScheduledTodo>({
         Id: '',
         UserId: '',
         Title: '',
@@ -44,12 +78,17 @@ const CalendarContainerContent = ({ hours, currentHour }: ICalendarContainerCont
         ScheduledAt: '',
         TriggeredAt: ''
     })
+    const [scheduledTodos, setScheduledTodos] = useState<IActiveScheduledTodo[]>([])
 
     useEffect(() => {
+        // Scroll current hour into view
         setTimeout(() => {
             const calendarContainer = document.getElementsByClassName("CalendarWeeklyColumnTimeContentItemCurrentHour")[0]
             calendarContainer.scrollIntoView()
         }, 1000)
+
+        // fetch scheduled todos for this week
+        setScheduledTodos(scheduledTodosDummyData);
     }, [])
 
     const handleScheduledTodoOpen = () => {
@@ -97,7 +136,7 @@ const CalendarContainerContent = ({ hours, currentHour }: ICalendarContainerCont
                     if (currentHour === hour ) {
                         return (
                             <div className="CalendarWeeklyColumnTimeContentItemCurrentHour" id={`wed-${hour}`} key={id}>
-                                <div className="CalendarWeeklyColumnContentItemEvent" onClick={handleScheduledTodoOpen}>{scheduledTodos[0].Title}</div>
+                                <div className="CalendarWeeklyColumnContentItemEvent" onClick={handleScheduledTodoOpen}>{scheduledTodos[0]?.Title}</div>
                             </div>
                         )
                     }
