@@ -1,0 +1,42 @@
+.CalendarWeeklyColumnTimeContentItem {
+    display: flex;
+    height: 40px;
+    border-bottom: 1px solid lightgray;
+    box-sizing: border-box;
+}
+
+.CalendarWeeklyColumnTimeContentItemCurrentHourAndDay {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: column;
+
+    height: 40px;
+    border-bottom: 1px solid lightgray;
+    box-sizing: border-box;
+    color: blue;
+    border-top: 1px solid blue;
+}
+
+.CalendarWeeklyColumnTimeContentItemCurrentHour {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: column;
+
+    height: 40px;
+    border-bottom: 1px solid lightgray;
+    box-sizing: border-box;
+    border-top: 1px solid blue;
+}
+
+.CalendarWeeklyColumnContentItem {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: column;
+
+    height: 40px;
+    border-bottom: 1px solid lightgray;
+    box-sizing: border-box;
+}

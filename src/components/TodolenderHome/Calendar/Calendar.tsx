@@ -62,7 +62,7 @@ const Calendar = () => {
                 </div>
             </div>
 
-            <CalendarContainerContent hours={hours} currentHour={currentHour} />
+            <CalendarContainerContent hours={hours} currentHour={currentHour} currentDay={currentDay}/>
         </div>
     )
 }

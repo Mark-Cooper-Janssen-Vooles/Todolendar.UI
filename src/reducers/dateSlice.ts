@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import dayjs from "dayjs";
+import { days } from "../components/TodolenderHome/Calendar/Calendar";
+
 const customParseFormat = require('dayjs/plugin/customParseFormat')
 dayjs.extend(customParseFormat)
 
@@ -9,11 +11,13 @@ const date = dayjs().format(dayjsFormat)
 type dateSliceState = {
     currentTime: string;
     viewingTime: string;
+    currentDay: string;
 }
 
 const initialState: dateSliceState = {
     currentTime: date,
-    viewingTime: date
+    viewingTime: date,
+    currentDay: days[dayjs().day()]
 }
 
 export const dateSlice = createSlice({

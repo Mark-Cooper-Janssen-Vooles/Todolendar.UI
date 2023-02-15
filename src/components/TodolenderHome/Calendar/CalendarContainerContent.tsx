@@ -10,9 +10,10 @@ import WeeklyViewDayColumn from "./Weekly/WeeklyViewDayColumn";
 type ICalendarContainerContent = {
     hours: string[];
     currentHour: string;
+    currentDay: string;
 }
 
-const CalendarContainerContent = ({ hours, currentHour }: ICalendarContainerContent) => {
+const CalendarContainerContent = ({ hours, currentHour, currentDay }: ICalendarContainerContent) => {
     const [scheduledTodoOpen, setScheduledTodoOpen] = useState(false)
     const [activeScheduledTodo, setActiveScheduledTodo] = useState<IActiveScheduledTodo>({
         Id: '',

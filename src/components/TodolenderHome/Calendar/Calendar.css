@@ -64,36 +64,36 @@
     align-items: flex-end;
 }
 
-.CalendarWeeklyColumnTimeContentItem {
-    display: flex;
-    height: 40px;
-    border-bottom: 1px solid lightgray;
-    box-sizing: border-box;
-}
+/*.CalendarWeeklyColumnTimeContentItem {*/
+/*    display: flex;*/
+/*    height: 40px;*/
+/*    border-bottom: 1px solid lightgray;*/
+/*    box-sizing: border-box;*/
+/*}*/
 
-.CalendarWeeklyColumnTimeContentItemCurrentHour {
-    display: flex;
-    justify-content: start;
-    align-items: start;
-    flex-direction: column;
+/*.CalendarWeeklyColumnTimeContentItemCurrentHour {*/
+/*    display: flex;*/
+/*    justify-content: start;*/
+/*    align-items: start;*/
+/*    flex-direction: column;*/
 
-    height: 40px;
-    border-bottom: 1px solid lightgray;
-    box-sizing: border-box;
-    color: blue;
-    border-top: 1px solid blue;
-}
+/*    height: 40px;*/
+/*    border-bottom: 1px solid lightgray;*/
+/*    box-sizing: border-box;*/
+/*    color: blue;*/
+/*    border-top: 1px solid blue;*/
+/*}*/
 
-.CalendarWeeklyColumnContentItem {
-    display: flex;
-    justify-content: start;
-    align-items: start;
-    flex-direction: column;
+/*.CalendarWeeklyColumnContentItem {*/
+/*    display: flex;*/
+/*    justify-content: start;*/
+/*    align-items: start;*/
+/*    flex-direction: column;*/
 
-    height: 40px;
-    border-bottom: 1px solid lightgray;
-    box-sizing: border-box;
-}
+/*    height: 40px;*/
+/*    border-bottom: 1px solid lightgray;*/
+/*    box-sizing: border-box;*/
+/*}*/
 
 .CurrentDay {
     color: blue;
