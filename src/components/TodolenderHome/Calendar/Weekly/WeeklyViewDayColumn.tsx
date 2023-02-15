@@ -6,16 +6,17 @@ import {IActiveScheduledTodo} from "../ScheduledTodoPortal";
 type IWeeklyColumn = {
     hours: string[];
     currentHour: string;
-    daysScheduledTodos: IActiveScheduledTodo[]
+    daysScheduledTodos: IActiveScheduledTodo[];
+    day: string;
 }
 
-const WeeklyColumn = ({hours, currentHour, daysScheduledTodos}: IWeeklyColumn) => {
+const WeeklyViewDayColumn = ({hours, currentHour, daysScheduledTodos, day}: IWeeklyColumn) => {
     return (
         <div className="CalendarWeeklyColumn">
             {hours.map((hour, id) => {
                 // if hour == a scheduledEvent && currentHour == hour, make block highlighted with "CurrentHour" class
                 if (currentHour === hour ) {
-                    return <div className="CalendarWeeklyColumnTimeContentItemCurrentHour" id={`tue-${hour}`} key={id}>
+                    return <div className="CalendarWeeklyColumnTimeContentItemCurrentHour" id={`${day} - ${hour}`} key={id}>
                         {
                             daysScheduledTodos.map(scheduledTodo => {
                                 const scheduledTodoHour = dayjs(scheduledTodo.ScheduledAt, dayjsFormat).hour()
@@ -28,7 +29,7 @@ const WeeklyColumn = ({hours, currentHour, daysScheduledTodos}: IWeeklyColumn) =
                     </div>
                 }
                 // if hour == a scheduledEvent, generate div for that to put it in.
-                return <div className="CalendarWeeklyColumnContentItem" id={`tue-${hour}`} key={id}>
+                return <div className="CalendarWeeklyColumnContentItem" id={`${day} - ${hour}`} key={id}>
                     {
                         daysScheduledTodos.map(scheduledTodo => {
                             const scheduledTodoHour = dayjs(scheduledTodo.ScheduledAt, dayjsFormat).hour()
@@ -44,4 +45,4 @@ const WeeklyColumn = ({hours, currentHour, daysScheduledTodos}: IWeeklyColumn) =
     )
 }
 
-export default WeeklyColumn
+export default WeeklyViewDayColumn;

@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 import {dayjsFormat} from "../../../reducers/dateSlice";
 import { days } from "./Calendar"
 import {IScheduledTodosDummyDataWeekly, scheduledTodosDummyDataWeekly} from './dummyScheduledEvents'
-import WeeklyColumn from "./Weekly/WeeklyColumn";
+import WeeklyViewDayColumn from "./Weekly/WeeklyViewDayColumn";
 
 type ICalendarContainerContent = {
     hours: string[];
@@ -69,13 +69,13 @@ const CalendarContainerContent = ({ hours, currentHour }: ICalendarContainerCont
                 })}
             </div>
 
-           <WeeklyColumn hours={hours} currentHour={currentHour} daysScheduledTodos={scheduledTodos.Sun}/>
-           <WeeklyColumn hours={hours} currentHour={currentHour} daysScheduledTodos={scheduledTodos.Mon}/>
-           <WeeklyColumn hours={hours} currentHour={currentHour} daysScheduledTodos={scheduledTodos.Tue}/>
-           <WeeklyColumn hours={hours} currentHour={currentHour} daysScheduledTodos={scheduledTodos.Wed}/>
-           <WeeklyColumn hours={hours} currentHour={currentHour} daysScheduledTodos={scheduledTodos.Thu}/>
-           <WeeklyColumn hours={hours} currentHour={currentHour} daysScheduledTodos={scheduledTodos.Fri}/>
-           <WeeklyColumn hours={hours} currentHour={currentHour} daysScheduledTodos={scheduledTodos.Sat}/>
+           <WeeklyViewDayColumn hours={hours} currentHour={currentHour} daysScheduledTodos={scheduledTodos.Sun} day="Sun"/>
+           <WeeklyViewDayColumn hours={hours} currentHour={currentHour} daysScheduledTodos={scheduledTodos.Mon} day="Mon"/>
+           <WeeklyViewDayColumn hours={hours} currentHour={currentHour} daysScheduledTodos={scheduledTodos.Tue} day="Tue"/>
+           <WeeklyViewDayColumn hours={hours} currentHour={currentHour} daysScheduledTodos={scheduledTodos.Wed} day="Wed"/>
+           <WeeklyViewDayColumn hours={hours} currentHour={currentHour} daysScheduledTodos={scheduledTodos.Thu} day="Thu"/>
+           <WeeklyViewDayColumn hours={hours} currentHour={currentHour} daysScheduledTodos={scheduledTodos.Fri} day="Fri"/>
+           <WeeklyViewDayColumn hours={hours} currentHour={currentHour} daysScheduledTodos={scheduledTodos.Sat} day="Sat"/>
         </div>
     )
 }
