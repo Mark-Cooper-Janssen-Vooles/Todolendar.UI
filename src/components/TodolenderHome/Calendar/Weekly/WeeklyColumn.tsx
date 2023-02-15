@@ -3,21 +3,21 @@ import dayjs from "dayjs";
 import {dayjsFormat} from "../../../../reducers/dateSlice";
 import {IActiveScheduledTodo} from "../ScheduledTodoPortal";
 
-type IWednesdayWeeklyColumn = {
+type IWeeklyColumn = {
     hours: string[];
     currentHour: string;
-    wedScheduledTodos: IActiveScheduledTodo[]
+    daysScheduledTodos: IActiveScheduledTodo[]
 }
 
-const WednesdayWeeklyColumn = ({hours, currentHour, wedScheduledTodos}: IWednesdayWeeklyColumn) => {
+const WeeklyColumn = ({hours, currentHour, daysScheduledTodos}: IWeeklyColumn) => {
     return (
-        <div className="CalendarWeeklyColumn" id="wed-content">
+        <div className="CalendarWeeklyColumn">
             {hours.map((hour, id) => {
-                // if hour == a scheduledEvent from wed && currentHour == hour, make block highlighted with "CurrentHour" class
+                // if hour == a scheduledEvent && currentHour == hour, make block highlighted with "CurrentHour" class
                 if (currentHour === hour ) {
                     return <div className="CalendarWeeklyColumnTimeContentItemCurrentHour" id={`tue-${hour}`} key={id}>
                         {
-                            wedScheduledTodos.map(scheduledTodo => {
+                            daysScheduledTodos.map(scheduledTodo => {
                                 const scheduledTodoHour = dayjs(scheduledTodo.ScheduledAt, dayjsFormat).hour()
                                 const scheduledTodoHourFormatted = hours[scheduledTodoHour - 1]
                                 if (scheduledTodoHourFormatted == hour) {
@@ -27,10 +27,10 @@ const WednesdayWeeklyColumn = ({hours, currentHour, wedScheduledTodos}: IWednesd
                         }
                     </div>
                 }
-                // if hour == a scheduledEvent from wed, generate div for that to put it in.
+                // if hour == a scheduledEvent, generate div for that to put it in.
                 return <div className="CalendarWeeklyColumnContentItem" id={`tue-${hour}`} key={id}>
                     {
-                        wedScheduledTodos.map(scheduledTodo => {
+                        daysScheduledTodos.map(scheduledTodo => {
                             const scheduledTodoHour = dayjs(scheduledTodo.ScheduledAt, dayjsFormat).hour()
                             const scheduledTodoHourFormatted = hours[scheduledTodoHour - 1]
                             if (scheduledTodoHourFormatted == hour) {
@@ -44,4 +44,4 @@ const WednesdayWeeklyColumn = ({hours, currentHour, wedScheduledTodos}: IWednesd
     )
 }
 
-export default WednesdayWeeklyColumn
+export default WeeklyColumn

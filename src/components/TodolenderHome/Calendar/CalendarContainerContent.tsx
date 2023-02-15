@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 import {dayjsFormat} from "../../../reducers/dateSlice";
 import { days } from "./Calendar"
 import {IScheduledTodosDummyDataWeekly, scheduledTodosDummyDataWeekly} from './dummyScheduledEvents'
-import WednesdayWeeklyColumn from "./Weekly/Wednesday";
+import WeeklyColumn from "./Weekly/WeeklyColumn";
 
 type ICalendarContainerContent = {
     hours: string[];
@@ -50,25 +50,6 @@ const CalendarContainerContent = ({ hours, currentHour }: ICalendarContainerCont
 
         // fetch scheduled todos for THIS WEEK ONLY
         setScheduledTodos(scheduledTodosDummyDataWeekly);
-
-        // scheduledTodos.Wed.find
-
-        // scheduledTodos.find(scheduledTodo => {
-        //     console.log(scheduledTodo.ScheduledAt)
-        //     const dayjsTimeObject = dayjs(scheduledTodo.ScheduledAt, dayjsFormat)
-        //
-        //     const day = days[dayjsTimeObject.day()]
-        //     console.log(day);
-        //
-        //     const hour = dayjsTimeObject.hour()
-        //     console.log(hour)
-        //
-        //     // const min = dayjsTimeObject.minute()
-        //     // // console.log(min)
-        //     //
-        //
-        //
-        // })
     }, [])
 
     const handleScheduledTodoOpen = () => {
@@ -87,57 +68,14 @@ const CalendarContainerContent = ({ hours, currentHour }: ICalendarContainerCont
                     return <div className="CalendarWeeklyColumnTimeContentItem" key={id}>{hour}</div>
                 })}
             </div>
-            <div className="CalendarWeeklyColumn" id="sun-content">
-                {hours.map((hour, id) => {
-                    if (currentHour === hour ) {
-                        return <div className="CalendarWeeklyColumnTimeContentItemCurrentHour" id={`sun-${hour}`} key={id}></div>
-                    }
-                    return <div className="CalendarWeeklyColumnContentItem" id={`sun-${hour}`} key={id}></div>
-                })}
-            </div>
-            <div className="CalendarWeeklyColumn" id="mon-content">
-                {hours.map((hour, id) => {
-                    if (currentHour === hour ) {
-                        return <div className="CalendarWeeklyColumnTimeContentItemCurrentHour" id={`mon-${hour}`} key={id}></div>
-                    }
-                    return <div className="CalendarWeeklyColumnContentItem" id={`mon-${hour}`} key={id}></div>
-                })}
-            </div>
-            <div className="CalendarWeeklyColumn" id="tue-content">
-                {hours.map((hour, id) => {
-                    if (currentHour === hour ) {
-                        return <div className="CalendarWeeklyColumnTimeContentItemCurrentHour" id={`tue-${hour}`} key={id}></div>
-                    }
-                    return <div className="CalendarWeeklyColumnContentItem" id={`tue-${hour}`} key={id}></div>
-                })}
-            </div>
 
-           <WednesdayWeeklyColumn hours={hours} currentHour={currentHour} wedScheduledTodos={scheduledTodos.Wed}/>
-
-            <div className="CalendarWeeklyColumn" id="thu-content">
-                {hours.map((hour, id) => {
-                    if (currentHour === hour ) {
-                        return <div className="CalendarWeeklyColumnTimeContentItemCurrentHour" id={`thu-${hour}`} key={id}></div>
-                    }
-                    return <div className="CalendarWeeklyColumnContentItem" id={`thu-${hour}`} key={id}></div>
-                })}
-            </div>
-            <div className="CalendarWeeklyColumn" id="fri-content">
-                {hours.map((hour, id) => {
-                    if (currentHour === hour ) {
-                        return <div className="CalendarWeeklyColumnTimeContentItemCurrentHour" id={`fri-${hour}`} key={id}></div>
-                    }
-                    return <div className="CalendarWeeklyColumnContentItem" id={`fri-${hour}`} key={id}></div>
-                })}
-            </div>
-            <div className="CalendarWeeklyColumn" id="sat-content">
-                {hours.map((hour, id) => {
-                    if (currentHour === hour ) {
-                        return <div className="CalendarWeeklyColumnTimeContentItemCurrentHour" id={`sat-${hour}`} key={id}></div>
-                    }
-                    return <div className="CalendarWeeklyColumnContentItem" id={`sat-${hour}`} key={id}></div>
-                })}
-            </div>
+           <WeeklyColumn hours={hours} currentHour={currentHour} daysScheduledTodos={scheduledTodos.Sun}/>
+           <WeeklyColumn hours={hours} currentHour={currentHour} daysScheduledTodos={scheduledTodos.Mon}/>
+           <WeeklyColumn hours={hours} currentHour={currentHour} daysScheduledTodos={scheduledTodos.Tue}/>
+           <WeeklyColumn hours={hours} currentHour={currentHour} daysScheduledTodos={scheduledTodos.Wed}/>
+           <WeeklyColumn hours={hours} currentHour={currentHour} daysScheduledTodos={scheduledTodos.Thu}/>
+           <WeeklyColumn hours={hours} currentHour={currentHour} daysScheduledTodos={scheduledTodos.Fri}/>
+           <WeeklyColumn hours={hours} currentHour={currentHour} daysScheduledTodos={scheduledTodos.Sat}/>
         </div>
     )
 }

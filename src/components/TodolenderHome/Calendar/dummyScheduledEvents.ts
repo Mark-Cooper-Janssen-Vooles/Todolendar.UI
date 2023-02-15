@@ -76,7 +76,23 @@ export const scheduledTodosDummyDataWeekly: IScheduledTodosDummyDataWeekly = {
         }
     ],
     Thu: [
-
+        {
+            Id: '123',
+            UserId: '1',
+            Title: 'Scheduled Example 123',
+            Description: 'A description of the scheduled todo',
+            Colour: 'red',
+            Active: true,
+            RecurCount: 0,
+            RecurFrequency: 0,
+            RecurFrequencyType: 'none',
+            RecurendDate: 'some date',
+            NotifyBeforeTime: 10, // minutes?
+            CreatedAt: 'some date',
+            UpdatedAt: 'some date',
+            ScheduledAt: dayjs().add(1, 'day').format(dayjsFormat), // not sure of exact time, but something like this!
+            TriggeredAt: 'some date'
+        }
     ],
     Fri: [
 
