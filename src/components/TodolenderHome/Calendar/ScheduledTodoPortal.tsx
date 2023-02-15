@@ -1,6 +1,10 @@
 import React, {useState} from 'react'
 import * as ReactDOM from "react-dom";
 import './ScheduledTodoPortal.css'
+import {dayjsFormat} from "../../../reducers/dateSlice";
+import dayjs from "dayjs";
+const objectSupport = require("dayjs/plugin/objectSupport");
+dayjs.extend(objectSupport);
 
 export type IActiveScheduledTodo = {
     Id: string;
@@ -34,6 +38,11 @@ const ScheduledTodoPortal = ({ setScheduledTodoOpen, activeScheduledTodo }: ISch
     const [notifyTime, setNotifyTime] = useState(activeScheduledTodo.NotifyBeforeTime.toString())
     const [editingColourForm, setEditingColourForm] = useState(false)
     const [colour, setColour] = useState(activeScheduledTodo.Colour)
+    const [editingScheduledAtForm, setEditingScheduledAtForm] = useState(false)
+
+    const [scheduledAt, setScheduledAt] = useState(activeScheduledTodo.ScheduledAt)
+    const [scheduledAtDate, setScheduledAtDate] = useState('')
+    const [scheduledAtTime, setScheduledAtTime] = useState('')
 
     const handleEditTitle = () => setEditingTitleForm(true)
     const handleTitleChange = (event: { target: { value: React.SetStateAction<string> } }) => setTitle(event.target.value)
@@ -77,6 +86,38 @@ const ScheduledTodoPortal = ({ setScheduledTodoOpen, activeScheduledTodo }: ISch
         // api call to save and update email
         // re-fetch data
         cancelEditColourForm();
+    }
+
+    const handleEditScheduledAtForm = () => setEditingScheduledAtForm(true)
+    const handleEditScheduledAtFormChangeDate = (event: { target: { value: React.SetStateAction<string> } }) =>
+        setScheduledAtDate(event.target.value)
+    const handleEditScheduledAtFormChangeTime = (event: { target: { value: React.SetStateAction<string> } }) =>
+        setScheduledAtTime(event.target.value)
+
+    const cancelEditScheduledAtForm = () => setEditingScheduledAtForm(false)
+
+    const handleSaveScheduledAtForm = (event: { preventDefault: () => void }) => {
+        event.preventDefault()
+        console.log(scheduledAtDate)
+        console.log(scheduledAtTime)
+
+        const year = scheduledAtDate.split('-')[0]
+        const month = scheduledAtDate.split('-')[1]
+        const day = scheduledAtDate.split('-')[2]
+        const hour = scheduledAtTime.split(':')[0]
+
+        const minute = scheduledAtTime.split(':')[1]
+
+        // @ts-ignore
+        const dayjsObj = dayjs({ year: parseInt(year), month: parseInt(month), day: parseInt(day),
+            hour: parseInt(hour), minute: parseInt(minute), second: 0, millisecond: 0 })
+
+        const scheduledAtString = dayjsObj.format(dayjsFormat)
+        setScheduledAt(scheduledAtString)
+
+        // api call to save and update email
+        // re-fetch data
+        cancelEditScheduledAtForm();
     }
 
     return ReactDOM.createPortal(
@@ -147,7 +188,22 @@ const ScheduledTodoPortal = ({ setScheduledTodoOpen, activeScheduledTodo }: ISch
                 }
             </div>
 
-            <div>Scheduled at: {activeScheduledTodo.ScheduledAt}</div>
+            <div className="ScheduledTodoPortalSection">
+                { editingScheduledAtForm ?
+                    <>
+                        <form onSubmit={handleSaveScheduledAtForm}>
+                            <input type="date" onChange={handleEditScheduledAtFormChangeDate}/>
+                            <input type="time" onChange={handleEditScheduledAtFormChangeTime}/>
+                            <input type="submit" value="save" />
+                        </form>
+                        <button onClick={cancelEditScheduledAtForm}>Cancel</button>
+                    </> :
+                    <>
+                        Scheduled at: {scheduledAt}
+                        <button onClick={handleEditScheduledAtForm}>Edit</button>
+                    </>
+                }
+            </div>
         </div>,
         // @ts-ignore
         document.body
