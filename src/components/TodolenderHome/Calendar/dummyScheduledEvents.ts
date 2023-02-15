@@ -41,7 +41,7 @@ export const scheduledTodosDummyDataWeekly: IScheduledTodosDummyDataWeekly = {
             TriggeredAt: 'some date'
         },
         {
-            Id: '123',
+            Id: '12',
             UserId: '1',
             Title: 'Some todo',
             Description: 'A description of the scheduled todo',
@@ -58,7 +58,7 @@ export const scheduledTodosDummyDataWeekly: IScheduledTodosDummyDataWeekly = {
             TriggeredAt: 'some date'
         },
         {
-            Id: '123',
+            Id: '1',
             UserId: '1',
             Title: 'Scheduled Example 123',
             Description: 'A description of the scheduled todo',
@@ -76,23 +76,23 @@ export const scheduledTodosDummyDataWeekly: IScheduledTodosDummyDataWeekly = {
         }
     ],
     Thu: [
-        {
-            Id: '123',
-            UserId: '1',
-            Title: 'Scheduled Example 123',
-            Description: 'A description of the scheduled todo',
-            Colour: 'red',
-            Active: true,
-            RecurCount: 0,
-            RecurFrequency: 0,
-            RecurFrequencyType: 'none',
-            RecurendDate: 'some date',
-            NotifyBeforeTime: 10, // minutes?
-            CreatedAt: 'some date',
-            UpdatedAt: 'some date',
-            ScheduledAt: dayjs().add(1, 'day').format(dayjsFormat), // not sure of exact time, but something like this!
-            TriggeredAt: 'some date'
-        }
+        // {
+        //     Id: '4',
+        //     UserId: '1',
+        //     Title: 'Scheduled Example 123',
+        //     Description: 'A description of the scheduled todo',
+        //     Colour: 'red',
+        //     Active: true,
+        //     RecurCount: 0,
+        //     RecurFrequency: 0,
+        //     RecurFrequencyType: 'none',
+        //     RecurendDate: 'some date',
+        //     NotifyBeforeTime: 10, // minutes?
+        //     CreatedAt: 'some date',
+        //     UpdatedAt: 'some date',
+        //     ScheduledAt: dayjs().add(1, 'day').format(dayjsFormat), // not sure of exact time, but something like this!
+        //     TriggeredAt: 'some date'
+        // }
     ],
     Fri: [
 
