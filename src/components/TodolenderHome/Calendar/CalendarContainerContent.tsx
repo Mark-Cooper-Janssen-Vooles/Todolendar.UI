@@ -1,63 +1,15 @@
 import React, {useEffect, useState} from "react";
 import ScheduledTodoPortal from "./ScheduledTodoPortal";
 import { IActiveScheduledTodo } from "./ScheduledTodoPortal";
+import dayjs from "dayjs";
+import {dayjsFormat} from "../../../reducers/dateSlice";
+import { days } from "./Calendar"
+import {IScheduledTodosDummyDataWeekly, scheduledTodosDummyDataWeekly} from './dummyScheduledEvents'
 
 type ICalendarContainerContent = {
     hours: string[];
     currentHour: string;
 }
-
-const scheduledTodosDummyData: IActiveScheduledTodo[] = [{
-    Id: '123',
-    UserId: '1',
-    Title: 'Scheduled Todo Example',
-    Description: 'A description of the scheduled todo',
-    Colour: 'red',
-    Active: true,
-    RecurCount: 0,
-    RecurFrequency: 0,
-    RecurFrequencyType: 'none',
-    RecurendDate: 'some date',
-    NotifyBeforeTime: 10, // minutes?
-    CreatedAt: 'some date',
-    UpdatedAt: 'some date',
-    ScheduledAt: '15-02-2023 3:4:15 PM', // not sure of exact time, but something like this!
-    TriggeredAt: 'some date'
-},
-{
-    Id: '123',
-    UserId: '1',
-    Title: 'Later Example',
-    Description: 'A description of the scheduled todo',
-    Colour: 'red',
-    Active: true,
-    RecurCount: 0,
-    RecurFrequency: 0,
-    RecurFrequencyType: 'none',
-    RecurendDate: 'some date',
-    NotifyBeforeTime: 10, // minutes?
-    CreatedAt: 'some date',
-    UpdatedAt: 'some date',
-    ScheduledAt: '15-02-2023 3:5:15 PM', // not sure of exact time, but something like this!
-    TriggeredAt: 'some date'
-},
-{
-    Id: '123',
-    UserId: '1',
-    Title: 'Later Example',
-    Description: 'A description of the scheduled todo',
-    Colour: 'red',
-    Active: true,
-    RecurCount: 0,
-    RecurFrequency: 0,
-    RecurFrequencyType: 'none',
-    RecurendDate: 'some date',
-    NotifyBeforeTime: 10, // minutes?
-    CreatedAt: 'some date',
-    UpdatedAt: 'some date',
-    ScheduledAt: '15-02-2023 3:6:15 PM', // not sure of exact time, but something like this!
-    TriggeredAt: 'some date'
-}]
 
 const CalendarContainerContent = ({ hours, currentHour }: ICalendarContainerContent) => {
     const [scheduledTodoOpen, setScheduledTodoOpen] = useState(false)
@@ -78,7 +30,15 @@ const CalendarContainerContent = ({ hours, currentHour }: ICalendarContainerCont
         ScheduledAt: '',
         TriggeredAt: ''
     })
-    const [scheduledTodos, setScheduledTodos] = useState<IActiveScheduledTodo[]>([])
+    const [scheduledTodos, setScheduledTodos] = useState<IScheduledTodosDummyDataWeekly>({
+        Fri: [],
+        Mon: [],
+        Sat: [],
+        Sun: [],
+        Thu: [],
+        Tue: [],
+        Wed: []
+    })
 
     useEffect(() => {
         // Scroll current hour into view
@@ -87,13 +47,32 @@ const CalendarContainerContent = ({ hours, currentHour }: ICalendarContainerCont
             calendarContainer.scrollIntoView()
         }, 1000)
 
-        // fetch scheduled todos for this week
-        setScheduledTodos(scheduledTodosDummyData);
+        // fetch scheduled todos for THIS WEEK ONLY
+        setScheduledTodos(scheduledTodosDummyDataWeekly);
+
+        // scheduledTodos.Wed.find
+
+        // scheduledTodos.find(scheduledTodo => {
+        //     console.log(scheduledTodo.ScheduledAt)
+        //     const dayjsTimeObject = dayjs(scheduledTodo.ScheduledAt, dayjsFormat)
+        //
+        //     const day = days[dayjsTimeObject.day()]
+        //     console.log(day);
+        //
+        //     const hour = dayjsTimeObject.hour()
+        //     console.log(hour)
+        //
+        //     // const min = dayjsTimeObject.minute()
+        //     // // console.log(min)
+        //     //
+        //
+        //
+        // })
     }, [])
 
     const handleScheduledTodoOpen = () => {
         setScheduledTodoOpen(true);
-        setActiveScheduledTodo(scheduledTodos[0]) // need to work this out better somehow
+        setActiveScheduledTodo(scheduledTodosDummyDataWeekly.Wed[0]) // need to work this out better somehow
     }
 
     return (
@@ -131,18 +110,38 @@ const CalendarContainerContent = ({ hours, currentHour }: ICalendarContainerCont
                     return <div className="CalendarWeeklyColumnContentItem" id={`tue-${hour}`} key={id}></div>
                 })}
             </div>
+
             <div className="CalendarWeeklyColumn" id="wed-content">
                 {hours.map((hour, id) => {
+                    // if hour == a scheduledEvent from wed && currentHour == hour, make block highlighted with "CurrentHour" class
                     if (currentHour === hour ) {
-                        return (
-                            <div className="CalendarWeeklyColumnTimeContentItemCurrentHour" id={`wed-${hour}`} key={id}>
-                                <div className="CalendarWeeklyColumnContentItemEvent" onClick={handleScheduledTodoOpen}>{scheduledTodos[0]?.Title}</div>
-                            </div>
-                        )
+                        return <div className="CalendarWeeklyColumnTimeContentItemCurrentHour" id={`tue-${hour}`} key={id}>
+                            {
+                                scheduledTodos.Wed.map(scheduledTodo => {
+                                    const scheduledTodoHour = dayjs(scheduledTodo.ScheduledAt, dayjsFormat).hour()
+                                    const scheduledTodoHourFormatted = hours[scheduledTodoHour - 1]
+                                    if (scheduledTodoHourFormatted == hour) {
+                                        return <div className="CalendarWeeklyColumnContentItemEvent">{scheduledTodo.Title}</div>
+                                    }
+                                })
+                            }
+                        </div>
                     }
-                    return <div className="CalendarWeeklyColumnContentItem" id={`wed-${hour}`} key={id}></div>
+                    // if hour == a scheduledEvent from wed, generate div for that to put it in.
+                    return <div className="CalendarWeeklyColumnContentItem" id={`tue-${hour}`} key={id}>
+                        {
+                            scheduledTodos.Wed.map(scheduledTodo => {
+                                const scheduledTodoHour = dayjs(scheduledTodo.ScheduledAt, dayjsFormat).hour()
+                                const scheduledTodoHourFormatted = hours[scheduledTodoHour - 1]
+                                if (scheduledTodoHourFormatted == hour) {
+                                    return <div className="CalendarWeeklyColumnContentItemEvent">{scheduledTodo.Title}</div>
+                                }
+                            })
+                        }
+                    </div>
                 })}
             </div>
+
             <div className="CalendarWeeklyColumn" id="thu-content">
                 {hours.map((hour, id) => {
                     if (currentHour === hour ) {
