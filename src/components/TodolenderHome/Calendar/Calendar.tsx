@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react'
 import '../../../App.css'
 import './Calendar.css'
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {RootState} from "../../../store";
 import dayjs from "dayjs";
 import { computeDaysOfMonth } from '../../../helpers/computeDaysOfMonth'
 import {dayjsFormat} from "../../../reducers/dateSlice";
 import CalendarContainerContent from "./CalendarContainerContent";
-var utc = require('dayjs/plugin/utc')
-var timezone = require('dayjs/plugin/timezone')
+const utc = require('dayjs/plugin/utc')
+const timezone = require('dayjs/plugin/timezone')
 
 export const days = [ 'SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
 export const hours = ['1 AM', '2 AM', '3 AM', '4 AM', '5 AM', '6 AM', '7 AM', '8 AM', '9 AM', '10 AM', '11 AM', '12 PM',
@@ -16,16 +16,15 @@ export const hours = ['1 AM', '2 AM', '3 AM', '4 AM', '5 AM', '6 AM', '7 AM', '8
 
 const Calendar = () => {
     const [daysOfMonth, setDaysOfMonth] = useState([0, 0, 0, 0, 0, 0, 0]);
-    const dispatch = useDispatch()
-    const currentTime = useSelector((state: RootState) => state.date.currentTime)
-    const dayjsTimeObject = dayjs(currentTime, dayjsFormat)
+    const viewingTime = useSelector((state: RootState) => state.date.viewingTime)
+    const dayjsTimeObject = dayjs(viewingTime, dayjsFormat)
     const currentDay = days[dayjsTimeObject.day()]
 
     const [currentHour, setCurrentHour] = useState('')
     const [currentTimezone, setCurrentTimezone] = useState([])
 
     useEffect(() => {
-        setDaysOfMonth(computeDaysOfMonth(dayjsTimeObject, currentTime))
+        setDaysOfMonth(computeDaysOfMonth(dayjsTimeObject, viewingTime))
         setCurrentHour(dayjsTimeObject.format('h A'))
 
         dayjs.extend(utc)
@@ -33,12 +32,11 @@ const Calendar = () => {
         // @ts-ignore*/
         const currentTimezoneArray = dayjs.tz.guess().split('/');
         setCurrentTimezone(currentTimezoneArray)
-    }, [])
+    }, [viewingTime])
 
     return (
         <div className="Calendar Border">
             <div className="CalendarContainerHeader">
-                {/*(get this from somewhere?)*/}
                 <div className="CalendarWeeklyColumnTime">
                     <div>{currentTimezone[0]},</div>
                     <div>{currentTimezone[1]}</div>
