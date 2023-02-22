@@ -7,8 +7,8 @@
 
 .CalendarWeeklyColumnTimeContentItemCurrentHourAndDay {
     display: flex;
-    justify-content: start;
-    align-items: start;
+    justify-content: flex-start;
+    align-items: flex-start;
     flex-direction: column;
 
     height: 40px;
@@ -20,8 +20,8 @@
 
 .CalendarWeeklyColumnTimeContentItemCurrentHour {
     display: flex;
-    justify-content: start;
-    align-items: start;
+    justify-content: flex-start;
+    align-items: flex-start;
     flex-direction: column;
 
     height: 40px;
@@ -32,8 +32,8 @@
 
 .CalendarWeeklyColumnContentItem {
     display: flex;
-    justify-content: start;
-    align-items: start;
+    justify-content: flex-start;
+    align-items: flex-start;
     flex-direction: column;
 
     height: 40px;
