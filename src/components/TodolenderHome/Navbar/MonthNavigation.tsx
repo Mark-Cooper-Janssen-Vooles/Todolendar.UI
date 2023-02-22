@@ -1,9 +1,9 @@
 import React from 'react'
 import './MonthlyNavigation.css'
-import {increaseWeek, decreaseWeek, resetToCurrentWeek, dayjsFormat} from '../../../reducers/dateSlice'
+import {increaseWeek, decreaseWeek, resetToCurrentWeek, dayjsFormat} from '../../../redux/reducers/dateSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import dayjs from "dayjs";
-import { RootState } from "../../../store";
+import { RootState } from "../../../redux/store";
 // var customParseFormat = require('dayjs/plugin/customParseFormat')
 // dayjs.extend(customParseFormat)
 

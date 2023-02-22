@@ -10,10 +10,13 @@ export const userSlice = createSlice({
     reducers: {
         toggleLoggedInState: (state) => {
             state.loggedIn = !state.loggedIn
-        }
+        },
+        tryLogin: (state, action ) => {
+            // console.log(action.payload)
+        }, // do nothing, picked up in middleware
     }
 })
 
-export const { toggleLoggedInState } = userSlice.actions
+export const { toggleLoggedInState, tryLogin } = userSlice.actions
 
 export default userSlice.reducer

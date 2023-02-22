@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import * as ReactDOM from "react-dom";
 import './ScheduledTodoPortal.css'
-import {dayjsFormat} from "../../../reducers/dateSlice";
+import {dayjsFormat} from "../../../redux/reducers/dateSlice";
 import dayjs from "dayjs";
 const objectSupport = require("dayjs/plugin/objectSupport");
 dayjs.extend(objectSupport);

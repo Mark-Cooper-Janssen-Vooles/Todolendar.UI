@@ -4,7 +4,7 @@ import { displayStates } from "./LoginSignupBar";
 import '../../App.css';
 import {Simulate} from "react-dom/test-utils";
 
-import { toggleLoggedInState } from "../../reducers/userSlice";
+import { tryLogin, toggleLoggedInState } from "../../redux/reducers/userSlice";
 import { useDispatch } from 'react-redux'
 
 type FormData = {
@@ -25,9 +25,10 @@ const Form = (props: FormProps) => {
     const onSubmit = (data: FormData) => {
         if (formType == displayStates.LoginForm) {
             // do redux login call
+            dispatch(tryLogin(data))
 
             // if success:
-            dispatch(toggleLoggedInState())
+            // dispatch(toggleLoggedInState())
         }
         if (formType == displayStates.SignupForm) {
             // do redux signup call
@@ -36,7 +37,6 @@ const Form = (props: FormProps) => {
             // if success:
             dispatch(toggleLoggedInState())
         }
-        console.log(data);
     }
 
     return (

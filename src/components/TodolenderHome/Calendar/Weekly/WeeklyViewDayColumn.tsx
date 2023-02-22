@@ -1,9 +1,9 @@
 import React from 'react'
 import dayjs from "dayjs";
-import {dayjsFormat} from "../../../../reducers/dateSlice";
+import {dayjsFormat} from "../../../../redux/reducers/dateSlice";
 import {IActiveScheduledTodo} from "../ScheduledTodoPortal";
 import {useSelector} from "react-redux";
-import {RootState} from "../../../../store";
+import {RootState} from "../../../../redux/store";
 import "./WeeklyViewDayColumn.css";
 
 type IWeeklyColumn = {

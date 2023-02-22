@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import dayjs from "dayjs";
-import { days } from "../components/TodolenderHome/Calendar/Calendar";
+import { days } from "../../components/TodolenderHome/Calendar/Calendar";
 
 const customParseFormat = require('dayjs/plugin/customParseFormat')
 dayjs.extend(customParseFormat)

@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import {dayjsFormat} from "../reducers/dateSlice";
+import {dayjsFormat} from "../redux/reducers/dateSlice";
 
 export const computeDaysOfMonth = (dayjsTimeObject: dayjs.Dayjs, currentTime: string) => {
     const daysOfMonth = [0, 0, 0, 0, 0, 0, 0]

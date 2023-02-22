@@ -1,6 +1,6 @@
 import {IActiveScheduledTodo} from "./ScheduledTodoPortal";
 import dayjs from "dayjs";
-import {dayjsFormat} from "../../../reducers/dateSlice";
+import {dayjsFormat} from "../../../redux/reducers/dateSlice";
 
 export type IScheduledTodosDummyDataWeekly = {
     Sun: IActiveScheduledTodo[]

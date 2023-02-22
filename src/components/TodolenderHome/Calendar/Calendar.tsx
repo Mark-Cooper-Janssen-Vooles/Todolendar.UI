@@ -2,10 +2,10 @@ import React, {useEffect, useState} from 'react'
 import '../../../App.css'
 import './Calendar.css'
 import {useSelector} from "react-redux";
-import {RootState} from "../../../store";
+import {RootState} from "../../../redux/store";
 import dayjs from "dayjs";
 import { computeDaysOfMonth } from '../../../helpers/computeDaysOfMonth'
-import {dayjsFormat} from "../../../reducers/dateSlice";
+import {dayjsFormat} from "../../../redux/reducers/dateSlice";
 import CalendarContainerContent from "./CalendarContainerContent";
 const utc = require('dayjs/plugin/utc')
 const timezone = require('dayjs/plugin/timezone')
