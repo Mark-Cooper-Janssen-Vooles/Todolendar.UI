@@ -3,7 +3,17 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
     loggedIn: false,
     alertMessage: '',
-    signupSuccessful: false
+    signupSuccessful: false,
+    user: {
+        id: '',
+        email: '',
+        passwordHash: '',
+        firstName: '',
+        lastName: '',
+        mobile: '',
+        currentGoal: '',
+        lastActive: ''
+    },
 }
 
 export const userSlice = createSlice({
@@ -14,6 +24,9 @@ export const userSlice = createSlice({
             state.loggedIn = !state.loggedIn
         },
         tryLogin: (state, action ) => {}, // do nothing, picked up in middleware
+        setUserInfo: (state, action) => {
+            state.user = action.payload
+        },
         trySignup: (state, action) => {}, // picked up in middleware
         setSignupSuccessful: (state) => {
             state.signupSuccessful = true
@@ -24,6 +37,6 @@ export const userSlice = createSlice({
     }
 })
 
-export const { toggleLoggedInState, tryLogin, trySignup, setSignupSuccessful, setAlertMessage } = userSlice.actions
+export const { toggleLoggedInState, tryLogin, setUserInfo, trySignup, setSignupSuccessful, setAlertMessage } = userSlice.actions
 
 export default userSlice.reducer

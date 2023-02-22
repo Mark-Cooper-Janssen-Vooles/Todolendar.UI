@@ -1,6 +1,29 @@
 import { createListenerMiddleware } from '@reduxjs/toolkit'
-import {toggleLoggedInState, tryLogin, trySignup, setSignupSuccessful, setAlertMessage } from './reducers/userSlice'
+import {
+    toggleLoggedInState,
+    tryLogin,
+    trySignup,
+    setSignupSuccessful,
+    setAlertMessage,
+    setUserInfo
+} from './reducers/userSlice'
 import axios from 'axios';
+
+function getCookie(cname: string) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
 
 // Create the middleware instance and methods
 export const listenerMiddleware = createListenerMiddleware()
@@ -16,15 +39,28 @@ listenerMiddleware.startListening({
         try {
             const data = await axios.post('https://localhost:7025/Auth/login', {
                 email: action.payload.username,
-                password: action.payload.password
+                password: action.payload.password,
             })
 
             if (data.status == 200) {
+                console.log('logged in')
                 // toggleLoggedIn state
                 listenerApi.dispatch(toggleLoggedInState())
-                console.log('logged in')
-                // set the token somehow
-                document.cookie = `Authorization=bearer ${data.data.result}`
+                // set the token
+                document.cookie = `Authorization=bearer ${data.data.createTokenAsync.result}`
+
+                try {
+                    const user = await axios(`https://localhost:7025/Auth/user/${data.data.id}`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': getCookie("Authorization")
+                        }
+                    })
+
+                    listenerApi.dispatch(setUserInfo(user.data))
+                } catch (e) {
+                    console.log('error fetching user')
+                }
             }
         } catch (e) {
             // set error message to user, toggle a window.Alert in the component
