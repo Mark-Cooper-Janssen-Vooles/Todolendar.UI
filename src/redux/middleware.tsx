@@ -9,7 +9,7 @@ import {
 } from './reducers/userSlice'
 import axios from 'axios';
 
-function getCookie(cname: string) {
+const getCookie = (cname: string) => {
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
     let ca = decodedCookie.split(';');
