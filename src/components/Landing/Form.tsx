@@ -2,7 +2,6 @@ import React from 'react';
 import { useForm } from "react-hook-form";
 import { displayStates } from "./LoginSignupBar";
 import '../../App.css';
-import {Simulate} from "react-dom/test-utils";
 
 import { tryLogin, toggleLoggedInState } from "../../redux/reducers/userSlice";
 import { useDispatch } from 'react-redux'
@@ -26,16 +25,11 @@ const Form = (props: FormProps) => {
         if (formType == displayStates.LoginForm) {
             // do redux login call
             dispatch(tryLogin(data))
-
-            // if success:
-            // dispatch(toggleLoggedInState())
         }
         if (formType == displayStates.SignupForm) {
             // do redux signup call
             // display success message + new button to try logging in. new button sets LoginSignupBar's state as "displayStates.LoginAndSignup"
 
-            // if success:
-            dispatch(toggleLoggedInState())
         }
     }
 

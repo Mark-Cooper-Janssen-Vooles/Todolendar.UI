@@ -1,6 +1,6 @@
 import { createListenerMiddleware } from '@reduxjs/toolkit'
-
-import { tryLogin } from './reducers/userSlice'
+import {toggleLoggedInState, tryLogin, setErrorMessage } from './reducers/userSlice'
+import axios from 'axios';
 
 // Create the middleware instance and methods
 export const listenerMiddleware = createListenerMiddleware()
@@ -13,29 +13,25 @@ listenerMiddleware.startListening({
         // Run whatever additional side-effect-y logic you want here
         console.log('tryLogin: ', action.payload)
 
-        // Run async logic
-        const data = await fetchData()
-        //
-        // // Pause until action dispatched or state changed
-        // if (await listenerApi.condition(matchSomeAction)) {
-        //     // Use the listener API methods to dispatch, get state,
-        //     // unsubscribe the listener, start child tasks, and more
-        //     listenerApi.dispatch(todoAdded('Buy pet food'))
-        //
-        //     // Spawn "child tasks" that can do more work and return results
-        //     const task = listenerApi.fork(async (forkApi) => {
-        //         // Can pause execution
-        //         await forkApi.delay(5)
-        //         // Complete the child by returning a value
-        //         return 42
-        //     })
-        //
-        //     const result = await task.result
-        //     // Unwrap the child result in the listener
-        //     if (result.status === 'ok') {
-        //         // Logs the `42` result value that was returned
-        //         console.log('Child succeeded: ', result.value)
-        //     }
-        // }
+        // Run async logic\
+        try {
+            const data = await axios.post('https://localhost:7025/Auth/login', {
+                email: action.payload.username,
+                password: action.payload.password
+            })
+
+            console.log(data)
+
+            if (data.status == 200) {
+                // toggleLoggedIn state
+                listenerApi.dispatch(toggleLoggedInState())
+                console.log('logged in')
+                // set the token somehow
+                document.cookie = `Authorization=bearer ${data.data.result}`
+            }
+        } catch (e) {
+            // set error message to user, toggle a window.Alert in the component or something.
+            listenerApi.dispatch(setErrorMessage('Login was unsuccessful. Try again'))
+        }
     },
 })
