@@ -3,7 +3,9 @@ import { useForm } from "react-hook-form";
 import { displayStates } from "./LoginSignupBar";
 import '../../App.css';
 import {Simulate} from "react-dom/test-utils";
-import submit = Simulate.submit;
+
+import { toggleLoggedInState } from "../../reducers/userSlice";
+import { useDispatch } from 'react-redux'
 
 type FormData = {
     username: string;
@@ -18,15 +20,21 @@ type FormProps = {
 const Form = (props: FormProps) => {
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
     const { formType, submitButtonText } = props;
+    const dispatch = useDispatch()
 
     const onSubmit = (data: FormData) => {
         if (formType == displayStates.LoginForm) {
             // do redux login call
-            // set loggedIn as true
+
+            // if success:
+            dispatch(toggleLoggedInState())
         }
         if (formType == displayStates.SignupForm) {
             // do redux signup call
             // display success message + new button to try logging in. new button sets LoginSignupBar's state as "displayStates.LoginAndSignup"
+
+            // if success:
+            dispatch(toggleLoggedInState())
         }
         console.log(data);
     }

@@ -1,9 +1,11 @@
 import React from 'react';
 import Landing from "./components/Landing/Landing";
 import TodolenderHome from "./components/TodolenderHome/TodolenderHome";
+import {useSelector} from "react-redux";
+import {RootState} from "./store";
 
 const App = () => {
-    const loggedIn = true; // todo: grab this from redux state
+    const loggedIn = useSelector((state: RootState) => state.user.loggedIn)
 
     return (
         <div>
