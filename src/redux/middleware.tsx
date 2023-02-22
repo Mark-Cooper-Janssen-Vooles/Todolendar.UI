@@ -10,17 +10,12 @@ export const listenerMiddleware = createListenerMiddleware()
 listenerMiddleware.startListening({
     actionCreator: tryLogin,
     effect: async (action, listenerApi) => {
-        // Run whatever additional side-effect-y logic you want here
-        console.log('tryLogin: ', action.payload)
-
-        // Run async logic\
+        // Async logic, POST to login endpoint
         try {
             const data = await axios.post('https://localhost:7025/Auth/login', {
                 email: action.payload.username,
                 password: action.payload.password
             })
-
-            console.log(data)
 
             if (data.status == 200) {
                 // toggleLoggedIn state
@@ -30,7 +25,7 @@ listenerMiddleware.startListening({
                 document.cookie = `Authorization=bearer ${data.data.result}`
             }
         } catch (e) {
-            // set error message to user, toggle a window.Alert in the component or something.
+            // set error message to user, toggle a window.Alert in the component
             listenerApi.dispatch(setErrorMessage('Login was unsuccessful. Try again'))
         }
     },

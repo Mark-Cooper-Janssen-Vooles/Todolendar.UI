@@ -16,7 +16,6 @@ export const userSlice = createSlice({
             // console.log(action.payload)
         }, // do nothing, picked up in middleware
         setErrorMessage: (state, action) => {
-            console.log(action.payload)
             state.errorMessage = action.payload
         }
     }

@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useForm } from "react-hook-form";
 import { displayStates } from "./LoginSignupBar";
 import '../../App.css';
 
-import { tryLogin, toggleLoggedInState } from "../../redux/reducers/userSlice";
-import { useDispatch } from 'react-redux'
+import { tryLogin, setErrorMessage } from "../../redux/reducers/userSlice";
+import {useDispatch, useSelector} from 'react-redux'
+import {RootState} from "../../redux/store";
 
 type FormData = {
     username: string;
@@ -20,6 +21,14 @@ const Form = (props: FormProps) => {
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
     const { formType, submitButtonText } = props;
     const dispatch = useDispatch()
+    const errorMessage = useSelector((state: RootState) => state.user.errorMessage)
+
+    useEffect(() => {
+        if (errorMessage != '') {
+            window.alert(errorMessage)
+            dispatch(setErrorMessage(''))
+        }
+    }, [errorMessage])
 
     const onSubmit = (data: FormData) => {
         if (formType == displayStates.LoginForm) {
