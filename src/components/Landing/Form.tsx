@@ -18,7 +18,7 @@ type FormProps = {
 }
 
 const Form = (props: FormProps) => {
-    const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+    const { register, handleSubmit, reset } = useForm<FormData>();
     const { formType, submitButtonText } = props;
     const dispatch = useDispatch()
     const errorMessage = useSelector((state: RootState) => state.user.errorMessage)
@@ -27,6 +27,7 @@ const Form = (props: FormProps) => {
         if (errorMessage != '') {
             window.alert(errorMessage)
             dispatch(setErrorMessage(''))
+            reset() // resets form values to empty
         }
     }, [errorMessage])
 
@@ -38,7 +39,6 @@ const Form = (props: FormProps) => {
         if (formType == displayStates.SignupForm) {
             // do redux signup call
             // display success message + new button to try logging in. new button sets LoginSignupBar's state as "displayStates.LoginAndSignup"
-
         }
     }
 
