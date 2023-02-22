@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Form from "./Form";
 import '../../App.css'
 import './LoginSignupBar.css'
+import {useSelector} from "react-redux";
+import {RootState} from "../../redux/store";
 
 export const displayStates = {
     LoginAndSignup: 'LoginAndSignup',
@@ -10,7 +12,12 @@ export const displayStates = {
 }
 
 const LoginSignupBar = () => {
+    const signupSuccessful = useSelector((state: RootState) => state.user.signupSuccessful)
     const [display, setDisplay] = useState(displayStates.LoginAndSignup);
+
+    useEffect(() => {
+        setDisplay(displayStates.LoginAndSignup)
+    }, [signupSuccessful])
 
     const handleLoginOnClick = () => {
         setDisplay(displayStates.LoginForm)
