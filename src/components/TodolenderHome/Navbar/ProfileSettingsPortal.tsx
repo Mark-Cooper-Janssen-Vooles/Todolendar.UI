@@ -24,7 +24,7 @@ const ProfileSettingsPortal = (props: IProfileSettingsPortal) => {
     }, [alertMessage])
 
     useEffect(() => {
-        // set all state to match redux
+        // set all state to match redux when it updates
         setEmail(userState.email)
         setFirstName(userState.firstName)
         setLastName(userState.lastName)
@@ -72,35 +72,14 @@ const ProfileSettingsPortal = (props: IProfileSettingsPortal) => {
     const handleEditFirstName = () => setEditingFirstNameForm(true)
     const handleFirstNameChange = (event: { target: { value: React.SetStateAction<string> } }) => setFirstName(event.target.value)
     const cancelEditFirstName = () => setEditingFirstNameForm(false)
-    // const handleSaveEditFirstName = (event: { preventDefault: () => void }) => {
-    //     event.preventDefault()
-    //     // api call to save and update email
-    //     // re-fetch data
-    //
-    //     cancelEditFirstName();
-    // }
 
     const handleEditLastName = () => setEditingLastNameForm(true)
     const handleLastNameChange = (event: { target: { value: React.SetStateAction<string> } }) => setLastName(event.target.value)
     const cancelEditLastName = () => setEditingLastNameForm(false)
-    // const handleSaveEditLastName = (event: { preventDefault: () => void }) => {
-    //     event.preventDefault()
-    //     // api call to save and update email
-    //     // re-fetch data
-    //
-    //     cancelEditLastName();
-    // }
 
     const handleEditMobile = () => setEditingMobileForm(true)
     const handleMobileChange = (event: { target: { value: React.SetStateAction<string> } }) => setMobile(event.target.value)
     const cancelEditMobile = () => setEditingMobileForm(false)
-    // const handleSaveEditMobile= (event: { preventDefault: () => void }) => {
-    //     event.preventDefault()
-    //     // api call to save and update email
-    //     // re-fetch data
-    //
-    //     cancelEditMobile();
-    // }
 
     const handleEditPlanReminder = () => setEditingPlanReminderForm(true)
     const handlePlanReminderChange = (event: any) => {
