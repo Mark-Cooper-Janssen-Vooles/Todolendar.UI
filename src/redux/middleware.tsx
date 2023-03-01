@@ -5,7 +5,8 @@ import {
     trySignup,
     setSignupSuccessful,
     setAlertMessage,
-    setUserInfo
+    setUserInfo,
+    setPlanReminder
 } from './reducers/userSlice'
 import axios from 'axios';
 
@@ -44,11 +45,11 @@ listenerMiddleware.startListening({
 
             if (data.status == 200) {
                 console.log('logged in')
-                // toggleLoggedIn state
+                // toggleLoggedIn state + set the token
                 listenerApi.dispatch(toggleLoggedInState())
-                // set the token
                 document.cookie = `Authorization=bearer ${data.data.createTokenAsync.result}`
 
+                // set "user" state
                 try {
                     const user = await axios(`https://localhost:7025/Auth/user/${data.data.id}`, {
                         method: 'GET',
@@ -61,6 +62,21 @@ listenerMiddleware.startListening({
                 } catch (e) {
                     console.log('error fetching user')
                 }
+
+                // set planReminder state
+                try {
+                    const planReminder = await axios(`https://localhost:7025/PlanReminder/${data.data.id}`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': getCookie("Authorization")
+                        }
+                    })
+
+                    listenerApi.dispatch(setPlanReminder(planReminder.data))
+                } catch (e) {
+                    console.log('error fetching planReminder')
+                }
+
             }
         } catch (e) {
             // set error message to user, toggle a window.Alert in the component

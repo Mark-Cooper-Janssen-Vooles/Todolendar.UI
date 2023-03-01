@@ -14,6 +14,13 @@ const initialState = {
         currentGoal: '',
         lastActive: ''
     },
+    planReminder: {
+        userId: '',
+        planReminderOn: false,
+        frequency: '',
+        nextScheduledAt: '',
+        description: ''
+    }
 }
 
 export const userSlice = createSlice({
@@ -26,6 +33,9 @@ export const userSlice = createSlice({
         tryLogin: (state, action ) => {}, // do nothing, picked up in middleware
         setUserInfo: (state, action) => {
             state.user = action.payload
+        },
+        setPlanReminder: (state, action) => {
+            state.planReminder = action.payload
         },
         trySignup: (state, action) => {}, // picked up in middleware
         setSignupSuccessful: (state) => {

@@ -1,5 +1,7 @@
 import React, {useState} from "react";
 import * as ReactDOM from "react-dom";
+import {useSelector} from "react-redux";
+import {RootState} from "../../../redux/store";
 
 type IProfileSettingsPortal = {
     expanded: boolean;
@@ -7,33 +9,35 @@ type IProfileSettingsPortal = {
 }
 
 const ProfileSettingsPortal = (props: IProfileSettingsPortal) => {
+    const userState = useSelector((state: RootState) => state.user.user)
+    const planReminderState = useSelector((state: RootState) => state.user.planReminder)
     // typically get this info from the state, but for now:
-    const dummyData = {
-        email: 'hmm@hmm.com',
-        firstName: 'hmm',
-        lastName: 'humm',
-        mobile: '0431175219',
-        planReminder: {
-            planReminderOn: true,
-            frequency: "weekly",
-            description: "text message about plan reminder"
-        }
-    }
+    // const dummyData = {
+    //     email: 'hmm@hmm.com',
+    //     firstName: 'hmm',
+    //     lastName: 'humm',
+    //     mobile: '0431175219',
+    //     planReminder: {
+    //         planReminderOn: true,
+    //         frequency: "weekly",
+    //         description: "text message about plan reminder"
+    //     }
+    // }
 
     const [editingEmailForm, setEditingEmailForm] = useState(false);
-    const [email, setEmail] = useState(dummyData.email)
+    const [email, setEmail] = useState(userState.email)
 
     const [editingFirstNameForm, setEditingFirstNameForm] = useState(false);
-    const [firstName, setFirstName] = useState(dummyData.firstName)
+    const [firstName, setFirstName] = useState(userState.firstName)
 
     const [editingLastNameForm, setEditingLastNameForm] = useState(false);
-    const [lastName, setLastName] = useState(dummyData.lastName)
+    const [lastName, setLastName] = useState(userState.lastName)
 
     const [editingMobileForm, setEditingMobileForm] = useState(false);
-    const [mobile, setMobile] = useState(dummyData.mobile)
+    const [mobile, setMobile] = useState(userState.mobile)
 
     const [editingPlanReminderForm, setEditingPlanReminderForm] = useState(false);
-    const [planReminder, setPlanReminder] = useState(dummyData.planReminder)
+    const [planReminder, setPlanReminder] = useState(planReminderState)
 
     const [deleteAccountActive, setDeleteAccountActive] = useState(false);
 
@@ -84,32 +88,35 @@ const ProfileSettingsPortal = (props: IProfileSettingsPortal) => {
     }
 
     const handleEditPlanReminder = () => setEditingPlanReminderForm(true)
-    const handlePlanReminderChange = (event: any,
-                                      // formType: string
-                                      // { target: { value: React.SetStateAction<{ planReminderOn: boolean; frequency: string; description: string }> }}
-    ) => {
+    const handlePlanReminderChange = (event: any) => {
         let setNewPlanReminder = planReminder;
 
         if (event.target.type === 'checkbox') {
             setNewPlanReminder = {
+                userId: planReminder.userId,
                 planReminderOn: event.target.checked,
                 frequency: planReminder.frequency,
+                nextScheduledAt: planReminder.nextScheduledAt,
                 description: planReminder.description
             }
         }
 
         if (event.target.type === 'select-one' && event.target.id === 'frequency') {
             setNewPlanReminder = {
+                userId: planReminder.userId,
                 planReminderOn: planReminder.planReminderOn,
                 frequency: event.target.value,
+                nextScheduledAt: planReminder.nextScheduledAt,
                 description: planReminder.description
             }
         }
 
         if (event.target.id === 'description') {
             setNewPlanReminder = {
+                userId: planReminder.userId,
                 planReminderOn: planReminder.planReminderOn,
                 frequency: planReminder.frequency,
+                nextScheduledAt: planReminder.nextScheduledAt,
                 description: event.target.value
             }
         }
