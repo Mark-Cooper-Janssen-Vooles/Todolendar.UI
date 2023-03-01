@@ -161,9 +161,10 @@ listenerMiddleware.startListening({
                 })
 
             console.log(data.status)
-            // if (data.status === 200) {
-            //     listenerApi.dispatch(setPlanReminder(action.payload)) // keep redux store in sync
-            // }
+            if (data.status === 200) {
+                console.log(data)
+                listenerApi.dispatch(setUserInfo(data.data)) // keep redux store in sync
+            }
         } catch (e) {
             console.log(e)
             // set error message to user, toggle a window.Alert in the component
