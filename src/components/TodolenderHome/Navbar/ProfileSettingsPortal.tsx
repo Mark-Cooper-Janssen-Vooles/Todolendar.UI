@@ -29,7 +29,6 @@ const ProfileSettingsPortal = (props: IProfileSettingsPortal) => {
 
     const [deleteAccountActive, setDeleteAccountActive] = useState(false);
 
-
     const handleEditEmail = () => setEditingEmailForm(true)
     const handleEmailChange = (event: { target: { value: React.SetStateAction<string> } }) => setEmail(event.target.value)
     const cancelEditEmail = () => setEditingEmailForm(false)

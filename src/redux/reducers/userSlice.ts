@@ -37,6 +37,9 @@ export const userSlice = createSlice({
         setPlanReminder: (state, action) => {
             state.planReminder = action.payload
         },
+        updatePlanReminder: (state, action) => {
+            state.planReminder = action.payload
+        },
         trySignup: (state, action) => {}, // picked up in middleware
         setSignupSuccessful: (state) => {
             state.signupSuccessful = true

@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import dateReducer from './reducers/dateSlice'
 import userReducer from './reducers/userSlice'
-import { listenerMiddleware } from "./middleware";
+import { listenerMiddleware } from "./userListenerMiddleware";
 
 const store = configureStore({
     reducer: {
