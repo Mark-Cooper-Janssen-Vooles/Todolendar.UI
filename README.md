@@ -4,6 +4,13 @@ This repository is the frontend for Todolender, a project which is a todo list a
 
 The backend for Todolender is found at [Todolender.API](https://github.com/Mark-Cooper-Janssen-Vooles/Todolender.API).
 
+Features include account creation, sign-in functionality, editing your profile, creating todo's and adding them into a calendar as a scheduled todo. Users will also be able to set SMS notifications for reminding them to plan their week / month / day, as well as for reminding them when they have a scheduled todo coming up.
+
+## Planning
+Figma designs are available [here](https://www.figma.com/file/ona2QoEu6QzTcyffAervOy/Todolender?node-id=0%3A1&t=KPdD8o2qc6cbYQnZ-0).
+
+A basic database schema is available [here](https://app.diagrams.net/#G1NYqMTprbHGnyYW-6s-Pc1sLVT3hZQu_x).
+
 ## Technology 
 
 - This project is created as a React single page application. 
@@ -15,10 +22,8 @@ The backend for Todolender is found at [Todolender.API](https://github.com/Mark-
 - Redux has been used to manage global state, as well as its inbuilt listenerMiddleware to make async API calls
 - Typescript has been leveraged to improve the developer experience
 
-## Planning
-Figma designs are available [here](https://www.figma.com/file/ona2QoEu6QzTcyffAervOy/Todolender?node-id=0%3A1&t=KPdD8o2qc6cbYQnZ-0).
-
-A basic database schema is available [here](https://app.diagrams.net/#G1NYqMTprbHGnyYW-6s-Pc1sLVT3hZQu_x).
+## Running Locally
+To run this project locally, you will need to first start [Todolender.API](https://github.com/Mark-Cooper-Janssen-Vooles/Todolender.API) and then run `npm start`.
 
 ## Available Scripts
 
