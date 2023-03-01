@@ -44,10 +44,10 @@ const CalendarContainerContent = ({ hours, currentHour, currentDay }: ICalendarC
 
     useEffect(() => {
         // Scroll current hour into view
-        // setTimeout(() => {
-        //     const calendarContainer = document.getElementsByClassName("CalendarWeeklyColumnTimeContentItemCurrentHour")[0]
-        //     calendarContainer.scrollIntoView()
-        // }, 1000)
+        setTimeout(() => {
+            const calendarContainer = document.getElementsByClassName("CalendarWeeklyColumnTimeContentItemCurrentHour")[0]
+            calendarContainer.scrollIntoView()
+        }, 1000)
 
         // fetch scheduled todos for THIS WEEK ONLY
         setScheduledTodos(scheduledTodosDummyDataWeekly);
