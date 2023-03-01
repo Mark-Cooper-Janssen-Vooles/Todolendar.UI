@@ -6,9 +6,10 @@ import {
     deleteUser,
     saveUpdatePlanReminder,
     saveUpdateUserInfo,
-    setAlertMessage
+    setAlertMessage, setLoggedInState
 } from "../../../redux/reducers/userSlice";
 import {displayStates} from "../../Landing/LoginSignupBar";
+import {deleteCookies} from "../../../redux/helpers";
 
 type IProfileSettingsPortal = {
     expanded: boolean;
@@ -138,6 +139,8 @@ const ProfileSettingsPortal = (props: IProfileSettingsPortal) => {
 
     const handleLogout = () => {
         window.alert('logged out')
+        deleteCookies()
+        dispatch(setLoggedInState(false))
     }
 
     return ReactDOM.createPortal(
