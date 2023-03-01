@@ -1,6 +1,6 @@
 # Todolender.UI
 
-This repository is the frontend for Todolender, a project which is a todo list and calender fusion. 
+This repository is the frontend for Todolender, a project which is a todo list and calendar fusion. 
 
 The backend for Todolender is found at [Todolender.API](https://github.com/Mark-Cooper-Janssen-Vooles/Todolender.API).
 
