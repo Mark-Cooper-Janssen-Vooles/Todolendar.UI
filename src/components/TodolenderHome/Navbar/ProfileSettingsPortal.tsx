@@ -1,7 +1,8 @@
 import React, {useState} from "react";
 import * as ReactDOM from "react-dom";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../redux/store";
+import {saveUpdatePlanReminder, tryLogin} from "../../../redux/reducers/userSlice";
 
 type IProfileSettingsPortal = {
     expanded: boolean;
@@ -10,7 +11,8 @@ type IProfileSettingsPortal = {
 
 const ProfileSettingsPortal = (props: IProfileSettingsPortal) => {
     const userState = useSelector((state: RootState) => state.user.user)
-    const planReminderState = useSelector((state: RootState) => state.user.planReminder)
+    const planReminderReduxState = useSelector((state: RootState) => state.user.planReminder)
+    const dispatch = useDispatch()
 
     const [editingEmailForm, setEditingEmailForm] = useState(false);
     const [email, setEmail] = useState(userState.email)
@@ -25,7 +27,7 @@ const ProfileSettingsPortal = (props: IProfileSettingsPortal) => {
     const [mobile, setMobile] = useState(userState.mobile)
 
     const [editingPlanReminderForm, setEditingPlanReminderForm] = useState(false);
-    const [planReminder, setPlanReminder] = useState(planReminderState)
+    const [planReminder, setPlanReminder] = useState(planReminderReduxState)
 
     const [deleteAccountActive, setDeleteAccountActive] = useState(false);
 
@@ -113,7 +115,8 @@ const ProfileSettingsPortal = (props: IProfileSettingsPortal) => {
     const cancelEditPlanReminder = () => setEditingPlanReminderForm(false)
     const handleSaveEditPlanReminder= (event: { preventDefault: () => void }) => {
         event.preventDefault()
-        // api call to save and update email
+        // api call to save and update planReminder
+        dispatch(saveUpdatePlanReminder(planReminder))
         // re-fetch data
 
         cancelEditPlanReminder()

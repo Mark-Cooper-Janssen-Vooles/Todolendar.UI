@@ -6,7 +6,8 @@ import {
     setSignupSuccessful,
     setAlertMessage,
     setUserInfo,
-    setPlanReminder
+    setPlanReminder,
+    saveUpdatePlanReminder
 } from './reducers/userSlice'
 import axios from 'axios';
 import { getCookie } from "./getCookie";
@@ -97,24 +98,27 @@ listenerMiddleware.startListening({
 })
 
 listenerMiddleware.startListening({
-    actionCreator: trySignup,
+    actionCreator: saveUpdatePlanReminder,
     effect: async (action, listenerApi) => {
-        // Async logic, POST to login endpoint
+        // Async logic, PUT to planReminder endpoint
+        // @ts-ignore
+        const userId = listenerApi.getState().user.user.id;
+
         try {
-            const data = await axios.post('https://localhost:7025/Auth/CreateUser', {
-                email: action.payload.username,
-                passwordHash: action.payload.password,
-                firstname: action.payload.firstname,
-                lastname: action.payload.lastname,
-                mobile: action.payload.mobile,
-                currentGoal: ''
+            const data = await axios.put(`https://localhost:7025/PlanReminder/${userId}`, {
+                "planReminderOn": action.payload.planReminderOn,
+                "frequency": action.payload.frequency,
+                "nextScheduledAt": action.payload.nextScheduledAt,
+                "description": action.payload.description
+            }, {
+                headers: {
+                    'Authorization': getCookie("Authorization")
+                }
             })
 
-            if (data.status == 201) {
-                console.log(data)
-                console.log('Sign up successful')
-                listenerApi.dispatch(setAlertMessage('Sign up was successful. You may now log in.'))
-                listenerApi.dispatch(setSignupSuccessful())
+            console.log(data.status)
+            if (data.status === 200) {
+                listenerApi.dispatch(setPlanReminder(action.payload)) // keep redux store in sync
             }
         } catch (e) {
             console.log(e)
