@@ -1,6 +1,6 @@
 import { createListenerMiddleware } from '@reduxjs/toolkit'
 import {
-    toggleLoggedInState,
+    setLoggedInState,
     tryLogin,
     trySignup,
     setSignupSuccessful,
@@ -8,7 +8,8 @@ import {
     setUserInfo,
     setPlanReminder,
     saveUpdatePlanReminder,
-    saveUpdateUserInfo
+    saveUpdateUserInfo,
+    tryGetUserAndPlanReminderInfo
 } from './reducers/userSlice'
 import axios from 'axios';
 import { getCookie } from "./getCookie";
@@ -29,44 +30,56 @@ listenerMiddleware.startListening({
             })
 
             if (data.status == 200) {
-                console.log('logged in')
-                // toggleLoggedIn state + set the token
-                listenerApi.dispatch(toggleLoggedInState())
                 document.cookie = `Authorization=bearer ${data.data.createTokenAsync.result}`
+                document.cookie = `UserId=${data.data.id}`
 
-                // set "user" state
-                try {
-                    const user = await axios(`https://localhost:7025/Auth/user/${data.data.id}`, {
-                        method: 'GET',
-                        headers: {
-                            'Authorization': getCookie("Authorization")
-                        }
-                    })
-
-                    listenerApi.dispatch(setUserInfo(user.data))
-                } catch (e) {
-                    console.log('error fetching user')
-                }
-
-                // set planReminder state
-                try {
-                    const planReminder = await axios(`https://localhost:7025/PlanReminder/${data.data.id}`, {
-                        method: 'GET',
-                        headers: {
-                            'Authorization': getCookie("Authorization")
-                        }
-                    })
-
-                    listenerApi.dispatch(setPlanReminder(planReminder.data))
-                } catch (e) {
-                    console.log('error fetching planReminder')
-                }
-
+                listenerApi.dispatch(tryGetUserAndPlanReminderInfo())
             }
         } catch (e) {
             // set error message to user, toggle a window.Alert in the component
             listenerApi.dispatch(setAlertMessage('Login was unsuccessful. Try again'))
         }
+    },
+})
+
+listenerMiddleware.startListening({
+    actionCreator: tryGetUserAndPlanReminderInfo,
+    effect: async (action, listenerApi) => {
+        // set "user" state
+        try {
+            const user = await axios(`https://localhost:7025/Auth/user/${getCookie("UserId")}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': getCookie("Authorization")
+                }
+            })
+
+            listenerApi.dispatch(setUserInfo(user.data))
+
+            console.log('hmm')
+
+            listenerApi.dispatch(setLoggedInState(true))
+        } catch (e) {
+            console.log('error fetching user')
+        }
+
+        // set planReminder state
+        try {
+            const planReminder = await axios(`https://localhost:7025/PlanReminder/${getCookie("UserId")}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': getCookie("Authorization")
+                }
+            })
+
+            listenerApi.dispatch(setPlanReminder(planReminder.data))
+        } catch (e) {
+            console.log('error fetching planReminder')
+        }
+
+        // setTimeout(() => {
+        //     listenerApi.dispatch(toggleLoggedInState())
+        // }, 3000)
     },
 })
 

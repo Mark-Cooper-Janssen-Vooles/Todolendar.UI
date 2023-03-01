@@ -27,13 +27,14 @@ export const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        toggleLoggedInState: (state) => {
-            state.loggedIn = !state.loggedIn
+        setLoggedInState: (state, action) => {
+            state.loggedIn = action.payload
         },
         tryLogin: (state, action ) => {}, // do nothing, picked up in middleware
         setUserInfo: (state, action) => {
             state.user = action.payload
         },
+        tryGetUserAndPlanReminderInfo: (state) => {}, // picked up in middleware
         trySignup: (state, action) => {}, // picked up in middleware
         setSignupSuccessful: (state) => {
             state.signupSuccessful = true
@@ -50,7 +51,7 @@ export const userSlice = createSlice({
 })
 
 export const {
-    toggleLoggedInState,
+    setLoggedInState,
     tryLogin,
     setUserInfo,
     trySignup,
@@ -59,6 +60,7 @@ export const {
     setPlanReminder,
     saveUpdatePlanReminder,
     saveUpdateUserInfo,
+    tryGetUserAndPlanReminderInfo
 } = userSlice.actions
 
 export default userSlice.reducer
