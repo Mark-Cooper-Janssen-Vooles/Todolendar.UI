@@ -30,8 +30,11 @@ listenerMiddleware.startListening({
             })
 
             if (data.status == 200) {
-                document.cookie = `Authorization=bearer ${data.data.createTokenAsync.result}`
-                document.cookie = `UserId=${data.data.id}`
+                // set cookies
+                // 1 Day = 24 Hrs = 24*60*60 = 86400.
+                const expireTime = (new Date(Date.now()+ 86400*1000)).toUTCString(); //cookie expires in 1 day
+                document.cookie = `Authorization=bearer ${data.data.createTokenAsync.result};expires=${expireTime}`
+                document.cookie = `UserId=${data.data.id};expires=${expireTime}`
 
                 listenerApi.dispatch(tryGetUserAndPlanReminderInfo())
             }
