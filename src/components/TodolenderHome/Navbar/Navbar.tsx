@@ -51,8 +51,8 @@ const Navbar = () => {
                     </>
                     :
                     <>
-                        Current Goal: {goal}
-                        <button onClick={handleEditGoal}>Edit</button>
+                        Current Goal: {goal} &nbsp;
+                        <button onClick={handleEditGoal}>🖊</button>
                     </>
                 }
             </div>
