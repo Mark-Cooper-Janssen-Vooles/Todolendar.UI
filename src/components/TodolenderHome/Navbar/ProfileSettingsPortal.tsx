@@ -2,7 +2,12 @@ import React, {useEffect, useState} from "react";
 import * as ReactDOM from "react-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../redux/store";
-import {saveUpdatePlanReminder, saveUpdateUserInfo, setAlertMessage} from "../../../redux/reducers/userSlice";
+import {
+    deleteUser,
+    saveUpdatePlanReminder,
+    saveUpdateUserInfo,
+    setAlertMessage
+} from "../../../redux/reducers/userSlice";
 import {displayStates} from "../../Landing/LoginSignupBar";
 
 type IProfileSettingsPortal = {
@@ -127,14 +132,12 @@ const ProfileSettingsPortal = (props: IProfileSettingsPortal) => {
 
     const handleDeleteAccount = () => setDeleteAccountActive(!deleteAccountActive)
     const handleConfirmedDeletion = () => {
-        // api call to delete user
-        window.alert("Your account has been deleted")
-        handleLogout();
+        // api call to delete user and clear cookies
+        dispatch(deleteUser())
     }
 
     const handleLogout = () => {
-        // sign user out, clear cookies or something
-        window.alert("You have been signed out")
+        window.alert('logged out')
     }
 
     return ReactDOM.createPortal(

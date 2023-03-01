@@ -47,6 +47,7 @@ export const userSlice = createSlice({
         },
         saveUpdatePlanReminder: (state, action) => {}, // picked up in middleware
         saveUpdateUserInfo: (state, action) => {}, // picked up in middleware
+        deleteUser: (state) => {}, // picked up in middleware
     }
 })
 
@@ -60,7 +61,8 @@ export const {
     setPlanReminder,
     saveUpdatePlanReminder,
     saveUpdateUserInfo,
-    tryGetUserAndPlanReminderInfo
+    tryGetUserAndPlanReminderInfo,
+    deleteUser,
 } = userSlice.actions
 
 export default userSlice.reducer

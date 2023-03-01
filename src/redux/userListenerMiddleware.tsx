@@ -9,7 +9,8 @@ import {
     setPlanReminder,
     saveUpdatePlanReminder,
     saveUpdateUserInfo,
-    tryGetUserAndPlanReminderInfo
+    tryGetUserAndPlanReminderInfo,
+    deleteUser
 } from './reducers/userSlice'
 import axios from 'axios';
 import { getCookie } from "./getCookie";
@@ -33,8 +34,8 @@ listenerMiddleware.startListening({
                 // set cookies
                 // 1 Day = 24 Hrs = 24*60*60 = 86400.
                 const expireTime = (new Date(Date.now()+ 86400*1000)).toUTCString(); //cookie expires in 1 day
-                document.cookie = `Authorization=bearer ${data.data.createTokenAsync.result};expires=${expireTime}`
-                document.cookie = `UserId=${data.data.id};expires=${expireTime}`
+                document.cookie = `Authorization=bearer ${data.data.createTokenAsync.result};expires=${expireTime};path=/`
+                document.cookie = `UserId=${data.data.id};expires=${expireTime};path=/`
 
                 listenerApi.dispatch(tryGetUserAndPlanReminderInfo())
             }
@@ -58,9 +59,6 @@ listenerMiddleware.startListening({
             })
 
             listenerApi.dispatch(setUserInfo(user.data))
-
-            console.log('hmm')
-
             listenerApi.dispatch(setLoggedInState(true))
         } catch (e) {
             console.log('error fetching user')
@@ -79,10 +77,6 @@ listenerMiddleware.startListening({
         } catch (e) {
             console.log('error fetching planReminder')
         }
-
-        // setTimeout(() => {
-        //     listenerApi.dispatch(toggleLoggedInState())
-        // }, 3000)
     },
 })
 
@@ -165,7 +159,6 @@ listenerMiddleware.startListening({
                 { headers: { 'Authorization': getCookie("Authorization") }
                 })
 
-            console.log(data.status)
             if (data.status === 200) {
                 listenerApi.dispatch(setUserInfo(data.data)) // keep redux store in sync
             }
@@ -173,6 +166,36 @@ listenerMiddleware.startListening({
             console.log(e)
             // set error message to user, toggle a window.Alert in the component
             listenerApi.dispatch(setAlertMessage('Saving your user information was unsuccessful. Try again'))
+        }
+    },
+})
+
+listenerMiddleware.startListening({
+    actionCreator: deleteUser,
+    effect: async (action, listenerApi) => {
+        // Async logic, PUT to planReminder endpoint
+        // @ts-ignore
+        const userId = listenerApi.getState().user.user.id;
+
+        try {
+            const data = await axios.delete(`https://localhost:7025/Auth/user/${userId}`,
+                { headers: { 'Authorization': getCookie("Authorization") } })
+
+            if (data.status === 200) {
+                listenerApi.dispatch(setAlertMessage('Your account has been deleted'))
+                // delete cookies
+                const expireTime = (new Date(Date.now() + -86400*1000)).toUTCString(); // set cookie to have expired yesterday
+                document.cookie = `Authorization=;expires=${expireTime};path=/`
+                document.cookie = `UserId=;expires=${expireTime};path=/`
+                // log out
+                setTimeout(() => {
+                    listenerApi.dispatch(setLoggedInState(false))
+                }, 1000)
+            }
+        } catch (e) {
+            console.log(e)
+            // set error message to user, toggle a window.Alert in the component
+            listenerApi.dispatch(setAlertMessage('Deleting your account was unsuccessful. Try again'))
         }
     },
 })
