@@ -123,7 +123,7 @@ listenerMiddleware.startListening({
         } catch (e) {
             console.log(e)
             // set error message to user, toggle a window.Alert in the component
-            listenerApi.dispatch(setAlertMessage('Signup was unsuccessful. Try again'))
+            listenerApi.dispatch(setAlertMessage('Saving your plan reminder updates were unsuccessful. Try again'))
         }
     },
 })
