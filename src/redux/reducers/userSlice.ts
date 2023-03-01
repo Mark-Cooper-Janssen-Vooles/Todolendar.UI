@@ -47,6 +47,14 @@ export const userSlice = createSlice({
     }
 })
 
-export const { toggleLoggedInState, tryLogin, setUserInfo, trySignup, setSignupSuccessful, setAlertMessage } = userSlice.actions
+export const {
+    toggleLoggedInState,
+    tryLogin,
+    setUserInfo,
+    setPlanReminder,
+    trySignup,
+    setSignupSuccessful,
+    setAlertMessage
+} = userSlice.actions
 
 export default userSlice.reducer

@@ -11,18 +11,6 @@ type IProfileSettingsPortal = {
 const ProfileSettingsPortal = (props: IProfileSettingsPortal) => {
     const userState = useSelector((state: RootState) => state.user.user)
     const planReminderState = useSelector((state: RootState) => state.user.planReminder)
-    // typically get this info from the state, but for now:
-    // const dummyData = {
-    //     email: 'hmm@hmm.com',
-    //     firstName: 'hmm',
-    //     lastName: 'humm',
-    //     mobile: '0431175219',
-    //     planReminder: {
-    //         planReminderOn: true,
-    //         frequency: "weekly",
-    //         description: "text message about plan reminder"
-    //     }
-    // }
 
     const [editingEmailForm, setEditingEmailForm] = useState(false);
     const [email, setEmail] = useState(userState.email)
