@@ -135,17 +135,6 @@ listenerMiddleware.startListening({
         // @ts-ignore
         const userId = listenerApi.getState().user.user.id;
 
-        console.log(userId)
-
-        console.log({
-            "email": action.payload.email,
-            "passwordHash": action.payload.passwordHash,
-            "firstName": action.payload.firstName,
-            "lastName": action.payload.lastName,
-            "mobile": action.payload.mobile,
-            "currentGoal": action.payload.currentGoal
-        })
-
         try {
             const data = await axios.put(
                 `https://localhost:7025/Auth/user/${userId}`,
@@ -162,13 +151,12 @@ listenerMiddleware.startListening({
 
             console.log(data.status)
             if (data.status === 200) {
-                console.log(data)
                 listenerApi.dispatch(setUserInfo(data.data)) // keep redux store in sync
             }
         } catch (e) {
             console.log(e)
             // set error message to user, toggle a window.Alert in the component
-            listenerApi.dispatch(setAlertMessage('Saving your plan reminder updates were unsuccessful. Try again'))
+            listenerApi.dispatch(setAlertMessage('Saving your user information was unsuccessful. Try again'))
         }
     },
 })

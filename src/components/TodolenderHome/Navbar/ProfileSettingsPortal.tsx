@@ -1,8 +1,9 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import * as ReactDOM from "react-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../redux/store";
-import {saveUpdatePlanReminder, saveUpdateUserInfo} from "../../../redux/reducers/userSlice";
+import {saveUpdatePlanReminder, saveUpdateUserInfo, setAlertMessage} from "../../../redux/reducers/userSlice";
+import {displayStates} from "../../Landing/LoginSignupBar";
 
 type IProfileSettingsPortal = {
     expanded: boolean;
@@ -13,6 +14,22 @@ const ProfileSettingsPortal = (props: IProfileSettingsPortal) => {
     const userState = useSelector((state: RootState) => state.user.user)
     const planReminderReduxState = useSelector((state: RootState) => state.user.planReminder)
     const dispatch = useDispatch()
+    const alertMessage = useSelector((state: RootState) => state.user.alertMessage)
+
+    useEffect(() => {
+        if (alertMessage != '') {
+            window.alert(alertMessage)
+            dispatch(setAlertMessage(''))
+        }
+    }, [alertMessage])
+
+    useEffect(() => {
+        // set all state to match redux
+        setEmail(userState.email)
+        setFirstName(userState.firstName)
+        setLastName(userState.lastName)
+        setMobile(userState.mobile)
+    }, [userState])
 
     const [editingEmailForm, setEditingEmailForm] = useState(false);
     const [email, setEmail] = useState(userState.email)
@@ -34,7 +51,7 @@ const ProfileSettingsPortal = (props: IProfileSettingsPortal) => {
     const handleEditEmail = () => setEditingEmailForm(true)
     const handleEmailChange = (event: { target: { value: React.SetStateAction<string> } }) => setEmail(event.target.value)
     const cancelEditEmail = () => setEditingEmailForm(false)
-    const handleSaveEditEmail = (event: { preventDefault: () => void }) => {
+    const handleSaveUserInfo = (event: { preventDefault: () => void }) => {
         event.preventDefault()
         // api call to save and update email
         dispatch(saveUpdateUserInfo({
@@ -45,41 +62,45 @@ const ProfileSettingsPortal = (props: IProfileSettingsPortal) => {
             mobile,
             currentGoal: userState.currentGoal
         }))
+
         cancelEditEmail()
+        cancelEditFirstName()
+        cancelEditLastName()
+        cancelEditMobile()
     }
 
     const handleEditFirstName = () => setEditingFirstNameForm(true)
     const handleFirstNameChange = (event: { target: { value: React.SetStateAction<string> } }) => setFirstName(event.target.value)
     const cancelEditFirstName = () => setEditingFirstNameForm(false)
-    const handleSaveEditFirstName = (event: { preventDefault: () => void }) => {
-        event.preventDefault()
-        // api call to save and update email
-        // re-fetch data
-
-        cancelEditFirstName();
-    }
+    // const handleSaveEditFirstName = (event: { preventDefault: () => void }) => {
+    //     event.preventDefault()
+    //     // api call to save and update email
+    //     // re-fetch data
+    //
+    //     cancelEditFirstName();
+    // }
 
     const handleEditLastName = () => setEditingLastNameForm(true)
     const handleLastNameChange = (event: { target: { value: React.SetStateAction<string> } }) => setLastName(event.target.value)
     const cancelEditLastName = () => setEditingLastNameForm(false)
-    const handleSaveEditLastName = (event: { preventDefault: () => void }) => {
-        event.preventDefault()
-        // api call to save and update email
-        // re-fetch data
-
-        cancelEditLastName();
-    }
+    // const handleSaveEditLastName = (event: { preventDefault: () => void }) => {
+    //     event.preventDefault()
+    //     // api call to save and update email
+    //     // re-fetch data
+    //
+    //     cancelEditLastName();
+    // }
 
     const handleEditMobile = () => setEditingMobileForm(true)
     const handleMobileChange = (event: { target: { value: React.SetStateAction<string> } }) => setMobile(event.target.value)
     const cancelEditMobile = () => setEditingMobileForm(false)
-    const handleSaveEditMobile= (event: { preventDefault: () => void }) => {
-        event.preventDefault()
-        // api call to save and update email
-        // re-fetch data
-
-        cancelEditMobile();
-    }
+    // const handleSaveEditMobile= (event: { preventDefault: () => void }) => {
+    //     event.preventDefault()
+    //     // api call to save and update email
+    //     // re-fetch data
+    //
+    //     cancelEditMobile();
+    // }
 
     const handleEditPlanReminder = () => setEditingPlanReminderForm(true)
     const handlePlanReminderChange = (event: any) => {
@@ -144,7 +165,7 @@ const ProfileSettingsPortal = (props: IProfileSettingsPortal) => {
                 <div className="ProfileSettingsSection">
                     { editingEmailForm ?
                         <>
-                            <form onSubmit={handleSaveEditEmail}>
+                            <form onSubmit={handleSaveUserInfo}>
                                 <input type="text" name="email" onChange={handleEmailChange} placeholder="Email"/>
                                 <input type="submit" value="save" />
                             </form>
@@ -159,7 +180,7 @@ const ProfileSettingsPortal = (props: IProfileSettingsPortal) => {
                 <div className="ProfileSettingsSection">
                     { editingFirstNameForm ?
                         <>
-                            <form onSubmit={handleSaveEditFirstName}>
+                            <form onSubmit={handleSaveUserInfo}>
                                 <input type="text" name="firstname" onChange={handleFirstNameChange} placeholder="First Name"/>
                                 <input type="submit" value="save" />
                             </form>
@@ -174,7 +195,7 @@ const ProfileSettingsPortal = (props: IProfileSettingsPortal) => {
                 <div className="ProfileSettingsSection">
                     { editingLastNameForm ?
                         <>
-                            <form onSubmit={handleSaveEditLastName}>
+                            <form onSubmit={handleSaveUserInfo}>
                                 <input type="text" name="lastname" onChange={handleLastNameChange} placeholder="Last Name"/>
                                 <input type="submit" value="save" />
                             </form>
@@ -189,8 +210,8 @@ const ProfileSettingsPortal = (props: IProfileSettingsPortal) => {
                 <div className="ProfileSettingsSection">
                     { editingMobileForm ?
                         <>
-                            <form onSubmit={handleSaveEditMobile}>
-                                <input type="text" name="mobile" onChange={handleMobileChange} placeholder="Email"/>
+                            <form onSubmit={handleSaveUserInfo}>
+                                <input type="text" name="mobile" onChange={handleMobileChange} placeholder="Mobile"/>
                                 <input type="submit" value="save" />
                             </form>
                             <button onClick={cancelEditMobile}>Cancel</button>
