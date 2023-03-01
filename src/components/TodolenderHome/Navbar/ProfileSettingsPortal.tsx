@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import * as ReactDOM from "react-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../redux/store";
-import {saveUpdatePlanReminder, tryLogin} from "../../../redux/reducers/userSlice";
+import {saveUpdatePlanReminder, saveUpdateUserInfo} from "../../../redux/reducers/userSlice";
 
 type IProfileSettingsPortal = {
     expanded: boolean;
@@ -36,11 +36,16 @@ const ProfileSettingsPortal = (props: IProfileSettingsPortal) => {
     const cancelEditEmail = () => setEditingEmailForm(false)
     const handleSaveEditEmail = (event: { preventDefault: () => void }) => {
         event.preventDefault()
-        console.log(email)
         // api call to save and update email
-        // re-fetch data
-
-        cancelEditEmail();
+        dispatch(saveUpdateUserInfo({
+            email,
+            passwordHash: userState.passwordHash,
+            firstName,
+            lastName,
+            mobile,
+            currentGoal: userState.currentGoal
+        }))
+        cancelEditEmail()
     }
 
     const handleEditFirstName = () => setEditingFirstNameForm(true)
@@ -117,8 +122,6 @@ const ProfileSettingsPortal = (props: IProfileSettingsPortal) => {
         event.preventDefault()
         // api call to save and update planReminder
         dispatch(saveUpdatePlanReminder(planReminder))
-        // re-fetch data
-
         cancelEditPlanReminder()
     }
 

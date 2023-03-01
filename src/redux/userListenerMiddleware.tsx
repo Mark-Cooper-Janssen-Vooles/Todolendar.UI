@@ -7,7 +7,8 @@ import {
     setAlertMessage,
     setUserInfo,
     setPlanReminder,
-    saveUpdatePlanReminder
+    saveUpdatePlanReminder,
+    saveUpdateUserInfo
 } from './reducers/userSlice'
 import axios from 'axios';
 import { getCookie } from "./getCookie";
@@ -105,21 +106,64 @@ listenerMiddleware.startListening({
         const userId = listenerApi.getState().user.user.id;
 
         try {
-            const data = await axios.put(`https://localhost:7025/PlanReminder/${userId}`, {
-                "planReminderOn": action.payload.planReminderOn,
-                "frequency": action.payload.frequency,
-                "nextScheduledAt": action.payload.nextScheduledAt,
-                "description": action.payload.description
-            }, {
-                headers: {
-                    'Authorization': getCookie("Authorization")
-                }
+            const data = await axios.put(
+                `https://localhost:7025/PlanReminder/${userId}`,
+                {
+                    "planReminderOn": action.payload.planReminderOn,
+                    "frequency": action.payload.frequency,
+                    "nextScheduledAt": action.payload.nextScheduledAt,
+                    "description": action.payload.description
+                },
+                { headers: { 'Authorization': getCookie("Authorization") }
             })
 
-            console.log(data.status)
             if (data.status === 200) {
                 listenerApi.dispatch(setPlanReminder(action.payload)) // keep redux store in sync
             }
+        } catch (e) {
+            console.log(e)
+            // set error message to user, toggle a window.Alert in the component
+            listenerApi.dispatch(setAlertMessage('Saving your plan reminder updates were unsuccessful. Try again'))
+        }
+    },
+})
+
+listenerMiddleware.startListening({
+    actionCreator: saveUpdateUserInfo,
+    effect: async (action, listenerApi) => {
+        // Async logic, PUT to planReminder endpoint
+        // @ts-ignore
+        const userId = listenerApi.getState().user.user.id;
+
+        console.log(userId)
+
+        console.log({
+            "email": action.payload.email,
+            "passwordHash": action.payload.passwordHash,
+            "firstName": action.payload.firstName,
+            "lastName": action.payload.lastName,
+            "mobile": action.payload.mobile,
+            "currentGoal": action.payload.currentGoal
+        })
+
+        try {
+            const data = await axios.put(
+                `https://localhost:7025/Auth/user/${userId}`,
+                {
+                    "email": action.payload.email,
+                    "passwordHash": action.payload.passwordHash,
+                    "firstName": action.payload.firstName,
+                    "lastName": action.payload.lastName,
+                    "mobile": action.payload.mobile,
+                    "currentGoal": action.payload.currentGoal
+                },
+                { headers: { 'Authorization': getCookie("Authorization") }
+                })
+
+            console.log(data.status)
+            // if (data.status === 200) {
+            //     listenerApi.dispatch(setPlanReminder(action.payload)) // keep redux store in sync
+            // }
         } catch (e) {
             console.log(e)
             // set error message to user, toggle a window.Alert in the component
