@@ -13,3 +13,9 @@ export const getCookie = (cname: string) => {
     }
     return "";
 }
+
+export const deleteCookies = () => {
+    const expireTime = (new Date(Date.now() + -86400*1000)).toUTCString(); // set cookie to have expired yesterday
+    document.cookie = `Authorization=;expires=${expireTime};path=/`
+    document.cookie = `UserId=;expires=${expireTime};path=/`
+}

@@ -13,7 +13,7 @@ import {
     deleteUser
 } from './reducers/userSlice'
 import axios from 'axios';
-import { getCookie } from "./getCookie";
+import { getCookie, deleteCookies } from "./helpers";
 
 // Create the middleware instance and methods
 export const listenerMiddleware = createListenerMiddleware()
@@ -184,9 +184,7 @@ listenerMiddleware.startListening({
             if (data.status === 200) {
                 listenerApi.dispatch(setAlertMessage('Your account has been deleted'))
                 // delete cookies
-                const expireTime = (new Date(Date.now() + -86400*1000)).toUTCString(); // set cookie to have expired yesterday
-                document.cookie = `Authorization=;expires=${expireTime};path=/`
-                document.cookie = `UserId=;expires=${expireTime};path=/`
+                deleteCookies()
                 // log out
                 setTimeout(() => {
                     listenerApi.dispatch(setLoggedInState(false))

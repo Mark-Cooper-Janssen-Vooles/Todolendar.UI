@@ -3,7 +3,7 @@ import Landing from "./components/Landing/Landing";
 import TodolenderHome from "./components/TodolenderHome/TodolenderHome";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "./redux/store";
-import { getCookie } from "./redux/getCookie";
+import { getCookie } from "./redux/helpers";
 import { tryGetUserAndPlanReminderInfo } from "./redux/reducers/userSlice";
 
 const App = () => {
