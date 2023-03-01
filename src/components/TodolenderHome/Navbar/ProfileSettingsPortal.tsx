@@ -138,7 +138,7 @@ const ProfileSettingsPortal = (props: IProfileSettingsPortal) => {
     }
 
     const handleLogout = () => {
-        window.alert('logged out')
+        window.alert('You have been logged out.')
         deleteCookies()
         dispatch(setLoggedInState(false))
     }
