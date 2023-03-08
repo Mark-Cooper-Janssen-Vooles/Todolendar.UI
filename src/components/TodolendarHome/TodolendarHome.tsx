@@ -2,13 +2,13 @@ import React from 'react';
 import Navbar from "./Navbar/Navbar";
 import Todolist from "./Todolist";
 import Calendar from "./Calendar/Calendar";
-import './TodolenderHome.css';
+import './TodolendarHome.css';
 
-const TodolenderHome = () => {
+const TodolendarHome = () => {
     return (
         <div>
             <Navbar />
-            <div className="TodolenderBody">
+            <div className="TodolendarBody">
                 <Todolist />
                 <Calendar />
             </div>
@@ -16,4 +16,4 @@ const TodolenderHome = () => {
     )
 }
 
-export default TodolenderHome;
+export default TodolendarHome;

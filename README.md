@@ -1,8 +1,8 @@
-# Todolender.UI
+# Todolendar.UI
 
-This repository is the frontend for Todolender, a project which is a todo list and calendar fusion. 
+This repository is the frontend for Todolendar, a project which is a todo list and calendar fusion. 
 
-The backend for Todolender is found at [Todolender.API](https://github.com/Mark-Cooper-Janssen-Vooles/Todolender.API).
+The backend for Todolendar is found at [Todolendar.API](https://github.com/Mark-Cooper-Janssen-Vooles/Todolendar.API).
 
 Features include account creation, sign-in functionality, editing your profile, creating todo's and adding them into a calendar as a scheduled todo. Users will also be able to set SMS notifications for reminding them to plan their week / month / day, as well as for reminding them when they have a scheduled todo coming up.
 
@@ -23,7 +23,7 @@ A basic database schema is available [here](https://app.diagrams.net/#G1NYqMTprb
 - Typescript has been leveraged to improve the developer experience
 
 ## Running Locally
-To run this project locally, you will need to first start [Todolender.API](https://github.com/Mark-Cooper-Janssen-Vooles/Todolender.API) and then run `npm start`.
+To run this project locally, you will need to first start [Todolendar.API](https://github.com/Mark-Cooper-Janssen-Vooles/Todolendar.API) and then run `npm start`.
 
 ## Available Scripts
 

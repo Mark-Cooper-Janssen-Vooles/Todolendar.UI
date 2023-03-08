@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import Landing from "./components/Landing/Landing";
-import TodolenderHome from "./components/TodolenderHome/TodolenderHome";
+import TodolendarHome from "./components/TodolendarHome/TodolendarHome";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "./redux/store";
 import { getCookie } from "./redux/helpers";
@@ -29,7 +29,7 @@ const App = () => {
     return (
         <div>
             { !loggedIn && <Landing /> }
-            { loggedIn && <TodolenderHome />}
+            { loggedIn && <TodolendarHome />}
         </div>
     );
 }
