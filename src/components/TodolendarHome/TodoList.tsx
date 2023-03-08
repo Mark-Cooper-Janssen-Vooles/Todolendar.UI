@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
-import {fetchTodos} from "../../redux/reducers/todoSlice";
+import {deleteTodo, fetchTodos} from "../../redux/reducers/todoSlice";
 
 const TodoList = () => {
     const todos = useSelector((state: RootState) => state.todo.todos)
@@ -9,9 +9,9 @@ const TodoList = () => {
     const [addActive, setAddActive] = useState(false)
     const [addDate, setAddDate] = useState('')
     const [addTime, setAddTime] = useState('')
-
     const [editTodo, setEditTodo] = useState(false)
     const [activeTodo, setActiveTodo] = useState({ id: '', title: '', description: ''})
+    const dispatch = useDispatch()
 
     const handleAdd = (todo: React.SetStateAction<{ id: string; title: string; description: string; }>) => {
         setAddActive(!addActive)
@@ -83,6 +83,7 @@ const TodoList = () => {
     const handleDeleteTodo = (todo: React.SetStateAction<{ id: string; title: string; description: string; }>) => {
         window.alert('You have deleted the todo!')
         // api call to delete todo
+        dispatch(deleteTodo(todo))
     }
 
     const StandardButtons = (props: { currentTodo: { id: string, title: string, description: string }}) => <>

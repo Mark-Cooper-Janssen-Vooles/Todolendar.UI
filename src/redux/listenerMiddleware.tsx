@@ -14,7 +14,7 @@ import {
 } from './reducers/userSlice'
 import axios from 'axios';
 import { getCookie, deleteCookies } from "./helpers";
-import {createTodo, fetchTodos, setTodos} from "./reducers/todoSlice";
+import {createTodo, deleteTodo, fetchTodos, setTodos} from "./reducers/todoSlice";
 
 // Create the middleware instance and methods
 export const listenerMiddleware = createListenerMiddleware()
@@ -248,8 +248,30 @@ listenerMiddleware.startListening({
         } catch (e) {
             console.log(e)
             // set error message to user, toggle a window.Alert in the component
-            listenerApi.dispatch(setAlertMessage('Signup was unsuccessful. Try again'))
+            listenerApi.dispatch(setAlertMessage('Create todo was unsuccessful. Try again'))
         }
     },
 })
 
+listenerMiddleware.startListening({
+    actionCreator: deleteTodo,
+    effect: async (action, listenerApi) => {
+        // Async logic, GET to /todo/{userId] endpoint
+        // @ts-ignore
+        const userId = listenerApi.getState().user.user.id;
+
+        try {
+            const data = await axios.delete(`${baseUrl}/Todo/${userId}/${action.payload.id}`,
+                { headers: { 'Authorization': getCookie("Authorization") } })
+
+            if (data.status === 200) {
+                // re-fetch todos
+                listenerApi.dispatch(fetchTodos())
+            }
+        } catch (e) {
+            console.log(e)
+            // set error message to user, toggle a window.Alert in the component
+            listenerApi.dispatch(setAlertMessage('Deleting your todo was unsuccessful. Try again'))
+        }
+    },
+})
