@@ -1,6 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialState = {
+type todoState = {
+    todos: {
+        id: string;
+        title: string;
+        description: string;
+    }[]
+}
+
+const initialState: todoState = {
     todos: []
 }
 
