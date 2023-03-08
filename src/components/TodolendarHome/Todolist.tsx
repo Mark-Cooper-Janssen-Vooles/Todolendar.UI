@@ -1,29 +1,32 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import '../../App.css';
 import './Todolist.css'
+import {useDispatch, useSelector} from "react-redux";
+import {fetchTodos} from "../../redux/reducers/todoSlice";
+import {RootState} from "../../redux/store";
 
-const todos = [
-    {
-        id: 1,
-        title: 'Todo item 1',
-        description: 'To do item 1 description'
-    },
-    {
-        id: 2,
-        title: 'Todo item 2',
-        description: 'To do item 2 description'
-    },
-    {
-        id: 3,
-        title: 'Todo item 3',
-        description: 'To do item 3 description'
-    },
-    {
-        id: 4,
-        title: 'Todo item 4',
-        description: 'To do item 4 description'
-    }
-]
+// const todos = [
+//     {
+//         id: 1,
+//         title: 'Todo item 1',
+//         description: 'To do item 1 description'
+//     },
+//     {
+//         id: 2,
+//         title: 'Todo item 2',
+//         description: 'To do item 2 description'
+//     },
+//     {
+//         id: 3,
+//         title: 'Todo item 3',
+//         description: 'To do item 3 description'
+//     },
+//     {
+//         id: 4,
+//         title: 'Todo item 4',
+//         description: 'To do item 4 description'
+//     }
+// ]
 
 const Todolist = () => {
     const [createTodoActive, setCreateTodoActive] = useState(false)
@@ -31,6 +34,9 @@ const Todolist = () => {
         title: '',
         description: ''
     })
+    const todos = useSelector((state: RootState) => state.todo.todos)
+
+    const dispatch = useDispatch()
 
     const [addActive, setAddActive] = useState(false)
     const [addDate, setAddDate] = useState('')
@@ -38,6 +44,10 @@ const Todolist = () => {
 
     const [editTodo, setEditTodo] = useState(false)
     const [activeTodo, setActiveTodo] = useState({ id: 0, title: '', description: ''})
+
+    useEffect(() => {
+        dispatch(fetchTodos())
+    }, [])
 
     const handleCreateTodo = (e: any) => {
         const title = e.target[0].value
@@ -150,44 +160,51 @@ const Todolist = () => {
                     <button onClick={() => setCreateTodoActive(true)}>Create Todo</button>
                 }
             </div>
-            <ul className="TodolistUl">
-                {todos?.map((todo) => {
-                    const currentTodo = todos.find(x => x.id === todo.id)
-                    const currentTodoAddActiveForm = addActive && todo.id === activeTodo.id
-                    const currentTodoEditTodoActive = editTodo && todo.id === activeTodo.id;
-                    const formActiveForCurrentTodo = currentTodoAddActiveForm || currentTodoEditTodoActive
 
-                    return (
-                    <li key={todo.id} className="TodolistLi">
-                        <div className="TodoListLiTitle">{todo.title} </div>
-                        {todo.description && <div className="TodolistLiDescription">{todo.description}</div>}
+            { todos.length > 0 ?
+                <>
+                    <ul className="TodolistUl">
+                        {todos?.map((todo) => {
+                            const currentTodo = todos.find(x => x.id === todo.id)
+                            const currentTodoAddActiveForm = addActive && todo.id === activeTodo.id
+                            const currentTodoEditTodoActive = editTodo && todo.id === activeTodo.id;
+                            const formActiveForCurrentTodo = currentTodoAddActiveForm || currentTodoEditTodoActive
 
-                        { currentTodoAddActiveForm &&
-                            <>
-                                <form onSubmit={handleSaveAdd}>
-                                    <input type="date" onChange={handleAddDate}/>
-                                    <input type="time" onChange={handleAddTime}/>
-                                    <input type="submit" value="save" />
-                                </form>
-                                <button onClick={() => setAddActive(false)}>Cancel</button>
-                            </> }
+                            return (
+                                <li key={todo.id} className="TodolistLi">
+                                    <div className="TodoListLiTitle">{todo.title} </div>
+                                    {todo.description && <div className="TodolistLiDescription">{todo.description}</div>}
 
-                        { currentTodoEditTodoActive &&
-                            <>
-                                <form onSubmit={handleSaveEditTodo}>
-                                    {/*// @ts-ignore*/}
-                                    <input type="text" name="title" onChange={handleEditedTodo} defaultValue={currentTodo.title}/>
-                                    {/*// @ts-ignore*/}
-                                    <textarea name="description" onChange={handleEditedTodo} defaultValue={currentTodo.description} />
-                                    <input type="submit" value="save" />
-                                </form>
-                                <button onClick={() => setEditTodo(false)}>Cancel</button>
-                            </> }
-                        { !formActiveForCurrentTodo && <StandardButtons currentTodo={todo} /> }
-                    </li>
-                    )
-                })}
-            </ul>
+                                    { currentTodoAddActiveForm &&
+                                        <>
+                                            <form onSubmit={handleSaveAdd}>
+                                                <input type="date" onChange={handleAddDate}/>
+                                                <input type="time" onChange={handleAddTime}/>
+                                                <input type="submit" value="save" />
+                                            </form>
+                                            <button onClick={() => setAddActive(false)}>Cancel</button>
+                                        </> }
+
+                                    { currentTodoEditTodoActive &&
+                                        <>
+                                            <form onSubmit={handleSaveEditTodo}>
+                                                {/*// @ts-ignore*/}
+                                                <input type="text" name="title" onChange={handleEditedTodo} defaultValue={currentTodo.title}/>
+                                                {/*// @ts-ignore*/}
+                                                <textarea name="description" onChange={handleEditedTodo} defaultValue={currentTodo.description} />
+                                                <input type="submit" value="save" />
+                                            </form>
+                                            <button onClick={() => setEditTodo(false)}>Cancel</button>
+                                        </> }
+                                    { !formActiveForCurrentTodo && <StandardButtons currentTodo={todo} /> }
+                                </li>
+                            )
+                        })}
+                    </ul>
+                </>
+                :
+                <div>there are no todos, add some above!</div>
+            }
         </div>
     )
 }

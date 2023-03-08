@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
 import dateReducer from './reducers/dateSlice'
 import userReducer from './reducers/userSlice'
-import { listenerMiddleware } from "./userListenerMiddleware";
+import todoReducer from './reducers/todoSlice'
+import { listenerMiddleware } from "./listenerMiddleware";
 
 const store = configureStore({
     reducer: {
         date: dateReducer,
-        user: userReducer
+        user: userReducer,
+        todo: todoReducer,
     },
     // Add the listener middleware to the store.
     // NOTE: Since this can receive actions with functions inside,
