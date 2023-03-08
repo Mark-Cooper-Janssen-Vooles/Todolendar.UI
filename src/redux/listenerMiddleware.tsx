@@ -100,8 +100,6 @@ listenerMiddleware.startListening({
             })
 
             if (data.status === 201) {
-                console.log(data)
-                console.log('Sign up successful')
                 listenerApi.dispatch(setAlertMessage('Sign up was successful. You may now log in.'))
                 listenerApi.dispatch(setSignupSuccessful())
             }
@@ -212,14 +210,11 @@ listenerMiddleware.startListening({
         // @ts-ignore
         const userId = listenerApi.getState().user.user.id;
 
-        console.log('todo middleware')
-
         try {
             const todos = await axios.get(`${baseUrl}/Todo/${userId}`,
                 { headers: { 'Authorization': getCookie("Authorization") } })
 
             if (todos.status === 200) {
-                console.log(todos.data)
                 listenerApi.dispatch(setTodos(todos.data))
             }
         } catch (e) {
@@ -235,11 +230,7 @@ listenerMiddleware.startListening({
         // @ts-ignore
         const userId = listenerApi.getState().user.user.id;
 
-        console.log('create todo middleware')
-
         try {
-            console.log(action.payload)
-
             const data = await axios.post(
                 `${baseUrl}/Todo/${userId}`,
                 {
@@ -250,12 +241,9 @@ listenerMiddleware.startListening({
                 { headers: { 'Authorization': getCookie("Authorization") }
                 })
 
-            console.log(data.status)
             if (data.status === 201) {
-                // console.log(data)
-                // console.log('Sign up successful')
-                // listenerApi.dispatch(setAlertMessage('Sign up was successful. You may now log in.'))
-                // listenerApi.dispatch(setSignupSuccessful())
+                // re-fetch todos
+                listenerApi.dispatch(fetchTodos())
             }
         } catch (e) {
             console.log(e)
