@@ -16,18 +16,18 @@ export const todoSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        fetchTodos: (state) => { //picked up in middleware
-            console.log('fetch todos reducer')
-        },
+        fetchTodos: (state) => {}, // picked up in middleware
         setTodos: (state, action) => {
             state.todos = action.payload
-        }
+        },
+        createTodo: (state) => {}, // picked up in middleware
     }
 })
 
 export const {
     fetchTodos,
-    setTodos
+    setTodos,
+    createTodo
 } = todoSlice.actions
 
 export default todoSlice.reducer

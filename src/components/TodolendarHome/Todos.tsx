@@ -5,30 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchTodos} from "../../redux/reducers/todoSlice";
 import {RootState} from "../../redux/store";
 
-// const todos = [
-//     {
-//         id: 1,
-//         title: 'Todo item 1',
-//         description: 'To do item 1 description'
-//     },
-//     {
-//         id: 2,
-//         title: 'Todo item 2',
-//         description: 'To do item 2 description'
-//     },
-//     {
-//         id: 3,
-//         title: 'Todo item 3',
-//         description: 'To do item 3 description'
-//     },
-//     {
-//         id: 4,
-//         title: 'Todo item 4',
-//         description: 'To do item 4 description'
-//     }
-// ]
-
-const Todolist = () => {
+const Todos = () => {
     const [createTodoActive, setCreateTodoActive] = useState(false)
     const [createTodo, setCreateTodo] = useState({
         title: '',
@@ -207,4 +184,4 @@ const Todolist = () => {
     )
 }
 
-export default Todolist
+export default Todos

@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from "./Navbar/Navbar";
-import Todolist from "./Todolist";
+import Todos from "./Todos";
 import Calendar from "./Calendar/Calendar";
 import './TodolendarHome.css';
 
@@ -9,7 +9,7 @@ const TodolendarHome = () => {
         <div>
             <Navbar />
             <div className="TodolendarBody">
-                <Todolist />
+                <Todos />
                 <Calendar />
             </div>
         </div>
