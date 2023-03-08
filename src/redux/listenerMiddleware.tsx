@@ -237,17 +237,31 @@ listenerMiddleware.startListening({
 
         console.log('create todo middleware')
 
-        // try {
-        //     const todos = await axios.get(`${baseUrl}/Todo/${userId}`,
-        //         { headers: { 'Authorization': getCookie("Authorization") } })
-        //
-        //     if (todos.status === 200) {
-        //         console.log(todos.data)
-        //         listenerApi.dispatch(setTodos(todos.data))
-        //     }
-        // } catch (e) {
-        //     console.log('fetching todos was unsuccessful')
-        // }
+        try {
+            console.log(action.payload)
+
+            const data = await axios.post(
+                `${baseUrl}/Todo/${userId}`,
+                {
+                    userId: userId,
+                    title: action.payload.title,
+                    description: action.payload.description,
+                },
+                { headers: { 'Authorization': getCookie("Authorization") }
+                })
+
+            console.log(data.status)
+            if (data.status === 201) {
+                // console.log(data)
+                // console.log('Sign up successful')
+                // listenerApi.dispatch(setAlertMessage('Sign up was successful. You may now log in.'))
+                // listenerApi.dispatch(setSignupSuccessful())
+            }
+        } catch (e) {
+            console.log(e)
+            // set error message to user, toggle a window.Alert in the component
+            listenerApi.dispatch(setAlertMessage('Signup was unsuccessful. Try again'))
+        }
     },
 })
 

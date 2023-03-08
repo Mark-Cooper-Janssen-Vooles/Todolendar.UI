@@ -20,7 +20,7 @@ export const todoSlice = createSlice({
         setTodos: (state, action) => {
             state.todos = action.payload
         },
-        createTodo: (state) => {}, // picked up in middleware
+        createTodo: (state, action) => {}, // picked up in middleware
     }
 })
 
