@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
-import {deleteTodo, fetchTodos} from "../../redux/reducers/todoSlice";
+import {deleteTodo, fetchTodos, saveEditedTodo} from "../../redux/reducers/todoSlice";
 
 const TodoList = () => {
     const todos = useSelector((state: RootState) => state.todo.todos)
@@ -50,10 +50,7 @@ const TodoList = () => {
     const handleEditedTodo = (e: any) => {
         e.preventDefault()
 
-        console.log(e.target.type)
-
         if (e.target.type === "text") {
-            console.log(e.target.value)
             setActiveTodo({
                 id: activeTodo.id,
                 title: e.target.value,
@@ -62,7 +59,6 @@ const TodoList = () => {
         }
 
         if (e.target.type === "textarea") {
-            console.log(e.target.value)
             setActiveTodo({
                 id: activeTodo.id,
                 title: activeTodo.title,
@@ -73,9 +69,8 @@ const TodoList = () => {
 
     const handleSaveEditTodo = (e: any) => {
         e.preventDefault()
-        console.log(activeTodo)
         // api call to edit todo
-        // re-fetch data
+        dispatch(saveEditedTodo(activeTodo))
 
         setEditTodo(false)
     }

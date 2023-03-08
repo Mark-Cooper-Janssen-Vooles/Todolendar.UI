@@ -22,6 +22,7 @@ export const todoSlice = createSlice({
         },
         createTodo: (state, action) => {}, // picked up in middleware
         deleteTodo: (state, action) => {}, // picked up in middleware
+        saveEditedTodo: (state, action) => {}, // picked up in middleware
     }
 })
 
@@ -29,7 +30,8 @@ export const {
     fetchTodos,
     setTodos,
     createTodo,
-    deleteTodo
+    deleteTodo,
+    saveEditedTodo
 } = todoSlice.actions
 
 export default todoSlice.reducer
