@@ -17,6 +17,7 @@ import { getCookie, deleteCookies } from "./helpers";
 
 // Create the middleware instance and methods
 export const listenerMiddleware = createListenerMiddleware()
+const baseUrl = 'https://localhost:7025'
 
 // Add one or more listener entries that look for specific actions.
 // They may contain any sync or async logic, similar to thunks.
@@ -25,7 +26,7 @@ listenerMiddleware.startListening({
     effect: async (action, listenerApi) => {
         // Async logic, POST to login endpoint
         try {
-            const data = await axios.post('https://localhost:7025/Auth/login', {
+            const data = await axios.post(`${baseUrl}/Auth/login`, {
                 email: action.payload.username,
                 password: action.payload.password,
             })
@@ -51,7 +52,7 @@ listenerMiddleware.startListening({
     effect: async (action, listenerApi) => {
         // set "user" state
         try {
-            const user = await axios(`https://localhost:7025/Auth/user/${getCookie("UserId")}`, {
+            const user = await axios(`${baseUrl}/Auth/user/${getCookie("UserId")}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': getCookie("Authorization")
@@ -66,7 +67,7 @@ listenerMiddleware.startListening({
 
         // set planReminder state
         try {
-            const planReminder = await axios(`https://localhost:7025/PlanReminder/${getCookie("UserId")}`, {
+            const planReminder = await axios(`${baseUrl}/PlanReminder/${getCookie("UserId")}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': getCookie("Authorization")
@@ -85,7 +86,7 @@ listenerMiddleware.startListening({
     effect: async (action, listenerApi) => {
         // Async logic, POST to login endpoint
         try {
-            const data = await axios.post('https://localhost:7025/Auth/CreateUser', {
+            const data = await axios.post(`${baseUrl}/Auth/CreateUser`, {
                 email: action.payload.username,
                 passwordHash: action.payload.password,
                 firstname: action.payload.firstname,
@@ -117,7 +118,7 @@ listenerMiddleware.startListening({
 
         try {
             const data = await axios.put(
-                `https://localhost:7025/PlanReminder/${userId}`,
+                `${baseUrl}/PlanReminder/${userId}`,
                 {
                     "planReminderOn": action.payload.planReminderOn,
                     "frequency": action.payload.frequency,
@@ -147,7 +148,7 @@ listenerMiddleware.startListening({
 
         try {
             const data = await axios.put(
-                `https://localhost:7025/Auth/user/${userId}`,
+                `${baseUrl}/Auth/user/${userId}`,
                 {
                     "email": action.payload.email,
                     "passwordHash": action.payload.passwordHash,
@@ -178,7 +179,7 @@ listenerMiddleware.startListening({
         const userId = listenerApi.getState().user.user.id;
 
         try {
-            const data = await axios.delete(`https://localhost:7025/Auth/user/${userId}`,
+            const data = await axios.delete(`${baseUrl}/Auth/user/${userId}`,
                 { headers: { 'Authorization': getCookie("Authorization") } })
 
             if (data.status === 200) {
