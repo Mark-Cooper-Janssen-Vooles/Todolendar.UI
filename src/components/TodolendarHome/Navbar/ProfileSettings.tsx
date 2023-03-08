@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import '../../../App.css'
 import './ProfileSettings.css'
-import * as ReactDOM from 'react-dom'
 import ProfileSettingsPortal from "./ProfileSettingsPortal";
 
 const ProfileSettings = () => {

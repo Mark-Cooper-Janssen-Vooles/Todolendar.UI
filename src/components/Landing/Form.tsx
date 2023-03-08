@@ -27,7 +27,7 @@ const Form = (props: FormProps) => {
     const alertMessage = useSelector((state: RootState) => state.user.alertMessage)
 
     useEffect(() => {
-        if (alertMessage != '') {
+        if (alertMessage !== '') {
             window.alert(alertMessage)
             dispatch(setAlertMessage(''))
             reset() // resets form values to empty
@@ -35,11 +35,11 @@ const Form = (props: FormProps) => {
     }, [alertMessage])
 
     const onSubmit = (data: FormData) => {
-        if (formType == displayStates.LoginForm) {
+        if (formType === displayStates.LoginForm) {
             // do redux login call
             dispatch(tryLogin(data))
         }
-        if (formType == displayStates.SignupForm) {
+        if (formType === displayStates.SignupForm) {
             // do redux signup call
             dispatch(trySignup(data))
         }
@@ -48,7 +48,7 @@ const Form = (props: FormProps) => {
     return (
         <form className="FormWrapper" onSubmit={handleSubmit(onSubmit)}>
             {
-                formType == displayStates.SignupForm ?
+                formType === displayStates.SignupForm ?
                     <>
                         <div className="Form">
                             <input className="Input BottomMargin LeftMargin" {...register("username")} placeholder="Email"/>

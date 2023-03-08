@@ -92,7 +92,7 @@ const Todolist = () => {
 
         console.log(e.target.type)
 
-        if (e.target.type == "text") {
+        if (e.target.type === "text") {
             console.log(e.target.value)
             setActiveTodo({
                 id: activeTodo.id,
@@ -101,7 +101,7 @@ const Todolist = () => {
             })
         }
 
-        if (e.target.type == "textarea") {
+        if (e.target.type === "textarea") {
             console.log(e.target.value)
             setActiveTodo({
                 id: activeTodo.id,
@@ -152,7 +152,7 @@ const Todolist = () => {
             </div>
             <ul className="TodolistUl">
                 {todos?.map((todo) => {
-                    const currentTodo = todos.find(x => x.id == todo.id)
+                    const currentTodo = todos.find(x => x.id === todo.id)
                     const currentTodoAddActiveForm = addActive && todo.id === activeTodo.id
                     const currentTodoEditTodoActive = editTodo && todo.id === activeTodo.id;
                     const formActiveForCurrentTodo = currentTodoAddActiveForm || currentTodoEditTodoActive

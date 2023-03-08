@@ -8,7 +8,6 @@ import {
     saveUpdateUserInfo,
     setAlertMessage, setLoggedInState
 } from "../../../redux/reducers/userSlice";
-import {displayStates} from "../../Landing/LoginSignupBar";
 import {deleteCookies} from "../../../redux/helpers";
 
 type IProfileSettingsPortal = {
@@ -23,7 +22,7 @@ const ProfileSettingsPortal = (props: IProfileSettingsPortal) => {
     const alertMessage = useSelector((state: RootState) => state.user.alertMessage)
 
     useEffect(() => {
-        if (alertMessage != '') {
+        if (alertMessage !== '') {
             window.alert(alertMessage)
             dispatch(setAlertMessage(''))
         }

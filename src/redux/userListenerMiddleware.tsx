@@ -30,7 +30,7 @@ listenerMiddleware.startListening({
                 password: action.payload.password,
             })
 
-            if (data.status == 200) {
+            if (data.status === 200) {
                 // set cookies
                 // 1 Day = 24 Hrs = 24*60*60 = 86400.
                 const expireTime = (new Date(Date.now()+ 86400*1000)).toUTCString(); //cookie expires in 1 day
@@ -94,7 +94,7 @@ listenerMiddleware.startListening({
                 currentGoal: ''
             })
 
-            if (data.status == 201) {
+            if (data.status === 201) {
                 console.log(data)
                 console.log('Sign up successful')
                 listenerApi.dispatch(setAlertMessage('Sign up was successful. You may now log in.'))

@@ -20,7 +20,7 @@ const WeeklyViewDayColumn = ({hours, currentHour, daysTodos, day, handleSchedule
     const scheduledTodoElement = (scheduledTodo: IActiveScheduledTodo, hour: string) => {
         const scheduledTodoHour = dayjs(scheduledTodo.ScheduledAt, dayjsFormat).hour()
         const scheduledTodoHourFormatted = hours[scheduledTodoHour - 1]
-        if (scheduledTodoHourFormatted == hour) {
+        if (scheduledTodoHourFormatted === hour) {
             return <div
                 className="CalendarWeeklyColumnContentItemEvent"
                 onClick={() => handleScheduledTodoOpen(scheduledTodo)}
@@ -34,7 +34,7 @@ const WeeklyViewDayColumn = ({hours, currentHour, daysTodos, day, handleSchedule
             {hours.map((hour, id) => {
                 // if hour == a scheduledEvent && currentHour == hour, make block highlighted with "CurrentHour" class
                 if (currentHour === hour ) {
-                    if (currentDay == day.toUpperCase()) {
+                    if (currentDay === day.toUpperCase()) {
                         return <div className="CalendarWeeklyColumnTimeContentItemCurrentHourAndDay" id={`${day} - ${hour}`} key={id}>
                             { daysTodos.map(scheduledTodo => scheduledTodoElement(scheduledTodo, hour)) }
                         </div>

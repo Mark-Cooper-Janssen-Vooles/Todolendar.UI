@@ -1,12 +1,9 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import './Navbar.css'
 import MonthNavigation from "./MonthNavigation";
 import ViewDropdown from "./ViewDropdown";
 import ProfileSettings from "./ProfileSettings";
 import '../../../App.css'
-import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../../redux/store";
-import {saveUpdateUserInfo} from "../../../redux/reducers/userSlice";
 import CurrentGoal from "./CurrentGoal";
 
 const Navbar = () => {

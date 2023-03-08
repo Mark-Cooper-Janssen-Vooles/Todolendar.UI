@@ -1,9 +1,6 @@
 import React, {useEffect, useState} from "react";
 import ScheduledTodoPortal from "./ScheduledTodoPortal";
 import { IActiveScheduledTodo } from "./ScheduledTodoPortal";
-import dayjs from "dayjs";
-import {dayjsFormat} from "../../../redux/reducers/dateSlice";
-import { days } from "./Calendar"
 import {IScheduledTodosDummyDataWeekly, scheduledTodosDummyDataWeekly} from './dummyScheduledEvents'
 import WeeklyViewDayColumn from "./Weekly/WeeklyViewDayColumn";
 
