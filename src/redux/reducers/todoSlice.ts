@@ -27,6 +27,7 @@ export const todoSlice = createSlice({
 
 export const {
     fetchTodos,
+    setTodos
 } = todoSlice.actions
 
 export default todoSlice.reducer

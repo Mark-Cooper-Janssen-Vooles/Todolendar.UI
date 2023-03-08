@@ -14,7 +14,7 @@ import {
 } from './reducers/userSlice'
 import axios from 'axios';
 import { getCookie, deleteCookies } from "./helpers";
-import {fetchTodos} from "./reducers/todoSlice";
+import {fetchTodos, setTodos} from "./reducers/todoSlice";
 
 // Create the middleware instance and methods
 export const listenerMiddleware = createListenerMiddleware()
@@ -215,12 +215,12 @@ listenerMiddleware.startListening({
         console.log('todo middleware')
 
         try {
-            const data = await axios.get(`${baseUrl}/Todo/${userId}`,
+            const todos = await axios.get(`${baseUrl}/Todo/${userId}`,
                 { headers: { 'Authorization': getCookie("Authorization") } })
 
-            if (data.status === 200) {
-                console.log(data.data)
-
+            if (todos.status === 200) {
+                console.log(todos.data)
+                listenerApi.dispatch(setTodos(todos.data))
             }
         } catch (e) {
             console.log('fetching todos was unsuccessful')
