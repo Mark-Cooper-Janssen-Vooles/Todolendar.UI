@@ -360,19 +360,6 @@ listenerMiddleware.startListening({
                 }
             })
 
-            // const scheduledTodos = await axios.get(`${baseUrl}/ScheduledTodo/${userId}`,
-            //     {
-            //         headers: {
-            //             'Authorization': getCookie("Authorization"),
-            //             'Accept': 'application/json',
-            //             'Content-Type': 'application/json'
-            //         },
-            //         data: {
-            //             startDate: "2023-03-09T03:44:35.707Z",
-            //             endDate: "2023-03-12T03:44:35.707Z"
-            //         }
-            //     })
-
             if (scheduledTodos.status === 200) {
                 console.log(scheduledTodos.data)
                 // listenerApi.dispatch(setScheduledTodos(scheduledTodos.data))

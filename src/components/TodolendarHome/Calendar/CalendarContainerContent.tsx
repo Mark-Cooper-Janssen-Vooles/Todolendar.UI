@@ -15,21 +15,19 @@ type ICalendarContainerContent = {
 const CalendarContainerContent = ({ hours, currentHour, currentDay }: ICalendarContainerContent) => {
     const [scheduledTodoOpen, setScheduledTodoOpen] = useState(false)
     const [activeScheduledTodo, setActiveScheduledTodo] = useState<IActiveScheduledTodo>({
-        Id: '',
-        UserId: '',
-        Title: '',
-        Description: '',
-        Colour: '',
-        Active: false,
-        RecurCount: 0,
-        RecurFrequency: 0,
-        RecurFrequencyType: '',
-        RecurendDate: '',
-        NotifyBeforeTime: 0, // minutes?
-        CreatedAt: '',
-        UpdatedAt: '',
-        ScheduledAt: '',
-        TriggeredAt: ''
+        id: '',
+        userId: '',
+        title: '',
+        description: '',
+        colour: '',
+        active: false,
+        recurCount: 0,
+        recurFrequencyType: 0,
+        recurEndDate: '',
+        notifyBeforeTime: 0,
+        lastUpdatedAt: '',
+        scheduledAt: '',
+        triggeredAt: ''
     })
     const [scheduledTodos, setScheduledTodos] = useState<IScheduledTodosDummyDataWeekly>({
         Fri: [],

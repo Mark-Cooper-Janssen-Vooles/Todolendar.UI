@@ -7,21 +7,19 @@ const objectSupport = require("dayjs/plugin/objectSupport");
 dayjs.extend(objectSupport);
 
 export type IActiveScheduledTodo = {
-    Id: string;
-    UserId: string;
-    Title: string;
-    Description: string;
-    Colour: string;
-    Active: boolean;
-    RecurCount: number;
-    RecurFrequency: number;
-    RecurFrequencyType: string;
-    RecurendDate: string;
-    NotifyBeforeTime: number; // minutes?
-    CreatedAt: string;
-    UpdatedAt: string;
-    ScheduledAt: string;
-    TriggeredAt: string;
+    id: string;
+    userId: string;
+    title: string;
+    description: string;
+    colour: string;
+    active: boolean;
+    recurCount: number;
+    recurFrequencyType: number;
+    recurEndDate: string;
+    notifyBeforeTime: number; // minutes?
+    lastUpdatedAt: string;
+    scheduledAt: string;
+    triggeredAt: string;
 }
 
 type IScheduledTodoPortal = {
