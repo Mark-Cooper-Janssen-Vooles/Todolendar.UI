@@ -13,11 +13,10 @@ import {fixEndMonth, fixLength, fixStartMonth} from "../../../helpers/fetchSched
 type ICalendarContainerContent = {
     hours: string[];
     currentHour: string;
-    daysOfMonth: number[];
     currentDay: Dayjs;
 }
 
-const CalendarContainerContent = ({ hours, currentHour, daysOfMonth, currentDay }: ICalendarContainerContent) => {
+const CalendarContainerContent = ({ hours, currentHour, currentDay }: ICalendarContainerContent) => {
     const [scheduledTodoOpen, setScheduledTodoOpen] = useState(false)
     const [activeScheduledTodo, setActiveScheduledTodo] = useState<IActiveScheduledTodo>({
         id: '',
@@ -55,14 +54,14 @@ const CalendarContainerContent = ({ hours, currentHour, daysOfMonth, currentDay 
         }, 1000)
 
         // fetch scheduled todos for THIS WEEK ONLY
-        const daysOfMonth2 = computeDaysOfMonth(currentDay, viewingTime)
+        const daysOfMonth = computeDaysOfMonth(currentDay, viewingTime)
 
         const yearMonthDay = currentDay.toISOString().split('T')[0]
         const yearMonthDayArray = yearMonthDay.split('-')
         const currentDayString = yearMonthDayArray[2];
 
-        const startDay = fixLength(daysOfMonth2[0].toString())
-        const endDay = fixLength(daysOfMonth2[6].toString())
+        const startDay = fixLength(daysOfMonth[0].toString())
+        const endDay = fixLength(daysOfMonth[6].toString())
 
         const startMonth = fixStartMonth(yearMonthDayArray[1], currentDayString, startDay)
         const endMonth = fixEndMonth(yearMonthDayArray[1], currentDayString, endDay)
@@ -73,9 +72,10 @@ const CalendarContainerContent = ({ hours, currentHour, daysOfMonth, currentDay 
 
         dispatch(fetchScheduledTodos({
             startDate,
-            endDate
+            endDate,
+            currentDayString,
+            daysOfMonth
         })) // pass in dates!
-        setScheduledTodos(scheduledTodosRedux)
     }, [])
 
     const handleScheduledTodoOpen = (scheduledTodo: IActiveScheduledTodo) => {

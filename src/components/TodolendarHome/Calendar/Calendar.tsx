@@ -61,8 +61,7 @@ const Calendar = () => {
             </div>
 
             <CalendarContainerContent
-                hours={hours} currentHour={currentHour}
-                daysOfMonth={daysOfMonth} currentDay={dayjsTimeObject} />
+                hours={hours} currentHour={currentHour} currentDay={dayjsTimeObject} />
         </div>
     )
 }

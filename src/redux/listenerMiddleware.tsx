@@ -15,7 +15,13 @@ import {
 import axios from 'axios';
 import { getCookie, deleteCookies } from "./helpers";
 import {createTodo, deleteTodo, fetchTodos, saveEditedTodo, setTodos} from "./reducers/todoSlice";
-import {createScheduledTodo, fetchScheduledTodos, setScheduledTodos} from "./reducers/scheduledTodoSlice";
+import {
+    createScheduledTodo,
+    fetchScheduledTodos,
+    IScheduledTodosDataWeekly,
+    setScheduledTodos
+} from "./reducers/scheduledTodoSlice";
+import {IActiveScheduledTodo} from "../components/TodolendarHome/Calendar/ScheduledTodoPortal";
 
 // Create the middleware instance and methods
 export const listenerMiddleware = createListenerMiddleware()
@@ -361,8 +367,43 @@ listenerMiddleware.startListening({
             })
 
             if (scheduledTodos.status === 200) {
-                console.log(scheduledTodos.data)
-                listenerApi.dispatch(setScheduledTodos(scheduledTodos.data))
+                // console.log(scheduledTodos.data)
+                //
+                // // convert data from API sorted into days:
+                // console.log(action.payload.daysOfMonth)
+                // console.log(action.payload.currentDayString)
+
+                const scheduledTodosDayFilter = (scheduledTodos: IActiveScheduledTodo[], day: number) => (
+                    scheduledTodos
+                        .filter(( scheduledTodo: IActiveScheduledTodo) => {
+                            const scheduledTodosDay =
+                                scheduledTodo.scheduledAt.split('T')[0].split('-')[2]
+
+                            let dayOfMonth = action.payload.daysOfMonth[day].toString() // i.e. day = 0 is sunday
+
+
+                            if (dayOfMonth.length < 2) {
+                                dayOfMonth = "0" + dayOfMonth
+                            }
+
+                            if (dayOfMonth == scheduledTodosDay) {
+                                console.log('hmm')
+                                return scheduledTodo
+                            }
+                        })
+                )
+
+                const scheduledTodosWeekly = {
+                    Sun: scheduledTodosDayFilter(scheduledTodos.data, 0),
+                    Mon: scheduledTodosDayFilter(scheduledTodos.data, 1),
+                    Tue: scheduledTodosDayFilter(scheduledTodos.data, 2),
+                    Wed: scheduledTodosDayFilter(scheduledTodos.data, 3),
+                    Thu: scheduledTodosDayFilter(scheduledTodos.data, 4),
+                    Fri: scheduledTodosDayFilter(scheduledTodos.data, 5),
+                    Sat: scheduledTodosDayFilter(scheduledTodos.data, 6)
+                }
+
+                listenerApi.dispatch(setScheduledTodos(scheduledTodosWeekly))
             }
         } catch (e) {
             console.log(e)

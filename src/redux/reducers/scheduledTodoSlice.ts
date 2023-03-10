@@ -36,15 +36,7 @@ export const scheduledTodoSlice = createSlice({
         setScheduledTodos: (state, action) => {
             //state.scheduledTodosWeekly = action.payload
             // need to set the todos into their days somehow
-            state.scheduledTodosWeekly = {
-                Sun: [],
-                Mon: [],
-                Tue: [],
-                Wed: [],
-                Thu: [],
-                Fri: [],
-                Sat: []
-            }
+            state.scheduledTodosWeekly = action.payload
         }
     }
 })
