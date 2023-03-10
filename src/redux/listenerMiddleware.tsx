@@ -15,7 +15,7 @@ import {
 import axios from 'axios';
 import { getCookie, deleteCookies } from "./helpers";
 import {createTodo, deleteTodo, fetchTodos, saveEditedTodo, setTodos} from "./reducers/todoSlice";
-import {createScheduledTodo} from "./reducers/scheduledTodoSlice";
+import {createScheduledTodo, fetchScheduledTodos, setScheduledTodos} from "./reducers/scheduledTodoSlice";
 
 // Create the middleware instance and methods
 export const listenerMiddleware = createListenerMiddleware()
@@ -309,7 +309,6 @@ listenerMiddleware.startListening({
 listenerMiddleware.startListening({
     actionCreator: createScheduledTodo,
     effect: async (action, listenerApi) => {
-        // Async logic, GET to /todo/{userId] endpoint
         // @ts-ignore
         const userId = listenerApi.getState().user.user.id;
 
@@ -339,6 +338,48 @@ listenerMiddleware.startListening({
             console.log(e)
             // set error message to user, toggle a window.Alert in the component
             listenerApi.dispatch(setAlertMessage('Adding todo was unsuccessful. Try again'))
+        }
+    },
+})
+
+listenerMiddleware.startListening({
+    actionCreator: fetchScheduledTodos,
+    effect: async (action, listenerApi) => {
+        // @ts-ignore
+        const userId = listenerApi.getState().user.user.id;
+
+        try {
+            const scheduledTodos = await axios(`${baseUrl}/ScheduledTodo/get/${userId}`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': getCookie("Authorization"),
+                },
+                data: {
+                    startDate: "2023-03-09T03:44:35.707Z",
+                    endDate: "2023-03-12T03:44:35.707Z"
+                }
+            })
+
+            // const scheduledTodos = await axios.get(`${baseUrl}/ScheduledTodo/${userId}`,
+            //     {
+            //         headers: {
+            //             'Authorization': getCookie("Authorization"),
+            //             'Accept': 'application/json',
+            //             'Content-Type': 'application/json'
+            //         },
+            //         data: {
+            //             startDate: "2023-03-09T03:44:35.707Z",
+            //             endDate: "2023-03-12T03:44:35.707Z"
+            //         }
+            //     })
+
+            if (scheduledTodos.status === 200) {
+                console.log(scheduledTodos.data)
+                // listenerApi.dispatch(setScheduledTodos(scheduledTodos.data))
+            }
+        } catch (e) {
+            console.log(e)
+            console.log('fetching todos was unsuccessful')
         }
     },
 })

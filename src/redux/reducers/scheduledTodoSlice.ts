@@ -17,11 +17,17 @@ export const scheduledTodoSlice = createSlice({
     initialState,
     reducers: {
         createScheduledTodo: (state, action) => {}, // picked up in middleware
+        fetchScheduledTodos: (state) => {}, //picked up in middleware
+        setScheduledTodos: (state, action) => {
+            state.scheduledTodos = action.payload
+        }
     }
 })
 
 export const {
     createScheduledTodo,
+    fetchScheduledTodos,
+    setScheduledTodos
 } = scheduledTodoSlice.actions
 
 export default scheduledTodoSlice.reducer

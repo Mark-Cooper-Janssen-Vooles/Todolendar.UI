@@ -3,6 +3,8 @@ import ScheduledTodoPortal from "./ScheduledTodoPortal";
 import { IActiveScheduledTodo } from "./ScheduledTodoPortal";
 import {IScheduledTodosDummyDataWeekly, scheduledTodosDummyDataWeekly} from './dummyScheduledEvents'
 import WeeklyViewDayColumn from "./Weekly/WeeklyViewDayColumn";
+import {useDispatch} from "react-redux";
+import {fetchScheduledTodos} from "../../../redux/reducers/scheduledTodoSlice";
 
 type ICalendarContainerContent = {
     hours: string[];
@@ -38,6 +40,7 @@ const CalendarContainerContent = ({ hours, currentHour, currentDay }: ICalendarC
         Tue: [],
         Wed: []
     })
+    const dispatch = useDispatch()
 
     useEffect(() => {
         // Scroll current hour into view
@@ -47,7 +50,9 @@ const CalendarContainerContent = ({ hours, currentHour, currentDay }: ICalendarC
         }, 1000)
 
         // fetch scheduled todos for THIS WEEK ONLY
-        setScheduledTodos(scheduledTodosDummyDataWeekly);
+        // API call here
+        dispatch(fetchScheduledTodos())
+        // setScheduledTodos(scheduledTodosDummyDataWeekly);
     }, [])
 
     const handleScheduledTodoOpen = (scheduledTodo: IActiveScheduledTodo) => {
