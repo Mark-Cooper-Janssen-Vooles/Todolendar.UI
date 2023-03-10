@@ -18,14 +18,14 @@ const WeeklyViewDayColumn = ({hours, currentHour, daysTodos, day, handleSchedule
     const currentDay = useSelector((state: RootState) => state.date.currentDay)
 
     const scheduledTodoElement = (scheduledTodo: IActiveScheduledTodo, hour: string) => {
-        const scheduledTodoHour = dayjs(scheduledTodo.ScheduledAt, dayjsFormat).hour()
+        const scheduledTodoHour = dayjs(scheduledTodo.scheduledAt, dayjsFormat).hour()
         const scheduledTodoHourFormatted = hours[scheduledTodoHour - 1]
         if (scheduledTodoHourFormatted === hour) {
             return <div
                 className="CalendarWeeklyColumnContentItemEvent"
                 onClick={() => handleScheduledTodoOpen(scheduledTodo)}
-                key={scheduledTodo.Id}
-            >{scheduledTodo.Title}</div>
+                key={scheduledTodo.id}
+            >{scheduledTodo.title}</div>
         }
     }
 

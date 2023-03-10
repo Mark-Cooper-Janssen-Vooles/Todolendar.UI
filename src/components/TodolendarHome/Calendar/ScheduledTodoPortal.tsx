@@ -29,16 +29,16 @@ type IScheduledTodoPortal = {
 
 const ScheduledTodoPortal = ({ setScheduledTodoOpen, activeScheduledTodo }: IScheduledTodoPortal) => {
     const [editingTitleForm, setEditingTitleForm] = useState(false)
-    const [title, setTitle] = useState(activeScheduledTodo.Title)
+    const [title, setTitle] = useState(activeScheduledTodo.title)
     const [editingDescriptionForm, setEditingDescriptionForm] = useState(false)
-    const [description, setDescription] = useState(activeScheduledTodo.Description)
+    const [description, setDescription] = useState(activeScheduledTodo.description)
     const [editingNotifyTimeForm, setEditingNotifyTimeForm] = useState(false)
-    const [notifyTime, setNotifyTime] = useState(activeScheduledTodo.NotifyBeforeTime.toString())
+    const [notifyTime, setNotifyTime] = useState(activeScheduledTodo.notifyBeforeTime.toString())
     const [editingColourForm, setEditingColourForm] = useState(false)
-    const [colour, setColour] = useState(activeScheduledTodo.Colour)
+    const [colour, setColour] = useState(activeScheduledTodo.colour)
     const [editingScheduledAtForm, setEditingScheduledAtForm] = useState(false)
 
-    const [scheduledAt, setScheduledAt] = useState(activeScheduledTodo.ScheduledAt)
+    const [scheduledAt, setScheduledAt] = useState(activeScheduledTodo.scheduledAt)
     const [scheduledAtDate, setScheduledAtDate] = useState('')
     const [scheduledAtTime, setScheduledAtTime] = useState('')
 
