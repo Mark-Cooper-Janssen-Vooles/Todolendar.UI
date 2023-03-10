@@ -354,7 +354,7 @@ listenerMiddleware.startListening({
                 headers: {
                     'Authorization': getCookie("Authorization"),
                 },
-                data: {
+                data: { // need to update this, get it from where its called
                     startDate: "2023-03-09T03:44:35.707Z",
                     endDate: "2023-03-12T03:44:35.707Z"
                 }
@@ -362,11 +362,11 @@ listenerMiddleware.startListening({
 
             if (scheduledTodos.status === 200) {
                 console.log(scheduledTodos.data)
-                // listenerApi.dispatch(setScheduledTodos(scheduledTodos.data))
+                listenerApi.dispatch(setScheduledTodos(scheduledTodos.data))
             }
         } catch (e) {
             console.log(e)
-            console.log('fetching todos was unsuccessful')
+            console.log('fetching weekly scheduled todos was unsuccessful')
         }
     },
 })

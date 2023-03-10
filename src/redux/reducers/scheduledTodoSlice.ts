@@ -1,15 +1,30 @@
 import { createSlice } from '@reduxjs/toolkit'
+import {IActiveScheduledTodo} from "../../components/TodolendarHome/Calendar/ScheduledTodoPortal";
+
+export type IScheduledTodosDataWeekly = {
+    Sun: IActiveScheduledTodo[]
+    Mon: IActiveScheduledTodo[]
+    Tue: IActiveScheduledTodo[]
+    Wed: IActiveScheduledTodo[]
+    Thu: IActiveScheduledTodo[]
+    Fri: IActiveScheduledTodo[]
+    Sat: IActiveScheduledTodo[]
+}
 
 type scheduledTodoState = {
-    scheduledTodos: {
-        id: string;
-        title: string;
-        description: string;
-    }[]
+    scheduledTodosWeekly: IScheduledTodosDataWeekly
 }
 
 const initialState: scheduledTodoState = {
-    scheduledTodos: []
+    scheduledTodosWeekly: {
+        Sun: [],
+        Mon: [],
+        Tue: [],
+        Wed: [],
+        Thu: [],
+        Fri: [],
+        Sat: []
+    }
 }
 
 export const scheduledTodoSlice = createSlice({
@@ -19,7 +34,17 @@ export const scheduledTodoSlice = createSlice({
         createScheduledTodo: (state, action) => {}, // picked up in middleware
         fetchScheduledTodos: (state) => {}, //picked up in middleware
         setScheduledTodos: (state, action) => {
-            state.scheduledTodos = action.payload
+            //state.scheduledTodosWeekly = action.payload
+            // need to set the todos into their days somehow
+            state.scheduledTodosWeekly = {
+                Sun: [],
+                Mon: [],
+                Tue: [],
+                Wed: [],
+                Thu: [],
+                Fri: [],
+                Sat: []
+            }
         }
     }
 })

@@ -3,16 +3,17 @@ import ScheduledTodoPortal from "./ScheduledTodoPortal";
 import { IActiveScheduledTodo } from "./ScheduledTodoPortal";
 import {IScheduledTodosDummyDataWeekly, scheduledTodosDummyDataWeekly} from './dummyScheduledEvents'
 import WeeklyViewDayColumn from "./Weekly/WeeklyViewDayColumn";
-import {useDispatch} from "react-redux";
-import {fetchScheduledTodos} from "../../../redux/reducers/scheduledTodoSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchScheduledTodos, IScheduledTodosDataWeekly} from "../../../redux/reducers/scheduledTodoSlice";
+import {RootState} from "../../../redux/store";
 
 type ICalendarContainerContent = {
     hours: string[];
     currentHour: string;
-    currentDay: string;
+    daysOfMonth: number[];
 }
 
-const CalendarContainerContent = ({ hours, currentHour, currentDay }: ICalendarContainerContent) => {
+const CalendarContainerContent = ({ hours, currentHour, daysOfMonth }: ICalendarContainerContent) => {
     const [scheduledTodoOpen, setScheduledTodoOpen] = useState(false)
     const [activeScheduledTodo, setActiveScheduledTodo] = useState<IActiveScheduledTodo>({
         id: '',
@@ -29,7 +30,7 @@ const CalendarContainerContent = ({ hours, currentHour, currentDay }: ICalendarC
         scheduledAt: '',
         triggeredAt: ''
     })
-    const [scheduledTodos, setScheduledTodos] = useState<IScheduledTodosDummyDataWeekly>({
+    const [scheduledTodos, setScheduledTodos] = useState<IScheduledTodosDataWeekly>({
         Fri: [],
         Mon: [],
         Sat: [],
@@ -38,6 +39,7 @@ const CalendarContainerContent = ({ hours, currentHour, currentDay }: ICalendarC
         Tue: [],
         Wed: []
     })
+    const scheduledTodosRedux = useSelector((state: RootState) => state.scheduledTodo.scheduledTodosWeekly)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -50,6 +52,7 @@ const CalendarContainerContent = ({ hours, currentHour, currentDay }: ICalendarC
         // fetch scheduled todos for THIS WEEK ONLY
         // API call here
         dispatch(fetchScheduledTodos())
+        setScheduledTodos(scheduledTodosRedux)
         // setScheduledTodos(scheduledTodosDummyDataWeekly);
     }, [])
 
