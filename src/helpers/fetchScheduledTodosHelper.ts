@@ -1,3 +1,5 @@
+import {IActiveScheduledTodo} from "../components/TodolendarHome/Calendar/ScheduledTodoPortal";
+
 export const fixLength = (str: string) => {
     if (str.length < 2 ) {
         return "0" + str
@@ -22,3 +24,22 @@ export const fixEndMonth = (month: string, currentDay: string, endDay: string) =
 
     return month
 }
+
+export const scheduledTodosDayFilter = (scheduledTodos: IActiveScheduledTodo[], day: number, action: any) => (
+    scheduledTodos
+        .filter(( scheduledTodo: IActiveScheduledTodo) => {
+            const scheduledTodosDay =
+                scheduledTodo.scheduledAt.split('T')[0].split('-')[2]
+
+            let dayOfMonth = action.payload.daysOfMonth[day].toString() // i.e. day = 0 is sunday
+
+
+            if (dayOfMonth.length < 2) {
+                dayOfMonth = "0" + dayOfMonth
+            }
+
+            if (dayOfMonth == scheduledTodosDay) {
+                return scheduledTodo
+            }
+        })
+)

@@ -78,6 +78,10 @@ const CalendarContainerContent = ({ hours, currentHour, currentDay }: ICalendarC
         })) // pass in dates!
     }, [])
 
+    useEffect(() => {
+        setScheduledTodos(scheduledTodosRedux)
+    }, [scheduledTodosRedux])
+
     const handleScheduledTodoOpen = (scheduledTodo: IActiveScheduledTodo) => {
         setScheduledTodoOpen(true);
         setActiveScheduledTodo(scheduledTodo)
