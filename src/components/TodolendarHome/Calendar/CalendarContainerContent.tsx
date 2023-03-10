@@ -8,6 +8,7 @@ import {fetchScheduledTodos, IScheduledTodosDataWeekly} from "../../../redux/red
 import {RootState} from "../../../redux/store";
 import {Dayjs} from "dayjs";
 import {computeDaysOfMonth} from "../../../helpers/computeDaysOfMonth";
+import {fixEndMonth, fixLength, fixStartMonth} from "../../../helpers/fetchScheduledTodosHelper";
 
 type ICalendarContainerContent = {
     hours: string[];
@@ -46,31 +47,6 @@ const CalendarContainerContent = ({ hours, currentHour, daysOfMonth, currentDay 
     const viewingTime = useSelector((state: RootState) => state.date.viewingTime)
     const dispatch = useDispatch()
 
-    const fixLength = (str: string) => {
-        if (str.length < 2 ) {
-            return "0" + str
-        }
-
-        return str
-    }
-
-    const fixStartMonth = (month: string, currentDay: string, startDay: string) => {
-        if (startDay > currentDay) {
-            const monthNum = parseInt(month) - 1 // decrement startMonth by 1
-            return fixLength(monthNum.toString())
-        }
-        return month
-    }
-
-    const fixEndMonth = (month: string, currentDay: string, endDay: string) => {
-        if (currentDay > endDay) {
-            const monthNum = parseInt(month) + 1 // increment endMonth by 1
-            return fixLength(monthNum.toString())
-        }
-
-        return month
-    }
-
     useEffect(() => {
         // Scroll current hour into view
         setTimeout(() => {
@@ -79,9 +55,6 @@ const CalendarContainerContent = ({ hours, currentHour, daysOfMonth, currentDay 
         }, 1000)
 
         // fetch scheduled todos for THIS WEEK ONLY
-
-        // we've got: daysOfMonth and currentDay
-        // console.log(currentDay.toISOString())
         const daysOfMonth2 = computeDaysOfMonth(currentDay, viewingTime)
 
         const yearMonthDay = currentDay.toISOString().split('T')[0]
@@ -96,17 +69,13 @@ const CalendarContainerContent = ({ hours, currentHour, daysOfMonth, currentDay 
 
         // year and month stay the same, convert to ISO format
         const startDate = [ yearMonthDayArray[0], startMonth, startDay].join('-') + 'T00:00:00.000Z'
-        console.log(startDate)
-
         const endDate = [ yearMonthDayArray[0], endMonth, endDay].join('-') + 'T00:00:00.000Z'
-        console.log(endDate)
 
         dispatch(fetchScheduledTodos({
             startDate,
             endDate
         })) // pass in dates!
         setScheduledTodos(scheduledTodosRedux)
-        // setScheduledTodos(scheduledTodosDummyDataWeekly);
     }, [])
 
     const handleScheduledTodoOpen = (scheduledTodo: IActiveScheduledTodo) => {
