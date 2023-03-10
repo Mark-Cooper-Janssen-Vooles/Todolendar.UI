@@ -355,8 +355,8 @@ listenerMiddleware.startListening({
                     'Authorization': getCookie("Authorization"),
                 },
                 data: { // need to update this, get it from where its called
-                    startDate: "2023-03-09T03:44:35.707Z",
-                    endDate: "2023-03-12T03:44:35.707Z"
+                    startDate: action.payload.startDate,
+                    endDate: action.payload.endDate
                 }
             })
 

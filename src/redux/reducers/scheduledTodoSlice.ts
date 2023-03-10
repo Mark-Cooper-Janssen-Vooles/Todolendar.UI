@@ -32,7 +32,7 @@ export const scheduledTodoSlice = createSlice({
     initialState,
     reducers: {
         createScheduledTodo: (state, action) => {}, // picked up in middleware
-        fetchScheduledTodos: (state) => {}, //picked up in middleware
+        fetchScheduledTodos: (state, action) => {}, //picked up in middleware
         setScheduledTodos: (state, action) => {
             //state.scheduledTodosWeekly = action.payload
             // need to set the todos into their days somehow
