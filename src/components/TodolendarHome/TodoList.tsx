@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
 import {deleteTodo, fetchTodos, saveEditedTodo} from "../../redux/reducers/todoSlice";
+import {createScheduledTodo} from "../../redux/reducers/scheduledTodoSlice";
+import dayjs from "dayjs";
 
 const TodoList = () => {
     const todos = useSelector((state: RootState) => state.todo.todos)
@@ -32,10 +34,15 @@ const TodoList = () => {
         e.preventDefault()
 
         if (addDate !== '' && addTime !== '' ) {
-            // api call to add to calendar using the date and time
-            // re-fetch data
+            const hour = addTime.split(':')[0]
+            const minute = addTime.split(':')[1]
 
-            console.log('api call')
+            const scheduledAt = dayjs(addDate).add(parseInt(hour), 'hour').add(parseInt(minute), 'minute').toISOString()
+
+            dispatch(createScheduledTodo({
+                ...activeTodo,
+                scheduledAt
+            }))
             setAddActive(false)
         } else {
             window.alert('you did not enter either a date, a time, or both!')

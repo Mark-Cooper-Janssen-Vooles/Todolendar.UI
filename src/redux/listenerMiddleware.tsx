@@ -15,6 +15,7 @@ import {
 import axios from 'axios';
 import { getCookie, deleteCookies } from "./helpers";
 import {createTodo, deleteTodo, fetchTodos, saveEditedTodo, setTodos} from "./reducers/todoSlice";
+import {createScheduledTodo} from "./reducers/scheduledTodoSlice";
 
 // Create the middleware instance and methods
 export const listenerMiddleware = createListenerMiddleware()
@@ -300,6 +301,44 @@ listenerMiddleware.startListening({
             console.log(e)
             // set error message to user, toggle a window.Alert in the component
             listenerApi.dispatch(setAlertMessage('Editing your todo was unsuccessful. Try again'))
+        }
+    },
+})
+
+// scheduledTodo middleware
+listenerMiddleware.startListening({
+    actionCreator: createScheduledTodo,
+    effect: async (action, listenerApi) => {
+        // Async logic, GET to /todo/{userId] endpoint
+        // @ts-ignore
+        const userId = listenerApi.getState().user.user.id;
+
+        try {
+            const data = await axios.post(
+                `${baseUrl}/ScheduledTodo/${userId}`,
+                {
+                    title: action.payload.title,
+                    description: action.payload.description,
+                    colour: 'gray',
+                    recurCount: 0,
+                    recurFrequencyType: 'none',
+                    recurEndDate: action.payload.scheduledAt,
+                    notifyBeforeTime: 10,
+                    scheduledAt: action.payload.scheduledAt
+                },
+                { headers: { 'Authorization': getCookie("Authorization") }
+                })
+
+            if (data.status === 201) {
+                // delete todo
+                listenerApi.dispatch(deleteTodo({id: action.payload.id}))
+                // re-fetch todos
+                listenerApi.dispatch(fetchTodos())
+            }
+        } catch (e) {
+            console.log(e)
+            // set error message to user, toggle a window.Alert in the component
+            listenerApi.dispatch(setAlertMessage('Adding todo was unsuccessful. Try again'))
         }
     },
 })
