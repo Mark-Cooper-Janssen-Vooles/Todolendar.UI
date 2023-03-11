@@ -38,6 +38,12 @@ const TodoList = () => {
             const minute = addTime.split(':')[1]
 
             const scheduledAt = dayjs(addDate).add(parseInt(hour), 'hour').add(parseInt(minute), 'minute').toISOString()
+            // console.log(addDate) - working
+            //console.log(hour) - working
+            // console.log(minute) - working
+
+            // console.log(dayjs(addDate).toString())
+
 
             dispatch(createScheduledTodo({
                 ...activeTodo,

@@ -23,12 +23,13 @@ const Calendar = () => {
     const [currentHour, setCurrentHour] = useState('')
     const [currentTimezone, setCurrentTimezone] = useState([])
 
+    dayjs.extend(utc)
+    dayjs.extend(timezone)
+
     useEffect(() => {
         setDaysOfMonth(computeDaysOfMonth(dayjsTimeObject, viewingTime))
         setCurrentHour(dayjsTimeObject.format('h A'))
 
-        dayjs.extend(utc)
-        dayjs.extend(timezone)
         // @ts-ignore*/
         const currentTimezoneArray = dayjs.tz.guess().split('/');
         setCurrentTimezone(currentTimezoneArray)
