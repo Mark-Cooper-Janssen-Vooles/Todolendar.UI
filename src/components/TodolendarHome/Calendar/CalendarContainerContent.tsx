@@ -33,15 +33,15 @@ const CalendarContainerContent = ({ hours, currentHour, currentDay }: ICalendarC
         scheduledAt: '',
         triggeredAt: ''
     })
-    const [scheduledTodos, setScheduledTodos] = useState<IScheduledTodosDataWeekly>({
-        Fri: [],
-        Mon: [],
-        Sat: [],
-        Sun: [],
-        Thu: [],
-        Tue: [],
-        Wed: []
-    })
+    // const [scheduledTodos, setScheduledTodos] = useState<IScheduledTodosDataWeekly>({
+    //     Fri: [],
+    //     Mon: [],
+    //     Sat: [],
+    //     Sun: [],
+    //     Thu: [],
+    //     Tue: [],
+    //     Wed: []
+    // })
     const scheduledTodosRedux = useSelector((state: RootState) => state.scheduledTodo.scheduledTodosWeekly)
     const viewingTime = useSelector((state: RootState) => state.date.viewingTime)
     const dispatch = useDispatch()
@@ -78,9 +78,12 @@ const CalendarContainerContent = ({ hours, currentHour, currentDay }: ICalendarC
         })) // pass in dates!
     }, [])
 
-    useEffect(() => {
-        setScheduledTodos(scheduledTodosRedux)
-    }, [scheduledTodosRedux])
+    // useEffect(() => {
+    //     setScheduledTodos(scheduledTodosRedux)
+    //     console.log(scheduledTodos.Mon)
+    //
+    //     console.log(scheduledTodosRedux.Mon)
+    // }, [scheduledTodos])
 
     const handleScheduledTodoOpen = (scheduledTodo: IActiveScheduledTodo) => {
         setScheduledTodoOpen(true);
@@ -99,13 +102,13 @@ const CalendarContainerContent = ({ hours, currentHour, currentDay }: ICalendarC
                 })}
             </div>
 
-           <WeeklyViewDayColumn hours={hours} currentHour={currentHour} daysTodos={scheduledTodos.Sun} day="Sun" handleScheduledTodoOpen={handleScheduledTodoOpen}/>
-           <WeeklyViewDayColumn hours={hours} currentHour={currentHour} daysTodos={scheduledTodos.Mon} day="Mon" handleScheduledTodoOpen={handleScheduledTodoOpen}/>
-           <WeeklyViewDayColumn hours={hours} currentHour={currentHour} daysTodos={scheduledTodos.Tue} day="Tue" handleScheduledTodoOpen={handleScheduledTodoOpen}/>
-           <WeeklyViewDayColumn hours={hours} currentHour={currentHour} daysTodos={scheduledTodos.Wed} day="Wed" handleScheduledTodoOpen={handleScheduledTodoOpen}/>
-           <WeeklyViewDayColumn hours={hours} currentHour={currentHour} daysTodos={scheduledTodos.Thu} day="Thu" handleScheduledTodoOpen={handleScheduledTodoOpen}/>
-           <WeeklyViewDayColumn hours={hours} currentHour={currentHour} daysTodos={scheduledTodos.Fri} day="Fri" handleScheduledTodoOpen={handleScheduledTodoOpen}/>
-           <WeeklyViewDayColumn hours={hours} currentHour={currentHour} daysTodos={scheduledTodos.Sat} day="Sat" handleScheduledTodoOpen={handleScheduledTodoOpen}/>
+           {/*<WeeklyViewDayColumn hours={hours} currentHour={currentHour} daysTodos={scheduledTodos.Sun} day="Sun" handleScheduledTodoOpen={handleScheduledTodoOpen}/>*/}
+           <WeeklyViewDayColumn hours={hours} currentHour={currentHour} daysTodos={scheduledTodosRedux.Mon} day="Mon" handleScheduledTodoOpen={handleScheduledTodoOpen}/>
+           {/*<WeeklyViewDayColumn hours={hours} currentHour={currentHour} daysTodos={scheduledTodos.Tue} day="Tue" handleScheduledTodoOpen={handleScheduledTodoOpen}/>*/}
+           {/*<WeeklyViewDayColumn hours={hours} currentHour={currentHour} daysTodos={scheduledTodos.Wed} day="Wed" handleScheduledTodoOpen={handleScheduledTodoOpen}/>*/}
+           {/*<WeeklyViewDayColumn hours={hours} currentHour={currentHour} daysTodos={scheduledTodos.Thu} day="Thu" handleScheduledTodoOpen={handleScheduledTodoOpen}/>*/}
+           {/*<WeeklyViewDayColumn hours={hours} currentHour={currentHour} daysTodos={scheduledTodos.Fri} day="Fri" handleScheduledTodoOpen={handleScheduledTodoOpen}/>*/}
+           {/*<WeeklyViewDayColumn hours={hours} currentHour={currentHour} daysTodos={scheduledTodos.Sat} day="Sat" handleScheduledTodoOpen={handleScheduledTodoOpen}/>*/}
         </div>
     )
 }
