@@ -290,6 +290,8 @@ listenerMiddleware.startListening({
         // Async logic, GET to /todo/{userId] endpoint
         // @ts-ignore
         const userId = listenerApi.getState().user.user.id;
+        // @ts-ignore
+        const scheduledTodosWeekly: IScheduledTodosDataWeekly = listenerApi.getState().scheduledTodo.scheduledTodosWeekly;
 
         try {
             const data = await axios.put(
@@ -303,6 +305,7 @@ listenerMiddleware.startListening({
 
             if (data.status === 200) {
                 listenerApi.dispatch(fetchTodos())
+                listenerApi.dispatch(fetchScheduledTodos(scheduledTodosWeekly))
             }
         } catch (e) {
             console.log(e)

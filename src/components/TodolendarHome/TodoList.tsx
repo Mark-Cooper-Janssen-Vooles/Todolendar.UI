@@ -38,12 +38,12 @@ const TodoList = () => {
             const minute = addTime.split(':')[1]
 
             const scheduledAt = dayjs(addDate).add(parseInt(hour), 'hour').add(parseInt(minute), 'minute').toISOString()
-            // console.log(addDate) - working
-            //console.log(hour) - working
-            // console.log(minute) - working
+            // scheduledAt is correct!
 
-            // console.log(dayjs(addDate).toString())
-
+            // @ts-ignore
+            console.log(dayjs.utc().toISOString())
+            console.log(dayjs(addDate).toISOString())
+            console.log(dayjs(addDate).add(parseInt(hour), 'hour').add(parseInt(minute), 'minute').toISOString())
 
             dispatch(createScheduledTodo({
                 ...activeTodo,

@@ -1,4 +1,5 @@
 import {IActiveScheduledTodo} from "../components/TodolendarHome/Calendar/ScheduledTodoPortal";
+import dayjs from "dayjs";
 
 export const fixLength = (str: string) => {
     if (str.length < 2 ) {
@@ -25,11 +26,24 @@ export const fixEndMonth = (month: string, currentDay: string, endDay: string) =
     return month
 }
 
-export const scheduledTodosDayFilter = (scheduledTodos: IActiveScheduledTodo[], day: number, action: any) => (
+export const scheduledTodosDayFilter = (scheduledTodos: IActiveScheduledTodo[], day: number, action: any) => {
+    return (
     scheduledTodos
         .filter(( scheduledTodo: IActiveScheduledTodo) => {
+            // @ts-ignore*/
+            const timezone = dayjs.tz.guess()
+            // @ts-ignore*/ => converts ISO string in DB (GMT format) to current timezone
+            const scheduledTodoLocalTz = dayjs(scheduledTodo.scheduledAt).utc('z').local().tz(timezone).local().format()
+
+            // console.log(scheduledTodoLocalTz.local().format())
+            //
+            // console.log(scheduledTodoLocalTz)
+            // console.log(scheduledTodo.scheduledAt)
+
+            // const scheduledTodosDay =
+            //     scheduledTodo.scheduledAt.split('T')[0].split('-')[2]
             const scheduledTodosDay =
-                scheduledTodo.scheduledAt.split('T')[0].split('-')[2]
+                scheduledTodoLocalTz.split('T')[0].split('-')[2]
 
             let dayOfMonth = action.payload.daysOfMonth[day].toString() // i.e. day = 0 is sunday
 
@@ -42,4 +56,4 @@ export const scheduledTodosDayFilter = (scheduledTodos: IActiveScheduledTodo[], 
                 return scheduledTodo
             }
         })
-)
+)}
