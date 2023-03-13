@@ -374,7 +374,6 @@ listenerMiddleware.startListening({
             })
 
             if (scheduledTodos.status === 200) {
-                console.log('fetching scheduled todos')
                 const scheduledTodosWeekly = {
                     Sun: scheduledTodosDayFilter(scheduledTodos.data, 0, dateRangeWeekly),
                     Mon: scheduledTodosDayFilter(scheduledTodos.data, 1, dateRangeWeekly),

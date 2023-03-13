@@ -73,13 +73,6 @@ export const dateRangeWeeklyObject = (viewingTime: string) => {
     const startDate = [ yearMonthDayArray[0], startMonth, startDay].join('-') + 'T00:00:00.000Z'
     const endDate = [ yearMonthDayArray[0], endMonth, endDay].join('-') + 'T00:00:00.000Z'
 
-    console.log({
-        startDate,
-        endDate,
-        currentDayString,
-        daysOfMonth
-    })
-
     return {
         startDate,
         endDate,
