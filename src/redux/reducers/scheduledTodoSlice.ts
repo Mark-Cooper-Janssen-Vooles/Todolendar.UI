@@ -11,8 +11,16 @@ export type IScheduledTodosDataWeekly = {
     Sat: IActiveScheduledTodo[]
 }
 
+export type IDateRangeWeekly = {
+    startDate: string;
+    endDate: string;
+    currentDayString: string,
+    daysOfMonth: string[]
+}
+
 type scheduledTodoState = {
-    scheduledTodosWeekly: IScheduledTodosDataWeekly
+    scheduledTodosWeekly: IScheduledTodosDataWeekly,
+    dateRangeWeekly: IDateRangeWeekly
 }
 
 const initialState: scheduledTodoState = {
@@ -24,6 +32,12 @@ const initialState: scheduledTodoState = {
         Thu: [],
         Fri: [],
         Sat: []
+    },
+    dateRangeWeekly: {
+        startDate: '',
+        endDate: '',
+        currentDayString: '',
+        daysOfMonth: []
     }
 }
 
@@ -32,11 +46,14 @@ export const scheduledTodoSlice = createSlice({
     initialState,
     reducers: {
         createScheduledTodo: (state, action) => {}, // picked up in middleware
-        fetchScheduledTodos: (state, action) => {}, //picked up in middleware
+        fetchScheduledTodos: (state) => {}, //picked up in middleware
         setScheduledTodos: (state, action) => {
             //state.scheduledTodosWeekly = action.payload
             // need to set the todos into their days somehow
             state.scheduledTodosWeekly = action.payload
+        },
+        dateRangeWeekly: (state, action) => {
+            state.dateRangeWeekly = action.payload
         }
     }
 })
@@ -44,7 +61,8 @@ export const scheduledTodoSlice = createSlice({
 export const {
     createScheduledTodo,
     fetchScheduledTodos,
-    setScheduledTodos
+    setScheduledTodos,
+    dateRangeWeekly
 } = scheduledTodoSlice.actions
 
 export default scheduledTodoSlice.reducer

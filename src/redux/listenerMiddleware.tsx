@@ -290,8 +290,6 @@ listenerMiddleware.startListening({
         // Async logic, GET to /todo/{userId] endpoint
         // @ts-ignore
         const userId = listenerApi.getState().user.user.id;
-        // @ts-ignore
-        const scheduledTodosWeekly: IScheduledTodosDataWeekly = listenerApi.getState().scheduledTodo.scheduledTodosWeekly;
 
         try {
             const data = await axios.put(
@@ -305,7 +303,6 @@ listenerMiddleware.startListening({
 
             if (data.status === 200) {
                 listenerApi.dispatch(fetchTodos())
-                listenerApi.dispatch(fetchScheduledTodos(scheduledTodosWeekly))
             }
         } catch (e) {
             console.log(e)
@@ -321,6 +318,9 @@ listenerMiddleware.startListening({
     effect: async (action, listenerApi) => {
         // @ts-ignore
         const userId = listenerApi.getState().user.user.id;
+        // @ts-ignore
+        const scheduledTodosWeekly: IScheduledTodosDataWeekly = listenerApi.getState().scheduledTodo.scheduledTodosWeekly;
+
 
         try {
             const data = await axios.post(
@@ -343,6 +343,7 @@ listenerMiddleware.startListening({
                 listenerApi.dispatch(deleteTodo({id: action.payload.id}))
                 // re-fetch todos
                 listenerApi.dispatch(fetchTodos())
+                listenerApi.dispatch(fetchScheduledTodos())
             }
         } catch (e) {
             console.log(e)
@@ -357,6 +358,8 @@ listenerMiddleware.startListening({
     effect: async (action, listenerApi) => {
         // @ts-ignore
         const userId = listenerApi.getState().user.user.id;
+        // @ts-ignore
+        const dateRangeWeekly = listenerApi.getState().scheduledTodo.dateRangeWeekly
 
         try {
             const scheduledTodos = await axios(`${baseUrl}/ScheduledTodo/get/${userId}`, {
@@ -365,20 +368,21 @@ listenerMiddleware.startListening({
                     'Authorization': getCookie("Authorization"),
                 },
                 data: { // need to update this, get it from where its called
-                    startDate: action.payload.startDate,
-                    endDate: action.payload.endDate
+                    startDate: dateRangeWeekly.startDate,
+                    endDate: dateRangeWeekly.endDate
                 }
             })
 
             if (scheduledTodos.status === 200) {
+                console.log('fetching scheduled todos')
                 const scheduledTodosWeekly = {
-                    Sun: scheduledTodosDayFilter(scheduledTodos.data, 0, action),
-                    Mon: scheduledTodosDayFilter(scheduledTodos.data, 1, action),
-                    Tue: scheduledTodosDayFilter(scheduledTodos.data, 2, action),
-                    Wed: scheduledTodosDayFilter(scheduledTodos.data, 3, action),
-                    Thu: scheduledTodosDayFilter(scheduledTodos.data, 4, action),
-                    Fri: scheduledTodosDayFilter(scheduledTodos.data, 5, action),
-                    Sat: scheduledTodosDayFilter(scheduledTodos.data, 6, action)
+                    Sun: scheduledTodosDayFilter(scheduledTodos.data, 0, dateRangeWeekly),
+                    Mon: scheduledTodosDayFilter(scheduledTodos.data, 1, dateRangeWeekly),
+                    Tue: scheduledTodosDayFilter(scheduledTodos.data, 2, dateRangeWeekly),
+                    Wed: scheduledTodosDayFilter(scheduledTodos.data, 3, dateRangeWeekly),
+                    Thu: scheduledTodosDayFilter(scheduledTodos.data, 4, dateRangeWeekly),
+                    Fri: scheduledTodosDayFilter(scheduledTodos.data, 5, dateRangeWeekly),
+                    Sat: scheduledTodosDayFilter(scheduledTodos.data, 6, dateRangeWeekly)
                 }
 
                 listenerApi.dispatch(setScheduledTodos(scheduledTodosWeekly))

@@ -1,5 +1,6 @@
 import {IActiveScheduledTodo} from "../components/TodolendarHome/Calendar/ScheduledTodoPortal";
 import dayjs from "dayjs";
+import {IDateRangeWeekly} from "../redux/reducers/scheduledTodoSlice";
 
 export const fixLength = (str: string) => {
     if (str.length < 2 ) {
@@ -26,7 +27,7 @@ export const fixEndMonth = (month: string, currentDay: string, endDay: string) =
     return month
 }
 
-export const scheduledTodosDayFilter = (scheduledTodos: IActiveScheduledTodo[], day: number, action: any) => {
+export const scheduledTodosDayFilter = (scheduledTodos: IActiveScheduledTodo[], day: number, dateRangeWeekly: IDateRangeWeekly) => {
     return (
     scheduledTodos
         .filter(( scheduledTodo: IActiveScheduledTodo) => {
@@ -37,7 +38,7 @@ export const scheduledTodosDayFilter = (scheduledTodos: IActiveScheduledTodo[], 
             const scheduledTodosDay =
                 scheduledTodoLocalTz.split('T')[0].split('-')[2]
 
-            let dayOfMonth = action.payload.daysOfMonth[day].toString() // i.e. day = 0 is sunday
+            let dayOfMonth = dateRangeWeekly.daysOfMonth[day].toString() // i.e. day = 0 is sunday
 
             if (dayOfMonth.length < 2) {
                 dayOfMonth = "0" + dayOfMonth

@@ -4,7 +4,11 @@ import { IActiveScheduledTodo } from "./ScheduledTodoPortal";
 import {IScheduledTodosDummyDataWeekly, scheduledTodosDummyDataWeekly} from './dummyScheduledEvents'
 import WeeklyViewDayColumn from "./Weekly/WeeklyViewDayColumn";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchScheduledTodos, IScheduledTodosDataWeekly} from "../../../redux/reducers/scheduledTodoSlice";
+import {
+    dateRangeWeekly,
+    fetchScheduledTodos,
+    IScheduledTodosDataWeekly
+} from "../../../redux/reducers/scheduledTodoSlice";
 import {RootState} from "../../../redux/store";
 import {Dayjs} from "dayjs";
 import {computeDaysOfMonth} from "../../../helpers/computeDaysOfMonth";
@@ -70,12 +74,14 @@ const CalendarContainerContent = ({ hours, currentHour, currentDay }: ICalendarC
         const startDate = [ yearMonthDayArray[0], startMonth, startDay].join('-') + 'T00:00:00.000Z'
         const endDate = [ yearMonthDayArray[0], endMonth, endDay].join('-') + 'T00:00:00.000Z'
 
-        dispatch(fetchScheduledTodos({
+        dispatch(dateRangeWeekly({
             startDate,
             endDate,
             currentDayString,
             daysOfMonth
-        })) // pass in dates!
+        }))
+
+        dispatch(fetchScheduledTodos()) // pass in dates!
     }, [])
 
     // not about below: might need scheduledTodos / setScheduledTodos as well as redux state for when editing!?
