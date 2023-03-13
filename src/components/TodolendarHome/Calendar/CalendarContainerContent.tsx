@@ -10,9 +10,10 @@ import {
     IScheduledTodosDataWeekly
 } from "../../../redux/reducers/scheduledTodoSlice";
 import {RootState} from "../../../redux/store";
-import {Dayjs} from "dayjs";
+import dayjs, {Dayjs} from "dayjs";
 import {computeDaysOfMonth} from "../../../helpers/computeDaysOfMonth";
 import {fixEndMonth, fixLength, fixStartMonth} from "../../../helpers/fetchScheduledTodosHelper";
+import {dayjsFormat} from "../../../redux/reducers/dateSlice";
 
 type ICalendarContainerContent = {
     hours: string[];
@@ -64,8 +65,8 @@ const CalendarContainerContent = ({ hours, currentHour, currentDay }: ICalendarC
         const yearMonthDayArray = yearMonthDay.split('-')
         const currentDayString = yearMonthDayArray[2];
 
-        const startDay = fixLength(daysOfMonth[0].toString())
-        const endDay = fixLength(daysOfMonth[6].toString())
+        const startDay = fixLength((daysOfMonth[0] - 1).toString()) // -1 to capture times for GMT difference
+        const endDay = fixLength((daysOfMonth[6] + 1).toString()) // +1 to capture times got GMT difference
 
         const startMonth = fixStartMonth(yearMonthDayArray[1], currentDayString, startDay)
         const endMonth = fixEndMonth(yearMonthDayArray[1], currentDayString, endDay)

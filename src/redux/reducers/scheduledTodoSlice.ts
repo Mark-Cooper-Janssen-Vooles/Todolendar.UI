@@ -53,6 +53,8 @@ export const scheduledTodoSlice = createSlice({
             state.scheduledTodosWeekly = action.payload
         },
         dateRangeWeekly: (state, action) => {
+            // convert local times to UTC:
+
             state.dateRangeWeekly = action.payload
         }
     }
