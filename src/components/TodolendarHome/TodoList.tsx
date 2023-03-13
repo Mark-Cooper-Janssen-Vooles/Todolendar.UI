@@ -41,9 +41,9 @@ const TodoList = () => {
             // scheduledAt is correct!
 
             // @ts-ignore
-            console.log(dayjs.utc().toISOString())
-            console.log(dayjs(addDate).toISOString())
-            console.log(dayjs(addDate).add(parseInt(hour), 'hour').add(parseInt(minute), 'minute').toISOString())
+            // console.log(dayjs.utc().toISOString())
+            // console.log(dayjs(addDate).toISOString())
+            // console.log(dayjs(addDate).add(parseInt(hour), 'hour').add(parseInt(minute), 'minute').toISOString())
 
             dispatch(createScheduledTodo({
                 ...activeTodo,
