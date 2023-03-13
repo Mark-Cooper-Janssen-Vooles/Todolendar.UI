@@ -1,6 +1,9 @@
 import {IActiveScheduledTodo} from "../components/TodolendarHome/Calendar/ScheduledTodoPortal";
 import dayjs from "dayjs";
 import {IDateRangeWeekly} from "../redux/reducers/scheduledTodoSlice";
+import {computeDaysOfMonth} from "./computeDaysOfMonth";
+import {days} from "../components/TodolendarHome/Calendar/Calendar";
+import {dayjsFormat} from "../redux/reducers/dateSlice";
 
 export const fixLength = (str: string) => {
     if (str.length < 2 ) {
@@ -49,3 +52,38 @@ export const scheduledTodosDayFilter = (scheduledTodos: IActiveScheduledTodo[], 
             }
         })
 )}
+
+export const dateRangeWeeklyObject = (viewingTime: string) => {
+    // fetch scheduled todos for THIS WEEK ONLY
+    const dayjsTimeObject = dayjs(viewingTime, dayjsFormat)
+
+    const daysOfMonth = computeDaysOfMonth(dayjsTimeObject, viewingTime)
+
+    const yearMonthDay = dayjsTimeObject.toISOString().split('T')[0]
+    const yearMonthDayArray = yearMonthDay.split('-')
+    const currentDayString = yearMonthDayArray[2];
+
+    const startDay = fixLength((daysOfMonth[0] - 1).toString()) // -1 to capture times for GMT difference
+    const endDay = fixLength((daysOfMonth[6] + 1).toString()) // +1 to capture times got GMT difference
+
+    const startMonth = fixStartMonth(yearMonthDayArray[1], currentDayString, startDay)
+    const endMonth = fixEndMonth(yearMonthDayArray[1], currentDayString, endDay)
+
+    // year and month stay the same, convert to ISO format
+    const startDate = [ yearMonthDayArray[0], startMonth, startDay].join('-') + 'T00:00:00.000Z'
+    const endDate = [ yearMonthDayArray[0], endMonth, endDay].join('-') + 'T00:00:00.000Z'
+
+    console.log({
+        startDate,
+        endDate,
+        currentDayString,
+        daysOfMonth
+    })
+
+    return {
+        startDate,
+        endDate,
+        currentDayString,
+        daysOfMonth
+    }
+}

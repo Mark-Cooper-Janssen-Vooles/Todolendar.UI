@@ -11,7 +11,7 @@ import {
 import {RootState} from "../../../redux/store";
 import {Dayjs} from "dayjs";
 import {computeDaysOfMonth} from "../../../helpers/computeDaysOfMonth";
-import {fixEndMonth, fixLength, fixStartMonth} from "../../../helpers/fetchScheduledTodosHelper";
+import {dateRangeWeeklyObject, fixEndMonth, fixLength, fixStartMonth} from "../../../helpers/fetchScheduledTodosHelper";
 
 type ICalendarContainerContent = {
     hours: string[];
@@ -56,31 +56,8 @@ const CalendarContainerContent = ({ hours, currentHour, currentDay }: ICalendarC
             calendarContainer.scrollIntoView()
         }, 1000)
 
-        // fetch scheduled todos for THIS WEEK ONLY
-        const daysOfMonth = computeDaysOfMonth(currentDay, viewingTime)
-
-        const yearMonthDay = currentDay.toISOString().split('T')[0]
-        const yearMonthDayArray = yearMonthDay.split('-')
-        const currentDayString = yearMonthDayArray[2];
-
-        const startDay = fixLength((daysOfMonth[0] - 1).toString()) // -1 to capture times for GMT difference
-        const endDay = fixLength((daysOfMonth[6] + 1).toString()) // +1 to capture times got GMT difference
-
-        const startMonth = fixStartMonth(yearMonthDayArray[1], currentDayString, startDay)
-        const endMonth = fixEndMonth(yearMonthDayArray[1], currentDayString, endDay)
-
-        // year and month stay the same, convert to ISO format
-        const startDate = [ yearMonthDayArray[0], startMonth, startDay].join('-') + 'T00:00:00.000Z'
-        const endDate = [ yearMonthDayArray[0], endMonth, endDay].join('-') + 'T00:00:00.000Z'
-
-        dispatch(dateRangeWeekly({
-            startDate,
-            endDate,
-            currentDayString,
-            daysOfMonth
-        }))
-
-        dispatch(fetchScheduledTodos()) // pass in dates!
+        dispatch(dateRangeWeekly(dateRangeWeeklyObject(viewingTime)))
+        dispatch(fetchScheduledTodos())
     }, [])
 
     // not about below: might need scheduledTodos / setScheduledTodos as well as redux state for when editing!?
