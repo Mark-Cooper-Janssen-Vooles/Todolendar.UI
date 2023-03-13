@@ -7,13 +7,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {
     dateRangeWeekly,
     fetchScheduledTodos,
-    IScheduledTodosDataWeekly
 } from "../../../redux/reducers/scheduledTodoSlice";
 import {RootState} from "../../../redux/store";
-import dayjs, {Dayjs} from "dayjs";
+import {Dayjs} from "dayjs";
 import {computeDaysOfMonth} from "../../../helpers/computeDaysOfMonth";
 import {fixEndMonth, fixLength, fixStartMonth} from "../../../helpers/fetchScheduledTodosHelper";
-import {dayjsFormat} from "../../../redux/reducers/dateSlice";
 
 type ICalendarContainerContent = {
     hours: string[];
