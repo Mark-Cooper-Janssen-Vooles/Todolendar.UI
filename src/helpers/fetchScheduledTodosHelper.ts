@@ -32,21 +32,12 @@ export const scheduledTodosDayFilter = (scheduledTodos: IActiveScheduledTodo[], 
         .filter(( scheduledTodo: IActiveScheduledTodo) => {
             // @ts-ignore*/
             const timezone = dayjs.tz.guess()
-            // @ts-ignore*/ => converts ISO string in DB (GMT format) to current timezone
+            // @ts-ignore*/ => converts ISO string in DB (GMT format) to current timezone string
             const scheduledTodoLocalTz = dayjs(scheduledTodo.scheduledAt).utc('z').local().tz(timezone).local().format()
-
-            // console.log(scheduledTodoLocalTz.local().format())
-            //
-            // console.log(scheduledTodoLocalTz)
-            // console.log(scheduledTodo.scheduledAt)
-
-            // const scheduledTodosDay =
-            //     scheduledTodo.scheduledAt.split('T')[0].split('-')[2]
             const scheduledTodosDay =
                 scheduledTodoLocalTz.split('T')[0].split('-')[2]
 
             let dayOfMonth = action.payload.daysOfMonth[day].toString() // i.e. day = 0 is sunday
-
 
             if (dayOfMonth.length < 2) {
                 dayOfMonth = "0" + dayOfMonth
