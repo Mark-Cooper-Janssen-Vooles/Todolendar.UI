@@ -3,8 +3,18 @@ import * as ReactDOM from "react-dom";
 import './ScheduledTodoPortal.css'
 import {dayjsFormat} from "../../../redux/reducers/dateSlice";
 import dayjs from "dayjs";
+import {useDispatch} from "react-redux";
+import {updateScheduledTodo} from "../../../redux/reducers/scheduledTodoSlice";
 const objectSupport = require("dayjs/plugin/objectSupport");
 dayjs.extend(objectSupport);
+
+export enum IRecurFrequencyType {
+    None = 0,
+    Daily = 1,
+    Weekly = 2,
+    Monthly = 3,
+    Yearly= 4,
+}
 
 export type IActiveScheduledTodo = {
     id: string;
@@ -14,7 +24,7 @@ export type IActiveScheduledTodo = {
     colour: string;
     active: boolean;
     recurCount: number;
-    recurFrequencyType: number;
+    recurFrequencyType: IRecurFrequencyType;
     recurEndDate: string;
     notifyBeforeTime: number; // minutes?
     lastUpdatedAt: string;
@@ -42,6 +52,8 @@ const ScheduledTodoPortal = ({ setScheduledTodoOpen, activeScheduledTodo }: ISch
     const [scheduledAtDate, setScheduledAtDate] = useState('')
     const [scheduledAtTime, setScheduledAtTime] = useState('')
 
+    const dispatch = useDispatch()
+
     // useEffect(() => {
     //     console.log(activeScheduledTodo)
     // }, [])
@@ -51,7 +63,9 @@ const ScheduledTodoPortal = ({ setScheduledTodoOpen, activeScheduledTodo }: ISch
     const cancelEditTitle = () => setEditingTitleForm(false)
     const handleSaveEditTitle = (event: { preventDefault: () => void }) => {
         event.preventDefault()
-        console.log(title)
+        // console.log(typeof activeScheduledTodo.recurFrequencyType)
+        //
+        // console.log(notifyTime)
 
         const updatedScheduledTodo = {
             id: activeScheduledTodo.id,
@@ -61,11 +75,11 @@ const ScheduledTodoPortal = ({ setScheduledTodoOpen, activeScheduledTodo }: ISch
             recurCount: activeScheduledTodo.recurCount, // this isn't editable yet
             recurFrequencyType: activeScheduledTodo.recurFrequencyType, // this isn't editable yet
             recurEndDate: activeScheduledTodo.recurEndDate, // this isn't editable yet
-            notifyBeforeTime: notifyTime,
+            notifyBeforeTime: parseInt(notifyTime),
             scheduledAt: scheduledAt,
         }
         // api call to save and update email + re-fetch data
-
+        dispatch(updateScheduledTodo(updatedScheduledTodo))
         cancelEditTitle();
     }
 

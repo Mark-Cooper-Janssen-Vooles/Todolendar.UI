@@ -408,10 +408,10 @@ listenerMiddleware.startListening({
                     title: action.payload.title,
                     description: action.payload.description,
                     colour: action.payload.colour,
-                    recurCount: 0,
+                    recurCount: action.payload.recurCount,
                     recurFrequencyType: action.payload.recurFrequencyType,
                     recurEndDate: action.payload.recurEndDate,
-                    notifyBeforeTime: 0,
+                    notifyBeforeTime: action.payload.notifyBeforeTime,
                     scheduledAt: action.payload.scheduledAt,
                 },
                 { headers: { 'Authorization': getCookie("Authorization") }
