@@ -54,7 +54,8 @@ export const scheduledTodoSlice = createSlice({
         },
         dateRangeWeekly: (state, action) => {
             state.dateRangeWeekly = action.payload
-        }
+        },
+        updateScheduledTodo: (state, action) => {}, // picked up in middleware
     }
 })
 
@@ -62,7 +63,8 @@ export const {
     createScheduledTodo,
     fetchScheduledTodos,
     setScheduledTodos,
-    dateRangeWeekly
+    dateRangeWeekly,
+    updateScheduledTodo
 } = scheduledTodoSlice.actions
 
 export default scheduledTodoSlice.reducer

@@ -19,7 +19,7 @@ import {
     createScheduledTodo,
     fetchScheduledTodos,
     IScheduledTodosDataWeekly,
-    setScheduledTodos
+    setScheduledTodos, updateScheduledTodo
 } from "./reducers/scheduledTodoSlice";
 import {IActiveScheduledTodo} from "../components/TodolendarHome/Calendar/ScheduledTodoPortal";
 import {scheduledTodosDayFilter} from "../helpers/fetchScheduledTodosHelper";
@@ -389,6 +389,41 @@ listenerMiddleware.startListening({
         } catch (e) {
             console.log(e)
             console.log('fetching weekly scheduled todos was unsuccessful')
+        }
+    },
+})
+
+listenerMiddleware.startListening({
+    actionCreator: updateScheduledTodo,
+    effect: async (action, listenerApi) => {
+        // @ts-ignore
+        const userId = listenerApi.getState().user.user.id;
+
+        try {
+            const data = await axios.put(
+                `${baseUrl}/ScheduledTodo/${userId}/`,
+                {
+                    id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                    userId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                    title: "string",
+                    description: "string",
+                    colour: "string",
+                    recurCount: 0,
+                    recurFrequencyType: "string",
+                    recurEndDate: "2023-03-14T06:09:31.696Z",
+                    notifyBeforeTime: 0,
+                    scheduledAt: "2023-03-14T06:09:31.696Z"
+                },
+                { headers: { 'Authorization': getCookie("Authorization") }
+                })
+
+            if (data.status === 200) {
+                listenerApi.dispatch(fetchScheduledTodos())
+            }
+        } catch (e) {
+            console.log(e)
+            // set error message to user, toggle a window.Alert in the component
+            listenerApi.dispatch(setAlertMessage('Editing your todo was unsuccessful. Try again'))
         }
     },
 })
