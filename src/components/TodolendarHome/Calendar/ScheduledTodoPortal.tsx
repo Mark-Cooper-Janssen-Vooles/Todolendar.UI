@@ -32,6 +32,18 @@ export type IActiveScheduledTodo = {
     triggeredAt: string;
 }
 
+type IUpdatedScheduledTodo = {
+    id: string;
+    title: string;
+    description: string;
+    colour: string;
+    recurCount: number;
+    recurFrequencyType: IRecurFrequencyType,
+    recurEndDate: string;
+    notifyBeforeTime: number;
+    scheduledAt: string;
+}
+
 type IScheduledTodoPortal = {
     setScheduledTodoOpen: React.Dispatch<React.SetStateAction<boolean>>;
     activeScheduledTodo: IActiveScheduledTodo
@@ -54,20 +66,8 @@ const ScheduledTodoPortal = ({ setScheduledTodoOpen, activeScheduledTodo }: ISch
 
     const dispatch = useDispatch()
 
-    // useEffect(() => {
-    //     console.log(activeScheduledTodo)
-    // }, [])
-
-    const handleEditTitle = () => setEditingTitleForm(true)
-    const handleTitleChange = (event: { target: { value: React.SetStateAction<string> } }) => setTitle(event.target.value)
-    const cancelEditTitle = () => setEditingTitleForm(false)
-    const handleSaveEditTitle = (event: { preventDefault: () => void }) => {
-        event.preventDefault()
-        // console.log(typeof activeScheduledTodo.recurFrequencyType)
-        //
-        // console.log(notifyTime)
-
-        const updatedScheduledTodo = {
+    const getUpdatedScheduledTodoObject = () => {
+        const updatedScheduledTodo: IUpdatedScheduledTodo = {
             id: activeScheduledTodo.id,
             title: title,
             description: description,
@@ -78,8 +78,15 @@ const ScheduledTodoPortal = ({ setScheduledTodoOpen, activeScheduledTodo }: ISch
             notifyBeforeTime: parseInt(notifyTime),
             scheduledAt: scheduledAt,
         }
-        // api call to save and update email + re-fetch data
-        dispatch(updateScheduledTodo(updatedScheduledTodo))
+        return updatedScheduledTodo
+    }
+
+    const handleEditTitle = () => setEditingTitleForm(true)
+    const handleTitleChange = (event: { target: { value: React.SetStateAction<string> } }) => setTitle(event.target.value)
+    const cancelEditTitle = () => setEditingTitleForm(false)
+    const handleSaveEditTitle = (event: { preventDefault: () => void }) => {
+        event.preventDefault()
+        dispatch(updateScheduledTodo(getUpdatedScheduledTodoObject()))
         cancelEditTitle();
     }
 
@@ -88,9 +95,7 @@ const ScheduledTodoPortal = ({ setScheduledTodoOpen, activeScheduledTodo }: ISch
     const cancelEditDescription = () => setEditingDescriptionForm(false)
     const handleSaveEditDescription = (event: { preventDefault: () => void }) => {
         event.preventDefault()
-        console.log(description)
-        // api call to save and update email
-        // re-fetch data
+        dispatch(updateScheduledTodo(getUpdatedScheduledTodoObject()))
         cancelEditDescription();
     }
 
@@ -99,9 +104,7 @@ const ScheduledTodoPortal = ({ setScheduledTodoOpen, activeScheduledTodo }: ISch
     const cancelEditNotifyTime = () => setEditingNotifyTimeForm(false)
     const handleSaveNotifyTime = (event: { preventDefault: () => void }) => {
         event.preventDefault()
-        console.log(description)
-        // api call to save and update email
-        // re-fetch data
+        dispatch(updateScheduledTodo(getUpdatedScheduledTodoObject()))
         cancelEditNotifyTime();
     }
 
@@ -110,9 +113,7 @@ const ScheduledTodoPortal = ({ setScheduledTodoOpen, activeScheduledTodo }: ISch
     const cancelEditColourForm = () => setEditingColourForm(false)
     const handleSaveColourForm = (event: { preventDefault: () => void }) => {
         event.preventDefault()
-        console.log(description)
-        // api call to save and update email
-        // re-fetch data
+        dispatch(updateScheduledTodo(getUpdatedScheduledTodoObject()))
         cancelEditColourForm();
     }
 
@@ -143,8 +144,7 @@ const ScheduledTodoPortal = ({ setScheduledTodoOpen, activeScheduledTodo }: ISch
         const scheduledAtString = dayjsObj.format(dayjsFormat)
         setScheduledAt(scheduledAtString)
 
-        // api call to save and update email
-        // re-fetch data
+        // dispatch(updateScheduledTodo(getUpdatedScheduledTodoObject()))
         cancelEditScheduledAtForm();
     }
 
