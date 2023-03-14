@@ -19,7 +19,6 @@ const MonthNavigation = () => {
     const viewingTime = useSelector((state: RootState) => state.date.viewingTime)
 
     useEffect(() => {
-        console.log(viewingTime)
         // need to dispatch dateRangeWeekly
         // need to dispatch fetchScheduledTodos
         dispatch(dateRangeWeekly(dateRangeWeeklyObject(viewingTime)))

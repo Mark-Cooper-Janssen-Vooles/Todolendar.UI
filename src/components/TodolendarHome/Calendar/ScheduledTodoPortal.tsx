@@ -48,8 +48,24 @@ const ScheduledTodoPortal = ({ setScheduledTodoOpen, activeScheduledTodo }: ISch
     const handleSaveEditTitle = (event: { preventDefault: () => void }) => {
         event.preventDefault()
         console.log(title)
-        // api call to save and update email
-        // re-fetch data
+
+        const updatedScheduledTodo: IActiveScheduledTodo = {
+            id: '',
+            userId: '',
+            title: '',
+            description: '',
+            colour: '',
+            active: false,
+            recurCount: 0,
+            recurFrequencyType: 0,
+            recurEndDate: '',
+            notifyBeforeTime: 5,
+            lastUpdatedAt: '',
+            scheduledAt: '',
+            triggeredAt: '',
+        }
+        // api call to save and update email + re-fetch data
+
         cancelEditTitle();
     }
 
