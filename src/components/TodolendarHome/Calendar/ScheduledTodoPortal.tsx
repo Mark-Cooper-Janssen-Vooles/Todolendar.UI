@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import * as ReactDOM from "react-dom";
 import './ScheduledTodoPortal.css'
 import {dayjsFormat} from "../../../redux/reducers/dateSlice";
@@ -42,6 +42,10 @@ const ScheduledTodoPortal = ({ setScheduledTodoOpen, activeScheduledTodo }: ISch
     const [scheduledAtDate, setScheduledAtDate] = useState('')
     const [scheduledAtTime, setScheduledAtTime] = useState('')
 
+    // useEffect(() => {
+    //     console.log(activeScheduledTodo)
+    // }, [])
+
     const handleEditTitle = () => setEditingTitleForm(true)
     const handleTitleChange = (event: { target: { value: React.SetStateAction<string> } }) => setTitle(event.target.value)
     const cancelEditTitle = () => setEditingTitleForm(false)
@@ -50,15 +54,15 @@ const ScheduledTodoPortal = ({ setScheduledTodoOpen, activeScheduledTodo }: ISch
         console.log(title)
 
         const updatedScheduledTodo = {
-            id: '',
-            title: '',
-            description: '',
-            colour: '',
-            recurCount: 0,
-            recurFrequencyType: 0,
-            recurEndDate: '',
-            notifyBeforeTime: 5,
-            scheduledAt: '',
+            id: activeScheduledTodo.id,
+            title: title,
+            description: description,
+            colour: colour,
+            recurCount: activeScheduledTodo.recurCount, // this isn't editable yet
+            recurFrequencyType: activeScheduledTodo.recurFrequencyType, // this isn't editable yet
+            recurEndDate: activeScheduledTodo.recurEndDate, // this isn't editable yet
+            notifyBeforeTime: notifyTime,
+            scheduledAt: scheduledAt,
         }
         // api call to save and update email + re-fetch data
 
