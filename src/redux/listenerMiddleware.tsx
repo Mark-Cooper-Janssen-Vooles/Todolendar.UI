@@ -403,16 +403,16 @@ listenerMiddleware.startListening({
             const data = await axios.put(
                 `${baseUrl}/ScheduledTodo/${userId}/`,
                 {
-                    id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-                    userId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-                    title: "string",
-                    description: "string",
-                    colour: "string",
+                    id: action.payload.id,
+                    userId: userId,
+                    title: action.payload.title,
+                    description: action.payload.description,
+                    colour: action.payload.colour,
                     recurCount: 0,
-                    recurFrequencyType: "string",
-                    recurEndDate: "2023-03-14T06:09:31.696Z",
+                    recurFrequencyType: action.payload.recurFrequencyType,
+                    recurEndDate: action.payload.recurEndDate,
                     notifyBeforeTime: 0,
-                    scheduledAt: "2023-03-14T06:09:31.696Z"
+                    scheduledAt: action.payload.scheduledAt,
                 },
                 { headers: { 'Authorization': getCookie("Authorization") }
                 })

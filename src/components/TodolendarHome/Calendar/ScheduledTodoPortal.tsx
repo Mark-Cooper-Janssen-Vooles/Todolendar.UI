@@ -49,20 +49,16 @@ const ScheduledTodoPortal = ({ setScheduledTodoOpen, activeScheduledTodo }: ISch
         event.preventDefault()
         console.log(title)
 
-        const updatedScheduledTodo: IActiveScheduledTodo = {
+        const updatedScheduledTodo = {
             id: '',
-            userId: '',
             title: '',
             description: '',
             colour: '',
-            active: false,
             recurCount: 0,
             recurFrequencyType: 0,
             recurEndDate: '',
             notifyBeforeTime: 5,
-            lastUpdatedAt: '',
             scheduledAt: '',
-            triggeredAt: '',
         }
         // api call to save and update email + re-fetch data
 
