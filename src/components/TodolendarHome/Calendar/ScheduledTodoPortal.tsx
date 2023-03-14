@@ -127,8 +127,10 @@ const ScheduledTodoPortal = ({ setScheduledTodoOpen, activeScheduledTodo }: ISch
 
     const handleSaveScheduledAtForm = (event: { preventDefault: () => void }) => {
         event.preventDefault()
-        console.log(scheduledAtDate)
-        console.log(scheduledAtTime)
+        console.log(scheduledAt)
+
+        // console.log(scheduledAtDate)
+        // console.log(scheduledAtTime)
 
         const year = scheduledAtDate.split('-')[0]
         const month = scheduledAtDate.split('-')[1]
@@ -142,7 +144,9 @@ const ScheduledTodoPortal = ({ setScheduledTodoOpen, activeScheduledTodo }: ISch
             hour: parseInt(hour), minute: parseInt(minute), second: 0, millisecond: 0 })
 
         const scheduledAtString = dayjsObj.format(dayjsFormat)
-        setScheduledAt(scheduledAtString)
+
+        // console.log(dayjsObj.toISOString())
+        setScheduledAt(dayjsObj.toISOString())
 
         // dispatch(updateScheduledTodo(getUpdatedScheduledTodoObject()))
         cancelEditScheduledAtForm();

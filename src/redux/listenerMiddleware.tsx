@@ -399,6 +399,8 @@ listenerMiddleware.startListening({
         // @ts-ignore
         const userId = listenerApi.getState().user.user.id;
 
+        console.log(action.payload.scheduledAt)
+
         try {
             const data = await axios.put(
                 `${baseUrl}/ScheduledTodo/${userId}/`,
