@@ -3,7 +3,7 @@ import * as ReactDOM from "react-dom";
 import './ScheduledTodoPortal.css'
 import dayjs from "dayjs";
 import {useDispatch} from "react-redux";
-import {updateScheduledTodo} from "../../../redux/reducers/scheduledTodoSlice";
+import {deleteScheduledTodo, updateScheduledTodo} from "../../../redux/reducers/scheduledTodoSlice";
 const objectSupport = require("dayjs/plugin/objectSupport");
 dayjs.extend(objectSupport);
 
@@ -171,6 +171,11 @@ const ScheduledTodoPortal = ({ setScheduledTodoOpen, activeScheduledTodo }: ISch
         cancelEditScheduledAtForm();
     }
 
+    const handleDeleteScheduledTodo = () => {
+        dispatch(deleteScheduledTodo(activeScheduledTodo.id))
+        // close the portal
+    }
+
     return ReactDOM.createPortal(
         <div className="ScheduledTodoPortalContainer Border">
             <div className="CloseIcon" onClick={() => setScheduledTodoOpen(false)}>X</div>
@@ -254,6 +259,10 @@ const ScheduledTodoPortal = ({ setScheduledTodoOpen, activeScheduledTodo }: ISch
                         <button onClick={handleEditScheduledAtForm}>Edit</button>
                     </>
                 }
+            </div>
+
+            <div className="ScheduledTodoPortalSection">
+                <button onClick={handleDeleteScheduledTodo}>Delete</button>
             </div>
         </div>,
         // @ts-ignore

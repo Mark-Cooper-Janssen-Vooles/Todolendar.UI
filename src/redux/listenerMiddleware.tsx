@@ -19,7 +19,8 @@ import {
     createScheduledTodo,
     fetchScheduledTodos,
     IScheduledTodosDataWeekly,
-    setScheduledTodos, updateScheduledTodo
+    setScheduledTodos, updateScheduledTodo,
+    deleteScheduledTodo
 } from "./reducers/scheduledTodoSlice";
 import {IActiveScheduledTodo} from "../components/TodolendarHome/Calendar/ScheduledTodoPortal";
 import {scheduledTodosDayFilter} from "../helpers/fetchScheduledTodosHelper";
@@ -184,7 +185,6 @@ listenerMiddleware.startListening({
 listenerMiddleware.startListening({
     actionCreator: deleteUser,
     effect: async (action, listenerApi) => {
-        // Async logic, PUT to planReminder endpoint
         // @ts-ignore
         const userId = listenerApi.getState().user.user.id;
 
@@ -426,6 +426,32 @@ listenerMiddleware.startListening({
             console.log(e)
             // set error message to user, toggle a window.Alert in the component
             listenerApi.dispatch(setAlertMessage('Editing your scheduled todo was unsuccessful. Try again'))
+        }
+    },
+})
+
+listenerMiddleware.startListening({
+    actionCreator: deleteScheduledTodo,
+    effect: async (action, listenerApi) => {
+        // @ts-ignore
+        const userId = listenerApi.getState().user.user.id;
+
+        console.log(action.payload)
+
+        try {
+            const data = await axios.delete(`${baseUrl}/ScheduledTodo/${userId}/${action.payload}`,
+                { headers: { 'Authorization': getCookie("Authorization") } })
+
+            if (data.status === 200) {
+                // refetch scheduled todos
+                listenerApi.dispatch(fetchScheduledTodos())
+
+                // close portal
+                listenerApi.dispatch(setAlertMessage('Your scheduled todo has been deleted'))
+            }
+        } catch (e) {
+            console.log(e)
+            listenerApi.dispatch(setAlertMessage('Deleting your scheduled todo was unsuccessful. Try again'))
         }
     },
 })

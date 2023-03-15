@@ -70,8 +70,12 @@ const CalendarContainerContent = ({ hours, currentHour, currentDay }: ICalendarC
     // }, [scheduledTodos])
 
     const handleScheduledTodoOpen = (scheduledTodo: IActiveScheduledTodo) => {
-        setScheduledTodoOpen(true);
+        setScheduledTodoOpen(true)
         setActiveScheduledTodo(scheduledTodo)
+    }
+
+    const handleScheduledTodoClose = () => {
+        setScheduledTodoOpen(false)
     }
 
     return (
