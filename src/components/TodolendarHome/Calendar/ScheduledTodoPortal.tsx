@@ -1,7 +1,6 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import * as ReactDOM from "react-dom";
 import './ScheduledTodoPortal.css'
-import {dayjsFormat} from "../../../redux/reducers/dateSlice";
 import dayjs from "dayjs";
 import {useDispatch} from "react-redux";
 import {updateScheduledTodo} from "../../../redux/reducers/scheduledTodoSlice";
