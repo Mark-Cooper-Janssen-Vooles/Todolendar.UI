@@ -181,7 +181,7 @@ const ScheduledTodoPortal = ({ setScheduledTodoOpen, activeScheduledTodo, closeP
         <div className="ScheduledTodoPortalContainer Border">
             <div className="CloseIcon" onClick={() => setScheduledTodoOpen(false)}>X</div>
             <div className="ScheduledTodoPortalSection">
-                <b>Edit Scheduled Todo:</b>
+                Edit Scheduled Todo:
             </div>
             <div className="ScheduledTodoPortalSection">
                 { editingTitleForm ?
