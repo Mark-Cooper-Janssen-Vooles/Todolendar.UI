@@ -80,7 +80,13 @@ const CalendarContainerContent = ({ hours, currentHour, currentDay }: ICalendarC
 
     return (
        <div className="CalenderContainerContent">
-           { scheduledTodoOpen && <ScheduledTodoPortal setScheduledTodoOpen={setScheduledTodoOpen} activeScheduledTodo={activeScheduledTodo} />}
+           { scheduledTodoOpen &&
+               <ScheduledTodoPortal
+                setScheduledTodoOpen={setScheduledTodoOpen}
+                activeScheduledTodo={activeScheduledTodo}
+                closePortal={handleScheduledTodoClose}
+               />
+           }
             <div className="CalendarWeeklyColumnTimeContent">
                 {hours.map((hour, id) => {
                     if (currentHour === hour ) {

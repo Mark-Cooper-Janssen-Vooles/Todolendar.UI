@@ -443,11 +443,7 @@ listenerMiddleware.startListening({
                 { headers: { 'Authorization': getCookie("Authorization") } })
 
             if (data.status === 200) {
-                // refetch scheduled todos
                 listenerApi.dispatch(fetchScheduledTodos())
-
-                // close portal
-                listenerApi.dispatch(setAlertMessage('Your scheduled todo has been deleted'))
             }
         } catch (e) {
             console.log(e)

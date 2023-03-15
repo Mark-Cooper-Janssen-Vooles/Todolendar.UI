@@ -44,11 +44,12 @@ type IUpdatedScheduledTodo = {
 }
 
 type IScheduledTodoPortal = {
-    setScheduledTodoOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    setScheduledTodoOpen: React.Dispatch<React.SetStateAction<boolean>>
     activeScheduledTodo: IActiveScheduledTodo
+    closePortal: () => void
 }
 
-const ScheduledTodoPortal = ({ setScheduledTodoOpen, activeScheduledTodo }: IScheduledTodoPortal) => {
+const ScheduledTodoPortal = ({ setScheduledTodoOpen, activeScheduledTodo, closePortal }: IScheduledTodoPortal) => {
     const [editingTitleForm, setEditingTitleForm] = useState(false)
     const [title, setTitle] = useState(activeScheduledTodo.title)
     const [editingDescriptionForm, setEditingDescriptionForm] = useState(false)
@@ -173,12 +174,15 @@ const ScheduledTodoPortal = ({ setScheduledTodoOpen, activeScheduledTodo }: ISch
 
     const handleDeleteScheduledTodo = () => {
         dispatch(deleteScheduledTodo(activeScheduledTodo.id))
-        // close the portal
+        closePortal()
     }
 
     return ReactDOM.createPortal(
         <div className="ScheduledTodoPortalContainer Border">
             <div className="CloseIcon" onClick={() => setScheduledTodoOpen(false)}>X</div>
+            <div className="ScheduledTodoPortalSection">
+                <b>Edit Scheduled Todo:</b>
+            </div>
             <div className="ScheduledTodoPortalSection">
                 { editingTitleForm ?
                     <>
