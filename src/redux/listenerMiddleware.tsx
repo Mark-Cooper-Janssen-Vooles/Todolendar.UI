@@ -348,7 +348,7 @@ listenerMiddleware.startListening({
         } catch (e) {
             console.log(e)
             // set error message to user, toggle a window.Alert in the component
-            listenerApi.dispatch(setAlertMessage('Adding todo was unsuccessful. Try again'))
+            listenerApi.dispatch(setAlertMessage('Creating scheduled todo was unsuccessful. Try again'))
         }
     },
 })
@@ -425,7 +425,7 @@ listenerMiddleware.startListening({
         } catch (e) {
             console.log(e)
             // set error message to user, toggle a window.Alert in the component
-            listenerApi.dispatch(setAlertMessage('Editing your todo was unsuccessful. Try again'))
+            listenerApi.dispatch(setAlertMessage('Editing your scheduled todo was unsuccessful. Try again'))
         }
     },
 })
