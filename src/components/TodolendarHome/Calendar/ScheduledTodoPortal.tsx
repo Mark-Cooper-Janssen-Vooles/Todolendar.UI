@@ -66,12 +66,7 @@ const ScheduledTodoPortal = ({ setScheduledTodoOpen, activeScheduledTodo }: ISch
 
     const dispatch = useDispatch()
 
-    // useEffect(() => {
-    //     console.log(scheduledAt)
-    // }, [scheduledAt])
-
     const getUpdatedScheduledTodoObject = () => {
-        // console.log(scheduledAt)
         const updatedScheduledTodo: IUpdatedScheduledTodo = {
             id: activeScheduledTodo.id,
             title: title,
@@ -127,9 +122,6 @@ const ScheduledTodoPortal = ({ setScheduledTodoOpen, activeScheduledTodo }: ISch
         setScheduledAtDate(event.target.value)
         const scheduledAtDate = event.target.value;
 
-        // console.log(scheduledAtDate) // these work!
-        // console.log(scheduledAtTime)
-        // below all works too:
         const year = scheduledAtDate.split('-')[0]
         const month = scheduledAtDate.split('-')[1]
         const day = scheduledAtDate.split('-')[2]
@@ -143,11 +135,9 @@ const ScheduledTodoPortal = ({ setScheduledTodoOpen, activeScheduledTodo }: ISch
             minute = scheduledAtTime.split(':')[1]
         }
 
-        // @ts-ignore
+        // @ts-ignore => Zero indexed month
         dayjsObj = dayjs({ year: parseInt(year), month: parseInt(month) - 1, day: parseInt(day),
             hour: parseInt(hour), minute: parseInt(minute), second: 0, millisecond: 0 })
-
-        console.log(dayjsObj.toISOString())
         setScheduledAt(dayjsObj.toISOString())
     }
 
@@ -169,11 +159,9 @@ const ScheduledTodoPortal = ({ setScheduledTodoOpen, activeScheduledTodo }: ISch
             day = scheduledAtDate.split('-')[2]
         }
 
-        // @ts-ignore
+        // @ts-ignore => Zero indexed month
         dayjsObj = dayjs({ year: parseInt(year), month: parseInt(month) - 1, day: parseInt(day),
             hour: parseInt(hour), minute: parseInt(minute), second: 0, millisecond: 0 })
-
-        console.log(dayjsObj.toISOString())
         setScheduledAt(dayjsObj.toISOString())
     }
 
