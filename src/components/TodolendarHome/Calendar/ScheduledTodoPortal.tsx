@@ -66,7 +66,12 @@ const ScheduledTodoPortal = ({ setScheduledTodoOpen, activeScheduledTodo }: ISch
 
     const dispatch = useDispatch()
 
+    // useEffect(() => {
+    //     console.log(scheduledAt)
+    // }, [scheduledAt])
+
     const getUpdatedScheduledTodoObject = () => {
+        // console.log(scheduledAt)
         const updatedScheduledTodo: IUpdatedScheduledTodo = {
             id: activeScheduledTodo.id,
             title: title,
@@ -118,37 +123,64 @@ const ScheduledTodoPortal = ({ setScheduledTodoOpen, activeScheduledTodo }: ISch
     }
 
     const handleEditScheduledAtForm = () => setEditingScheduledAtForm(true)
-    const handleEditScheduledAtFormChangeDate = (event: { target: { value: React.SetStateAction<string> } }) =>
+    const handleEditScheduledAtFormChangeDate = (event: any) => {
         setScheduledAtDate(event.target.value)
-    const handleEditScheduledAtFormChangeTime = (event: { target: { value: React.SetStateAction<string> } }) =>
-        setScheduledAtTime(event.target.value)
+        const scheduledAtDate = event.target.value;
 
-    const cancelEditScheduledAtForm = () => setEditingScheduledAtForm(false)
-
-    const handleSaveScheduledAtForm = (event: { preventDefault: () => void }) => {
-        event.preventDefault()
-        console.log(scheduledAt)
-
-        // console.log(scheduledAtDate)
+        // console.log(scheduledAtDate) // these work!
         // console.log(scheduledAtTime)
-
+        // below all works too:
         const year = scheduledAtDate.split('-')[0]
         const month = scheduledAtDate.split('-')[1]
         const day = scheduledAtDate.split('-')[2]
-        const hour = scheduledAtTime.split(':')[0]
+        let hour = '0'
+        let minute = '0'
 
-        const minute = scheduledAtTime.split(':')[1]
+        let dayjsObj;
+
+        if (scheduledAtTime) {
+            hour = scheduledAtTime.split(':')[0]
+            minute = scheduledAtTime.split(':')[1]
+        }
 
         // @ts-ignore
-        const dayjsObj = dayjs({ year: parseInt(year), month: parseInt(month), day: parseInt(day),
+        dayjsObj = dayjs({ year: parseInt(year), month: parseInt(month) - 1, day: parseInt(day),
             hour: parseInt(hour), minute: parseInt(minute), second: 0, millisecond: 0 })
 
-        const scheduledAtString = dayjsObj.format(dayjsFormat)
-
-        // console.log(dayjsObj.toISOString())
+        console.log(dayjsObj.toISOString())
         setScheduledAt(dayjsObj.toISOString())
+    }
 
-        // dispatch(updateScheduledTodo(getUpdatedScheduledTodoObject()))
+    const handleEditScheduledAtFormChangeTime = (event: any) => {
+        setScheduledAtTime(event.target.value)
+        const scheduledAtTime = event.target.value;
+
+        const hour = scheduledAtTime.split(':')[0]
+        const minute = scheduledAtTime.split(':')[1]
+        let year = '0'
+        let month = '0'
+        let day = '0'
+
+        let dayjsObj;
+
+        if (scheduledAtDate) {
+            year = scheduledAtDate.split('-')[0]
+            month = scheduledAtDate.split('-')[1]
+            day = scheduledAtDate.split('-')[2]
+        }
+
+        // @ts-ignore
+        dayjsObj = dayjs({ year: parseInt(year), month: parseInt(month) - 1, day: parseInt(day),
+            hour: parseInt(hour), minute: parseInt(minute), second: 0, millisecond: 0 })
+
+        console.log(dayjsObj.toISOString())
+        setScheduledAt(dayjsObj.toISOString())
+    }
+
+    const cancelEditScheduledAtForm = () => setEditingScheduledAtForm(false)
+    const handleSaveScheduledAtForm = (event: { preventDefault: () => void }) => {
+        event.preventDefault()
+        dispatch(updateScheduledTodo(getUpdatedScheduledTodoObject()))
         cancelEditScheduledAtForm();
     }
 
