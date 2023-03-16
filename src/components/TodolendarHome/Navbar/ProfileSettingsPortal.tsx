@@ -146,14 +146,16 @@ const ProfileSettingsPortal = (props: IProfileSettingsPortal) => {
         <div className="ProfileSettingsMenu Border">
             <div className="ProfileSettingsTop">
                 <div className="CloseIcon" onClick={() => props.setExpanded(false)}>X</div>
+
+                <div>Email:</div>
                 <div className="ProfileSettingsSection">
                     { editingEmailForm ?
                         <>
                             <form onSubmit={handleSaveUserInfo}>
-                                <input type="text" name="email" onChange={handleEmailChange} placeholder="Email"/>
+                                <input type="text" name="email" onChange={handleEmailChange} placeholder={email}/>
                                 <input type="submit" value="save" />
                             </form>
-                            <button onClick={cancelEditEmail}>Cancel</button>
+                            <button className="CancelButton" onClick={cancelEditEmail}>cancel</button>
                         </> :
                         <>
                             {email}
@@ -161,14 +163,16 @@ const ProfileSettingsPortal = (props: IProfileSettingsPortal) => {
                         </>
                     }
                 </div>
+
+                <div>First name:</div>
                 <div className="ProfileSettingsSection">
                     { editingFirstNameForm ?
                         <>
                             <form onSubmit={handleSaveUserInfo}>
-                                <input type="text" name="firstname" onChange={handleFirstNameChange} placeholder="First Name"/>
+                                <input type="text" name="firstname" onChange={handleFirstNameChange} placeholder={firstName}/>
                                 <input type="submit" value="save" />
                             </form>
-                            <button onClick={cancelEditFirstName}>Cancel</button>
+                            <button className="CancelButton" onClick={cancelEditFirstName}>cancel</button>
                         </> :
                         <>
                             {firstName}
@@ -176,14 +180,16 @@ const ProfileSettingsPortal = (props: IProfileSettingsPortal) => {
                         </>
                     }
                 </div>
+
+                <div>Last name:</div>
                 <div className="ProfileSettingsSection">
                     { editingLastNameForm ?
                         <>
                             <form onSubmit={handleSaveUserInfo}>
-                                <input type="text" name="lastname" onChange={handleLastNameChange} placeholder="Last Name"/>
+                                <input type="text" name="lastname" onChange={handleLastNameChange} placeholder={lastName}/>
                                 <input type="submit" value="save" />
                             </form>
-                            <button onClick={cancelEditLastName}>Cancel</button>
+                            <button className="CancelButton" onClick={cancelEditLastName}>cancel</button>
                         </> :
                         <>
                             {lastName}
@@ -191,14 +197,16 @@ const ProfileSettingsPortal = (props: IProfileSettingsPortal) => {
                         </>
                     }
                 </div>
+
+                <div>Mobile:</div>
                 <div className="ProfileSettingsSection">
                     { editingMobileForm ?
                         <>
                             <form onSubmit={handleSaveUserInfo}>
-                                <input type="text" name="mobile" onChange={handleMobileChange} placeholder="Mobile"/>
+                                <input type="text" name="mobile" onChange={handleMobileChange} placeholder={mobile}/>
                                 <input type="submit" value="save" />
                             </form>
-                            <button onClick={cancelEditMobile}>Cancel</button>
+                            <button className="CancelButton" onClick={cancelEditMobile}>cancel</button>
                         </> :
                         <>
                             {mobile}
@@ -206,10 +214,11 @@ const ProfileSettingsPortal = (props: IProfileSettingsPortal) => {
                         </>
                     }
                 </div>
+
                 <div className="ProfileSettingsSection">
                     { editingPlanReminderForm ?
                         <>
-                            <form onSubmit={handleSaveEditPlanReminder}>
+                            <form className="PlanReminderSection" onSubmit={handleSaveEditPlanReminder}>
                                 <div>
                                     <label htmlFor="planReminderOn">Plan reminder on?</label>
                                     <input type="checkbox" name="planReminderOn" id ="planReminderOn" onChange={handlePlanReminderChange}
@@ -225,7 +234,7 @@ const ProfileSettingsPortal = (props: IProfileSettingsPortal) => {
                                           placeholder="description" />
                                 <div>
                                     <input type="submit" value="save" />
-                                    <button onClick={cancelEditPlanReminder}>Cancel</button>
+                                    <button className="CancelButton" onClick={cancelEditPlanReminder}>cancel</button>
                                 </div>
                             </form>
 
@@ -236,6 +245,7 @@ const ProfileSettingsPortal = (props: IProfileSettingsPortal) => {
                         </>
                     }
                 </div>
+
                 <div className="ProfileSettingsSection">
                     { deleteAccountActive ?
                         <>

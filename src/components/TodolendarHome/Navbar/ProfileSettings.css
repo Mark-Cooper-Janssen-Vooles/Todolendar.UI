@@ -4,12 +4,14 @@
     z-index: 10;
     right: 0;
     top: 15vh;
-    height: 60vh;
+    height: 80vh;
     width: 20vw;
 
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+    overflow: scroll;
 }
 
 .ProfileSettingsTop {
@@ -29,4 +31,14 @@
     margin-bottom: 15px;
     margin-right: 5px;
     cursor: pointer;
+}
+
+.CancelButton {
+    width: 55px;
+    height: 21.2px;
+}
+
+.PlanReminderSection {
+    display: flex;
+    flex-direction: column;
 }
