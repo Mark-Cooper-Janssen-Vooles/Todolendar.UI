@@ -65,14 +65,14 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 ## Releasing 
 
 Changes made to this repository and merged into master will trigger a CICD AWS CodePipeline pipeline on `ap-southeast-2`, and be deployed to an ec2 instance in production. 
-The pipeline can be found [here](update link) once logged in.
+The pipeline can be found [here](https://ap-southeast-2.console.aws.amazon.com/codesuite/codepipeline/pipelines/todolendar-ui-pipeline-2/view?region=ap-southeast-2) once logged in.
 
-#### Source
+### Source
 Source is linked to the github repository and picks up any changes to master and kicks off another execution. It requires github authentication when set up.
 
-#### CodeBuild 
-Build use the buildspec.yml, running the commands and outputting the artifacts into an s3 bucket.
+### Build 
+Build is using AWS CodeBuild, which uses the buildspec.yml - running the commands and outputting the artifacts into an s3 bucket.
 It requires an IAM role attached which has s3 write permissions. 
 
-#### CodeDeploy
-??? will need to deploy to s3 bucket 
+### Deploy
+The [S3 bucket](https://ap-southeast-2.console.aws.amazon.com/s3/buckets/todolender-ui-s3-output?region=ap-southeast-2&tab=properties) uses static website hosting, and is viewable on a public url [here](http://todolender-ui-s3-output.s3-website-ap-southeast-2.amazonaws.com).
