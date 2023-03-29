@@ -29,7 +29,9 @@ A basic database schema is available [here](https://app.diagrams.net/#G1NYqMTprb
 ---
 
 ## Running Locally
-To run this project locally, you will need to first start [Todolendar.API](https://github.com/Mark-Cooper-Janssen-Vooles/Todolendar.API) and then run `npm start`.
+To run this project locally, you will need to first clone [Todolendar.API](https://github.com/Mark-Cooper-Janssen-Vooles/Todolendar.API) and follow the setup instructions for Todolendar.API to get that running locally.
+
+Then, come back here to the UI and run `npm install` and `npm start`. The UI will open in a new tab and you should be able to login / signup and have all the functionality.
 
 ---
 
