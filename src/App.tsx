@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "./redux/store";
 import { getCookie } from "./redux/helpers";
 import { tryGetUserAndPlanReminderInfo } from "./redux/reducers/userSlice";
+import axios from 'axios';
 
 const App = () => {
     const loggedIn = useSelector((state: RootState) => state.user.loggedIn)

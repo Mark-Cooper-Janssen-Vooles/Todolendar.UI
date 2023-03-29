@@ -39,6 +39,11 @@ listenerMiddleware.startListening({
     effect: async (action, listenerApi) => {
         // Async logic, POST to login endpoint
         try {
+
+            //temp code: 
+            const pingHealth = await axios.get(`${baseUrl}/Ping/`)
+            console.log(pingHealth)
+
             const data = await axios.post(`${baseUrl}/Auth/login`, {
                 email: action.payload.username,
                 password: action.payload.password,
@@ -72,6 +77,7 @@ listenerMiddleware.startListening({
                 }
             })
 
+            // should be wrapped in a data.state = 200
             listenerApi.dispatch(setUserInfo(user.data))
             listenerApi.dispatch(setLoggedInState(true))
         } catch (e) {
