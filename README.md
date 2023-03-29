@@ -6,10 +6,14 @@ The backend for Todolendar is found at [Todolendar.API](https://github.com/Mark-
 
 Features include account creation, sign-in functionality, editing your profile, creating todo's and adding them into a calendar as a scheduled todo. Users will also be able to set SMS notifications for reminding them to plan their week / month / day, as well as for reminding them when they have a scheduled todo coming up.
 
+---
+
 ## Planning
 Figma designs are available [here](https://www.figma.com/file/ona2QoEu6QzTcyffAervOy/Todolender?node-id=0%3A1&t=KPdD8o2qc6cbYQnZ-0).
 
 A basic database schema is available [here](https://app.diagrams.net/#G1NYqMTprbHGnyYW-6s-Pc1sLVT3hZQu_x).
+
+---
 
 ## Technology 
 
@@ -22,8 +26,12 @@ A basic database schema is available [here](https://app.diagrams.net/#G1NYqMTprb
 - Redux has been used to manage global state, as well as its inbuilt listenerMiddleware to make async API calls
 - Typescript has been leveraged to improve the developer experience
 
+---
+
 ## Running Locally
 To run this project locally, you will need to first start [Todolendar.API](https://github.com/Mark-Cooper-Janssen-Vooles/Todolendar.API) and then run `npm start`.
+
+---
 
 ## Available Scripts
 
@@ -51,3 +59,20 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+--- 
+
+## Releasing 
+
+Changes made to this repository and merged into master will trigger a CICD AWS CodePipeline pipeline on `ap-southeast-2`, and be deployed to an ec2 instance in production. 
+The pipeline can be found [here](update link) once logged in.
+
+#### Source
+Source is linked to the github repository and picks up any changes to master and kicks off another execution. It requires github authentication when set up.
+
+#### CodeBuild 
+Build use the buildspec.yml, running the commands and outputting the artifacts into an s3 bucket.
+It requires an IAM role attached which has s3 write permissions. 
+
+#### CodeDeploy
+??? will need to deploy to s3 bucket 
