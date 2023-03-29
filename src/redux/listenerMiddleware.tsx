@@ -27,7 +27,11 @@ import {scheduledTodosDayFilter} from "../helpers/fetchScheduledTodosHelper";
 
 // Create the middleware instance and methods
 export const listenerMiddleware = createListenerMiddleware()
-const baseUrl = 'https://localhost:7025'
+
+const baseUrl = process.env.NODE_ENV === 'production' ? 
+'https://ec2-52-62-190-216.ap-southeast-2.compute.amazonaws.com/' :
+'https://localhost:7025'
+// more info on node_env here: https://create-react-app.dev/docs/adding-custom-environment-variables 
 
 // Add one or more listener entries that look for specific actions.
 // They may contain any sync or async logic, similar to thunks.
