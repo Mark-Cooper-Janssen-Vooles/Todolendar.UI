@@ -29,7 +29,7 @@ import {scheduledTodosDayFilter} from "../helpers/fetchScheduledTodosHelper";
 export const listenerMiddleware = createListenerMiddleware()
 
 const baseUrl = process.env.NODE_ENV === 'production' ? 
-'https://ec2-3-25-212-250.ap-southeast-2.compute.amazonaws.com:5001/' :
+'https://ec2-3-25-212-250.ap-southeast-2.compute.amazonaws.com:5001' :
 'https://localhost:7025'
 // more info on node_env here: https://create-react-app.dev/docs/adding-custom-environment-variables 
 
