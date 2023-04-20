@@ -1,6 +1,6 @@
 # Todolendar.UI
 
-This repository is the frontend for Todolendar, a project which is a todo list and calendar fusion. 
+This repository is the frontend for Todolendar, a project which is a todo list and calendar fusion. It is hosted in s3 and viewable [here](http://todolender-ui-s3-output.s3-website-ap-southeast-2.amazonaws.com/). Note that it was developed using chrome locally and no effort has been put into making it usable on other browsers (yet).
 
 The backend for Todolendar is found at [Todolendar.API](https://github.com/Mark-Cooper-Janssen-Vooles/Todolendar.API).
 
