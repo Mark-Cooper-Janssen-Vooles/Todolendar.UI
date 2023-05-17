@@ -35,8 +35,8 @@ const LoginSignupBar = () => {
                     <button className="Button" onClick={handleSignupOnClick}>Signup</button>
                 </div>
             }
-            { display === displayStates.LoginForm && <Form formType={displayStates.LoginForm} submitButtonText="Login"/> }
-            { display === displayStates.SignupForm && <Form formType={displayStates.SignupForm} submitButtonText="Signup"/> }
+            { display === displayStates.LoginForm && <Form formType={displayStates.LoginForm} submitButtonText="Login" setDisplay={setDisplay} /> }
+            { display === displayStates.SignupForm && <Form formType={displayStates.SignupForm} submitButtonText="Signup" setDisplay={setDisplay}/>}
         </div>
     )
 }

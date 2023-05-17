@@ -18,6 +18,7 @@ type FormData = {
 type FormProps = {
     formType: string;
     submitButtonText: string;
+    setDisplay: React.Dispatch<React.SetStateAction<string>>
 }
 
 const Form = (props: FormProps) => {
@@ -45,6 +46,10 @@ const Form = (props: FormProps) => {
         }
     }
 
+    const handleBackButton = () => {
+        props.setDisplay(displayStates.LoginAndSignup)
+    }
+
     return (
         <form className="FormWrapper" onSubmit={handleSubmit(onSubmit)}>
             {
@@ -61,8 +66,13 @@ const Form = (props: FormProps) => {
                         </div>
 
                         <div className="Form">
+                            <input className="Input BottomMargin LeftMargin" {...register("mobile")} placeholder="Current Goal" type="currentGoal"/>
                             <input className="Input BottomMargin LeftMargin" {...register("mobile")} placeholder="Mobile" type="mobile"/>
+                        </div>
+
+                        <div className="Form">
                             <input className="Button BottomMargin LeftMargin" type="submit" value={submitButtonText} />
+                            <button onClick={handleBackButton}>Cancel</button>
                         </div>
                     </>
                 : // login form:
@@ -71,6 +81,7 @@ const Form = (props: FormProps) => {
                             <input className="Input BottomMargin" {...register("username")} placeholder="Email"/>
                             <input className="Input BottomMargin" {...register("password")} placeholder="Password" type="password"/>
                             <input className="Button" type="submit" value={submitButtonText} />
+                            <button onClick={handleBackButton}>Cancel</button>
                         </div>
                     </>
             }
