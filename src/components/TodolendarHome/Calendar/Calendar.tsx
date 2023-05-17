@@ -17,6 +17,7 @@ export const hours = ['1 AM', '2 AM', '3 AM', '4 AM', '5 AM', '6 AM', '7 AM', '8
 const Calendar = () => {
     const [daysOfMonth, setDaysOfMonth] = useState([0, 0, 0, 0, 0, 0, 0]);
     const viewingTime = useSelector((state: RootState) => state.date.viewingTime)
+    const currentTime = useSelector((state: RootState) => state.date.currentTime)
     const dayjsTimeObject = dayjs(viewingTime, dayjsFormat)
     const currentDay = days[dayjsTimeObject.day()]
 
@@ -44,7 +45,7 @@ const Calendar = () => {
                 </div>
                 <div className="CalendarWeeklyColumnDayContainer">
                     {days.map((day, id) => {
-                        if (currentDay === day ) {
+                        if (currentDay === day && currentTime === viewingTime) {
                             return (
                                 <div key={id} className="CalendarWeeklyColumnDay">
                                     <div>{ day }</div>
