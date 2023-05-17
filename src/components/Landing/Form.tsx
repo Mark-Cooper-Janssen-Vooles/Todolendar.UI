@@ -13,6 +13,7 @@ type FormData = {
     firstname: string;
     lastname: string;
     mobile: string;
+    currentgoal: string;
 }
 
 type FormProps = {
@@ -66,7 +67,7 @@ const Form = (props: FormProps) => {
                         </div>
 
                         <div className="Form">
-                            <input className="Input BottomMargin LeftMargin" {...register("mobile")} placeholder="Current Goal" type="currentGoal"/>
+                            <input className="Input BottomMargin LeftMargin" {...register("currentgoal")} placeholder="Current Goal" type="currentgoal"/>
                             <input className="Input BottomMargin LeftMargin" {...register("mobile")} placeholder="Mobile" type="mobile"/>
                         </div>
 

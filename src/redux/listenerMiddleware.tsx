@@ -115,7 +115,7 @@ listenerMiddleware.startListening({
                 firstname: action.payload.firstname,
                 lastname: action.payload.lastname,
                 mobile: action.payload.mobile,
-                currentGoal: ''
+                currentGoal: action.payload.currentgoal
             })
 
             if (data.status === 201) {
