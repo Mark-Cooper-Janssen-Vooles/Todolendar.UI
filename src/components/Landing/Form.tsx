@@ -38,11 +38,9 @@ const Form = (props: FormProps) => {
 
     const onSubmit = (data: FormData) => {
         if (formType === displayStates.LoginForm) {
-            // do redux login call
             dispatch(tryLogin(data))
         }
         if (formType === displayStates.SignupForm) {
-            // do redux signup call
             dispatch(trySignup(data))
         }
     }
@@ -81,8 +79,6 @@ const Form = (props: FormProps) => {
                         <div className="Form">
                             <input className="Input BottomMargin" {...register("username")} placeholder="Email"/>
                             <input className="Input BottomMargin" {...register("password")} placeholder="Password" type="password"/>
-                            {/* <input className="Button BottomMargin" type="submit" value={submitButtonText} />
-                            <button className="Button" onClick={handleBackButton}>Cancel</button> */}
                         </div>
 
                         <div className="Form">
