@@ -73,7 +73,7 @@ const Form = (props: FormProps) => {
 
                         <div className="Form">
                             <input className="Button BottomMargin LeftMargin" type="submit" value={submitButtonText} />
-                            <button onClick={handleBackButton}>Cancel</button>
+                            <button className="Button BottomMargin LeftMargin" onClick={handleBackButton}>Cancel</button>
                         </div>
                     </>
                 : // login form:
@@ -81,8 +81,13 @@ const Form = (props: FormProps) => {
                         <div className="Form">
                             <input className="Input BottomMargin" {...register("username")} placeholder="Email"/>
                             <input className="Input BottomMargin" {...register("password")} placeholder="Password" type="password"/>
-                            <input className="Button" type="submit" value={submitButtonText} />
-                            <button onClick={handleBackButton}>Cancel</button>
+                            {/* <input className="Button BottomMargin" type="submit" value={submitButtonText} />
+                            <button className="Button" onClick={handleBackButton}>Cancel</button> */}
+                        </div>
+
+                        <div className="Form">
+                            <input className="Button BottomMargin LeftMargin" type="submit" value={submitButtonText} />
+                            <button className="Button BottomMargin LeftMargin" onClick={handleBackButton}>Cancel</button>
                         </div>
                     </>
             }
