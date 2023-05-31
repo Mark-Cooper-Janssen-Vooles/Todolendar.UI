@@ -135,7 +135,7 @@ const TodoList = () => {
                                 <form className="TodoListForm" onSubmit={handleSaveAdd}>
                                     <input type="date" onChange={handleAddDate}/><br/>
                                     <input type="time" onChange={handleAddTime}/><br/>
-                                    <input type="color" onChange={handleAddColour}/><br/>
+                                    <input type="color" onChange={handleAddColour} defaultValue={activeTodo.colour}/><br/>
                                     <input type="submit" value="save" />
                                 </form>
                                 <button onClick={() => setAddActive(false)}>Cancel</button>
