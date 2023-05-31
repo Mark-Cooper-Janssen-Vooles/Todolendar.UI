@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
 import {deleteTodo, saveEditedTodo} from "../../redux/reducers/todoSlice";
@@ -19,6 +19,7 @@ const TodoList = () => {
     const [addDate, setAddDate] = useState('')
     const [addTime, setAddTime] = useState('')
     const [addColour, setAddColour] = useState('#D3D3D3')
+    const [addRecurring, setAddRecurring] = useState(false)
     const [editTodo, setEditTodo] = useState(false)
     const [activeTodo, setActiveTodo] = useState({ 
         id: '', 
@@ -49,6 +50,10 @@ const TodoList = () => {
     const handleAddColour = (e: any) => {
         e.preventDefault()
         setAddColour(e.target.value)
+    }
+
+    const handleAddRecurring = (e: any) => {
+        setAddRecurring(e.target.checked)
     }
 
     const handleSaveAdd = (e: any) => {
@@ -135,7 +140,16 @@ const TodoList = () => {
                                 <form className="TodoListForm" onSubmit={handleSaveAdd}>
                                     <input type="date" onChange={handleAddDate}/><br/>
                                     <input type="time" onChange={handleAddTime}/><br/>
-                                    <input type="color" onChange={handleAddColour} defaultValue={activeTodo.colour}/><br/>
+                                    <input type="color" onChange={handleAddColour}  defaultValue={activeTodo.colour}/><br/>
+                                    <input type="checkbox" onChange={handleAddRecurring}/>
+                                    <label className="TodolistLiDescription">Recurring</label>
+                                    <br/>
+                                    { addRecurring ? 
+                                        <>
+                                            <input type="color"/><br/>
+                                        </> : 
+                                        null
+                                    }
                                     <input type="submit" value="save" />
                                 </form>
                                 <button onClick={() => setAddActive(false)}>Cancel</button>
