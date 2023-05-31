@@ -257,8 +257,9 @@ listenerMiddleware.startListening({
                 // re-fetch todos
                 listenerApi.dispatch(fetchTodos())
             }
-        } catch (e) {
+        } catch (e: any) {
             console.log(e)
+            console.log("Errors:", e.response.data.errors)
             // set error message to user, toggle a window.Alert in the component
             listenerApi.dispatch(setAlertMessage('Create todo was unsuccessful. Try again'))
         }
