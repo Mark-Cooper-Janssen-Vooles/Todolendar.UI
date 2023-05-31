@@ -20,6 +20,7 @@ const TodoList = () => {
     const [addTime, setAddTime] = useState('')
     const [addColour, setAddColour] = useState('#D3D3D3')
     const [addRecurring, setAddRecurring] = useState(false)
+    const [addRecurFrequencyType, setRecurFrequencyType] = useState(0)
     const [editTodo, setEditTodo] = useState(false)
     const [activeTodo, setActiveTodo] = useState({ 
         id: '', 
@@ -56,6 +57,10 @@ const TodoList = () => {
         setAddRecurring(e.target.checked)
     }
 
+    const handleAddRecurFrequency = (e: any) => {
+        setRecurFrequencyType(e.target.value!)
+    }
+
     const handleSaveAdd = (e: any) => {
         e.preventDefault()
 
@@ -64,11 +69,14 @@ const TodoList = () => {
             const minute = addTime.split(':')[1]
 
             const scheduledAt = dayjs(addDate).add(parseInt(hour), 'hour').add(parseInt(minute), 'minute').toISOString()
-            dispatch(createScheduledTodo({
+            const newScheduledTodo = {
                 ...activeTodo,
                 scheduledAt,
-                colour: addColour
-            }))
+                colour: addColour,
+                recurFrequencyType: addRecurFrequencyType
+            }
+            console.log(newScheduledTodo)
+            dispatch(createScheduledTodo(newScheduledTodo))
             setAddActive(false)
         } else {
             window.alert('you did not enter either a date, a time, or both!')
@@ -146,7 +154,13 @@ const TodoList = () => {
                                     <br/>
                                     { addRecurring ? 
                                         <>
-                                            <input type="color"/><br/>
+                                            <select id="frequency" name="frequency" defaultValue="Daily" onChange={handleAddRecurFrequency}>
+                                                <option value="Daily">Daily</option>
+                                                <option value="Weekly">Weekly</option>
+                                                <option value="Monthly">Monthly</option>
+                                                <option value="Yearly">Yearly</option>
+                                            </select><br/>
+                                            <input type="text"/><br/>
                                         </> : 
                                         null
                                     }

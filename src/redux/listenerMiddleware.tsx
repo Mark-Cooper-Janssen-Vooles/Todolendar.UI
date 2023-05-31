@@ -18,7 +18,6 @@ import {createTodo, deleteTodo, fetchTodos, saveEditedTodo, setTodos} from "./re
 import {
     createScheduledTodo,
     fetchScheduledTodos,
-    IScheduledTodosDataWeekly,
     setScheduledTodos, updateScheduledTodo,
     deleteScheduledTodo
 } from "./reducers/scheduledTodoSlice";
@@ -56,8 +55,9 @@ listenerMiddleware.startListening({
 
                 listenerApi.dispatch(tryGetUserAndPlanReminderInfo())
             }
-        } catch (e) {
+        } catch (e: any) {
             // set error message to user, toggle a window.Alert in the component
+            console.log("Errors:", e.response.data.errors)
             listenerApi.dispatch(setAlertMessage('Login was unsuccessful. Try again'))
         }
     },
@@ -78,8 +78,9 @@ listenerMiddleware.startListening({
             // should be wrapped in a data.state = 200
             listenerApi.dispatch(setUserInfo(user.data))
             listenerApi.dispatch(setLoggedInState(true))
-        } catch (e) {
+        } catch (e: any) {
             console.log('error fetching user')
+            console.log("Errors:", e.response.data.errors)
         }
 
         // set planReminder state
@@ -92,8 +93,9 @@ listenerMiddleware.startListening({
             })
 
             listenerApi.dispatch(setPlanReminder(planReminder.data))
-        } catch (e) {
+        } catch (e: any) {
             console.log('error fetching planReminder')
+            console.log("Errors:", e.response.data.errors)
         }
     },
 })
@@ -116,8 +118,9 @@ listenerMiddleware.startListening({
                 listenerApi.dispatch(setAlertMessage('Sign up was successful. You may now log in.'))
                 listenerApi.dispatch(setSignupSuccessful())
             }
-        } catch (e) {
+        } catch (e: any) {
             console.log(e)
+            console.log("Errors:", e.response.data.errors)
             // set error message to user, toggle a window.Alert in the component
             listenerApi.dispatch(setAlertMessage('Signup was unsuccessful. Try again'))
         }
@@ -146,8 +149,9 @@ listenerMiddleware.startListening({
             if (data.status === 200) {
                 listenerApi.dispatch(setPlanReminder(action.payload)) // keep redux store in sync
             }
-        } catch (e) {
+        } catch (e: any) {
             console.log(e)
+            console.log("Errors:", e.response.data.errors)
             // set error message to user, toggle a window.Alert in the component
             listenerApi.dispatch(setAlertMessage('Saving your plan reminder updates were unsuccessful. Try again'))
         }
@@ -178,8 +182,9 @@ listenerMiddleware.startListening({
             if (data.status === 200) {
                 listenerApi.dispatch(setUserInfo(data.data)) // keep redux store in sync
             }
-        } catch (e) {
+        } catch (e: any) {
             console.log(e)
+            console.log("Errors:", e.response.data.errors)
             // set error message to user, toggle a window.Alert in the component
             listenerApi.dispatch(setAlertMessage('Saving your user information was unsuccessful. Try again'))
         }
@@ -205,8 +210,9 @@ listenerMiddleware.startListening({
                     listenerApi.dispatch(setLoggedInState(false))
                 }, 1000)
             }
-        } catch (e) {
+        } catch (e: any) {
             console.log(e)
+            console.log("Errors:", e.response.data.errors)
             // set error message to user, toggle a window.Alert in the component
             listenerApi.dispatch(setAlertMessage('Deleting your account was unsuccessful. Try again'))
         }
@@ -229,8 +235,9 @@ listenerMiddleware.startListening({
             if (todos.status === 200) {
                 listenerApi.dispatch(setTodos(todos.data))
             }
-        } catch (e) {
+        } catch (e: any) {
             console.log('fetching todos was unsuccessful')
+            console.log("Errors:", e.response.data.errors)
         }
     },
 })
@@ -281,8 +288,9 @@ listenerMiddleware.startListening({
                 // re-fetch todos
                 listenerApi.dispatch(fetchTodos())
             }
-        } catch (e) {
+        } catch (e: any) {
             console.log(e)
+            console.log("Errors:", e.response.data.errors)
             // set error message to user, toggle a window.Alert in the component
             listenerApi.dispatch(setAlertMessage('Deleting your todo was unsuccessful. Try again'))
         }
@@ -309,8 +317,9 @@ listenerMiddleware.startListening({
             if (data.status === 200) {
                 listenerApi.dispatch(fetchTodos())
             }
-        } catch (e) {
+        } catch (e: any) {
             console.log(e)
+            console.log("Errors:", e.response.data.errors)
             // set error message to user, toggle a window.Alert in the component
             listenerApi.dispatch(setAlertMessage('Editing your todo was unsuccessful. Try again'))
         }
@@ -332,7 +341,7 @@ listenerMiddleware.startListening({
                     description: action.payload.description,
                     colour: action.payload.colour,
                     recurCount: 0,
-                    recurFrequencyType: 'none',
+                    recurFrequencyType: action.payload.recurFrequencyType,
                     recurEndDate: action.payload.scheduledAt,
                     notifyBeforeTime: 10,
                     scheduledAt: action.payload.scheduledAt
@@ -347,8 +356,9 @@ listenerMiddleware.startListening({
                 listenerApi.dispatch(fetchTodos())
                 listenerApi.dispatch(fetchScheduledTodos())
             }
-        } catch (e) {
+        } catch (e: any) {
             console.log(e)
+            console.log("Errors:", e.response.data.errors)
             // set error message to user, toggle a window.Alert in the component
             listenerApi.dispatch(setAlertMessage('Creating scheduled todo was unsuccessful. Try again'))
         }
@@ -388,8 +398,9 @@ listenerMiddleware.startListening({
 
                 listenerApi.dispatch(setScheduledTodos(scheduledTodosWeekly))
             }
-        } catch (e) {
+        } catch (e: any) {
             console.log(e)
+            console.log("Errors:", e.response.data.errors)
             console.log('fetching weekly scheduled todos was unsuccessful')
         }
     },
@@ -424,8 +435,9 @@ listenerMiddleware.startListening({
             if (data.status === 200) {
                 listenerApi.dispatch(fetchScheduledTodos())
             }
-        } catch (e) {
+        } catch (e: any) {
             console.log(e)
+            console.log("Errors:", e.response.data.errors)
             // set error message to user, toggle a window.Alert in the component
             listenerApi.dispatch(setAlertMessage('Editing your scheduled todo was unsuccessful. Try again'))
         }
@@ -447,8 +459,9 @@ listenerMiddleware.startListening({
             if (data.status === 200) {
                 listenerApi.dispatch(fetchScheduledTodos())
             }
-        } catch (e) {
+        } catch (e: any) {
             console.log(e)
+            console.log("Errors:", e.response.data.errors)
             listenerApi.dispatch(setAlertMessage('Deleting your scheduled todo was unsuccessful. Try again'))
         }
     },
