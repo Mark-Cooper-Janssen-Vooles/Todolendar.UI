@@ -323,9 +323,6 @@ listenerMiddleware.startListening({
     effect: async (action, listenerApi) => {
         // @ts-ignore
         const userId = listenerApi.getState().user.user.id;
-        // @ts-ignore
-        const scheduledTodosWeekly: IScheduledTodosDataWeekly = listenerApi.getState().scheduledTodo.scheduledTodosWeekly;
-
 
         try {
             const data = await axios.post(
@@ -333,7 +330,7 @@ listenerMiddleware.startListening({
                 {
                     title: action.payload.title,
                     description: action.payload.description,
-                    colour: 'gray',
+                    colour: action.payload.colour,
                     recurCount: 0,
                     recurFrequencyType: 'none',
                     recurEndDate: action.payload.scheduledAt,

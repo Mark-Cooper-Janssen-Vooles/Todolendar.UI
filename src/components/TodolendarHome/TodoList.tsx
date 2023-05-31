@@ -1,9 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
-import {deleteTodo, fetchTodos, saveEditedTodo} from "../../redux/reducers/todoSlice";
+import {deleteTodo, saveEditedTodo} from "../../redux/reducers/todoSlice";
 import {createScheduledTodo} from "../../redux/reducers/scheduledTodoSlice";
 import dayjs from "dayjs";
+
+interface ITodo {
+    id: string;
+    title: string;
+    description: string;
+    colour: string;
+}
 
 const TodoList = () => {
     const todos = useSelector((state: RootState) => state.todo.todos)
@@ -12,12 +19,20 @@ const TodoList = () => {
     const [addDate, setAddDate] = useState('')
     const [addTime, setAddTime] = useState('')
     const [editTodo, setEditTodo] = useState(false)
-    const [activeTodo, setActiveTodo] = useState({ id: '', title: '', description: ''})
+    const [activeTodo, setActiveTodo] = useState({ 
+        id: '', 
+        title: '', 
+        description: '',
+        colour: '#D3D3D3',
+    })
     const dispatch = useDispatch()
 
-    const handleAdd = (todo: React.SetStateAction<{ id: string; title: string; description: string; }>) => {
+    const handleAdd = (todo: React.SetStateAction<ITodo>) => {
         setAddActive(!addActive)
-        setActiveTodo(todo)
+        setActiveTodo({
+            ...activeTodo,
+            ...todo
+        })
     }
 
     const handleAddDate = (e: any) => {
@@ -37,6 +52,8 @@ const TodoList = () => {
             const hour = addTime.split(':')[0]
             const minute = addTime.split(':')[1]
 
+            console.log(activeTodo)
+
             const scheduledAt = dayjs(addDate).add(parseInt(hour), 'hour').add(parseInt(minute), 'minute').toISOString()
             dispatch(createScheduledTodo({
                 ...activeTodo,
@@ -48,7 +65,7 @@ const TodoList = () => {
         }
     }
 
-    const handleEditTodo = (todo: React.SetStateAction<{ id: string; title: string; description: string; }>) => {
+    const handleEditTodo = (todo: React.SetStateAction<ITodo>) => {
         setEditTodo(!editTodo)
         setActiveTodo(todo)
     }
@@ -60,7 +77,8 @@ const TodoList = () => {
             setActiveTodo({
                 id: activeTodo.id,
                 title: e.target.value,
-                description: activeTodo.description
+                description: activeTodo.description,
+                colour: activeTodo.colour
             })
         }
 
@@ -68,7 +86,8 @@ const TodoList = () => {
             setActiveTodo({
                 id: activeTodo.id,
                 title: activeTodo.title,
-                description: e.target.value
+                description: e.target.value,
+                colour: activeTodo.colour
             })
         }
     }
@@ -87,7 +106,7 @@ const TodoList = () => {
         dispatch(deleteTodo(todo))
     }
 
-    const StandardButtons = (props: { currentTodo: { id: string, title: string, description: string }}) => <>
+    const StandardButtons = (props: { currentTodo: ITodo}) => <>
         <button onClick={() => handleAdd(props.currentTodo)}>Add</button>
         <button onClick={() => handleEditTodo(props.currentTodo)}>Edit</button>
         <button onClick={() => handleDeleteTodo(props.currentTodo)}>Delete</button>

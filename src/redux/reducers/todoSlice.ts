@@ -5,6 +5,7 @@ type todoState = {
         id: string;
         title: string;
         description: string;
+        colour: string;
     }[]
 }
 
