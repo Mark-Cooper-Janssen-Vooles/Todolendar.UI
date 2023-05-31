@@ -86,7 +86,6 @@
 .CalendarWeeklyColumnContentItemEvent {
     cursor: pointer;
     font-size: 8px;
-    background: lightgray;
     width: 100%;
     border-bottom: 2px solid white;
 }

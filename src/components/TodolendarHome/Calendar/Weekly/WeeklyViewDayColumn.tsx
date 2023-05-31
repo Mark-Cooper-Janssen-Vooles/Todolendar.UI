@@ -39,6 +39,7 @@ const WeeklyViewDayColumn = ({hours, currentHour, daysTodos, day, handleSchedule
                 className="CalendarWeeklyColumnContentItemEvent"
                 onClick={() => handleScheduledTodoOpen(scheduledTodo)}
                 key={scheduledTodo.id}
+                style={{ background: scheduledTodo.colour }}
             >{scheduledTodo.title}</div>
         }
     }
