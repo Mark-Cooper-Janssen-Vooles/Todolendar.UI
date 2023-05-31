@@ -177,7 +177,7 @@ const TodoList = () => {
                                             <label className="TodolistLiDescription"> Frequency Type</label>
                                             <br/>
 
-                                            <input type="number" onChange={handleAddRecurCount} style={{ maxWidth: '63.2px'}} defaultValue="1" max="5" min="2"/>
+                                            <input type="number" onChange={handleAddRecurCount} style={{ maxWidth: '63.2px'}} defaultValue="2" max="5" min="2"/>
                                             <label className="TodolistLiDescription"> Recur Count </label>
                                             <br/>
 
