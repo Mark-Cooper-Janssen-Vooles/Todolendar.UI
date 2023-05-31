@@ -60,15 +60,6 @@ const CalendarContainerContent = ({ hours, currentHour, currentDay }: ICalendarC
         dispatch(fetchScheduledTodos())
     }, [])
 
-    // not about below: might need scheduledTodos / setScheduledTodos as well as redux state for when editing!?
-
-    // useEffect(() => {
-    //     setScheduledTodos(scheduledTodosRedux)
-    //     console.log(scheduledTodos.Mon)
-    //
-    //     console.log(scheduledTodosRedux.Mon)
-    // }, [scheduledTodos])
-
     const handleScheduledTodoOpen = (scheduledTodo: IActiveScheduledTodo) => {
         setScheduledTodoOpen(true)
         setActiveScheduledTodo(scheduledTodo)

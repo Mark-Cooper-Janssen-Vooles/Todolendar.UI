@@ -22,7 +22,6 @@ import {
     setScheduledTodos, updateScheduledTodo,
     deleteScheduledTodo
 } from "./reducers/scheduledTodoSlice";
-import {IActiveScheduledTodo} from "../components/TodolendarHome/Calendar/ScheduledTodoPortal";
 import {scheduledTodosDayFilter} from "../helpers/fetchScheduledTodosHelper";
 
 // Create the middleware instance and methods
@@ -43,11 +42,6 @@ listenerMiddleware.startListening({
     effect: async (action, listenerApi) => {
         // Async logic, POST to login endpoint
         try {
-
-            //temp code: 
-            const pingHealth = await axios.get(`${baseUrl}/Ping/`)
-            console.log(pingHealth)
-
             const data = await axios.post(`${baseUrl}/Auth/login`, {
                 email: action.payload.username,
                 password: action.payload.password,

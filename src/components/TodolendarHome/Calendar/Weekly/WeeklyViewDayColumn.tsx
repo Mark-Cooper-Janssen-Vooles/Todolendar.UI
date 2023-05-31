@@ -32,9 +32,6 @@ const WeeklyViewDayColumn = ({hours, currentHour, daysTodos, day, handleSchedule
         const timezone = dayjs.tz.guess()
         // @ts-ignore*/ => converts ISO string in DB (GMT format) to current timezone
         const scheduledTodoHour = dayjs(scheduledTodo.scheduledAt).utc('z').local().tz(timezone).hour()
-        //
-        // console.log(scheduledTodo.scheduledAt)
-        // console.log(scheduledTodoHour) // this is correct, just has the day wrong?!
         const scheduledTodoHourFormatted = hours[scheduledTodoHour - 1]
 
         if (scheduledTodoHourFormatted === hour) {
