@@ -18,6 +18,7 @@ const TodoList = () => {
     const [addActive, setAddActive] = useState(false)
     const [addDate, setAddDate] = useState('')
     const [addTime, setAddTime] = useState('')
+    const [addColour, setAddColour] = useState('#D3D3D3')
     const [editTodo, setEditTodo] = useState(false)
     const [activeTodo, setActiveTodo] = useState({ 
         id: '', 
@@ -45,6 +46,11 @@ const TodoList = () => {
         setAddTime(e.target.value)
     }
 
+    const handleAddColour = (e: any) => {
+        e.preventDefault()
+        setAddColour(e.target.value)
+    }
+
     const handleSaveAdd = (e: any) => {
         e.preventDefault()
 
@@ -57,7 +63,8 @@ const TodoList = () => {
             const scheduledAt = dayjs(addDate).add(parseInt(hour), 'hour').add(parseInt(minute), 'minute').toISOString()
             dispatch(createScheduledTodo({
                 ...activeTodo,
-                scheduledAt
+                scheduledAt,
+                colour: addColour
             }))
             setAddActive(false)
         } else {
@@ -126,14 +133,15 @@ const TodoList = () => {
                         {todo.description && <div className="TodolistLiDescription">{todo.description}</div>}
 
                         { currentTodoAddActiveForm &&
-                            <>
-                                <form onSubmit={handleSaveAdd}>
-                                    <input type="date" onChange={handleAddDate}/>
-                                    <input type="time" onChange={handleAddTime}/>
+                            <div className="TodoListForm">
+                                <form className="TodoListForm" onSubmit={handleSaveAdd}>
+                                    <input type="date" onChange={handleAddDate}/><br/>
+                                    <input type="time" onChange={handleAddTime}/><br/>
+                                    <input type="color" onChange={handleAddColour}/><br/>
                                     <input type="submit" value="save" />
                                 </form>
                                 <button onClick={() => setAddActive(false)}>Cancel</button>
-                            </> }
+                            </div> }
 
                         { currentTodoEditTodoActive &&
                             <>

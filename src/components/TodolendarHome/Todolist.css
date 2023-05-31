@@ -29,3 +29,7 @@
 .TodolistLiDescription {
     font-size: 10px;
 }
+
+.TodoListForm {
+    background: rgb(243, 238, 238);
+}
