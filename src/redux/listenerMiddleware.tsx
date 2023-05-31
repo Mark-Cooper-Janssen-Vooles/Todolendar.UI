@@ -340,7 +340,7 @@ listenerMiddleware.startListening({
                     title: action.payload.title,
                     description: action.payload.description,
                     colour: action.payload.colour,
-                    recurCount: 0,
+                    recurCount: action.payload.recurCount,
                     recurFrequencyType: action.payload.recurFrequencyType,
                     recurEndDate: action.payload.scheduledAt,
                     notifyBeforeTime: 10,
@@ -411,8 +411,6 @@ listenerMiddleware.startListening({
     effect: async (action, listenerApi) => {
         // @ts-ignore
         const userId = listenerApi.getState().user.user.id;
-
-        console.log(action.payload.scheduledAt)
 
         try {
             const data = await axios.put(

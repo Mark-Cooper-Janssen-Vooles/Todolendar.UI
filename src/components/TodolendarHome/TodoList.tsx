@@ -12,6 +12,8 @@ interface ITodo {
     colour: string;
 }
 
+type IFrequencyType = 'None' | 'Daily' | 'Weekly' | 'Monthly' | 'Yearly'
+
 const TodoList = () => {
     const todos = useSelector((state: RootState) => state.todo.todos)
 
@@ -20,7 +22,8 @@ const TodoList = () => {
     const [addTime, setAddTime] = useState('')
     const [addColour, setAddColour] = useState('#D3D3D3')
     const [addRecurring, setAddRecurring] = useState(false)
-    const [addRecurFrequencyType, setRecurFrequencyType] = useState(0)
+    const [addRecurFrequencyType, setRecurFrequencyType] = useState<IFrequencyType>('None')
+    const [addRecurCount, setRecurCount] = useState(0)
     const [editTodo, setEditTodo] = useState(false)
     const [activeTodo, setActiveTodo] = useState({ 
         id: '', 
@@ -54,11 +57,21 @@ const TodoList = () => {
     }
 
     const handleAddRecurring = (e: any) => {
-        setAddRecurring(e.target.checked)
+        if (e.target.checked) {
+            setAddRecurring(e.target.checked)
+            setRecurFrequencyType('Daily')
+        } else {
+            setAddRecurring(e.target.checked)
+            setRecurFrequencyType('None') 
+        }
     }
 
     const handleAddRecurFrequency = (e: any) => {
         setRecurFrequencyType(e.target.value!)
+    }
+
+    const handleAddRecurCount = (e: any) => {
+        setRecurCount(parseInt(e.target.value))
     }
 
     const handleSaveAdd = (e: any) => {
@@ -73,7 +86,8 @@ const TodoList = () => {
                 ...activeTodo,
                 scheduledAt,
                 colour: addColour,
-                recurFrequencyType: addRecurFrequencyType
+                recurFrequencyType: addRecurFrequencyType,
+                recurCount: addRecurCount
             }
             console.log(newScheduledTodo)
             dispatch(createScheduledTodo(newScheduledTodo))
@@ -159,7 +173,14 @@ const TodoList = () => {
                                                 <option value="Weekly">Weekly</option>
                                                 <option value="Monthly">Monthly</option>
                                                 <option value="Yearly">Yearly</option>
-                                            </select><br/>
+                                            </select>
+                                            <label className="TodolistLiDescription"> Frequency Type</label>
+                                            <br/>
+
+                                            <input type="number" onChange={handleAddRecurCount} style={{ maxWidth: '63.2px'}} defaultValue="2"/>
+                                            <label className="TodolistLiDescription"> Recur Count </label>
+                                            <br/>
+
                                             <input type="text"/><br/>
                                         </> : 
                                         null
