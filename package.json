@@ -23,6 +23,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "start-docker": "docker build -t todolendar-ui . && docker run -p 3000:3000 todolendar-ui",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
