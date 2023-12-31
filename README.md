@@ -31,7 +31,7 @@ Features include account creation, sign-in functionality, editing your profile, 
 ## Running Locally
 To run this project locally, you will need to first clone [Todolendar.API](https://github.com/Mark-Cooper-Janssen-Vooles/Todolendar.API) and follow the setup instructions for Todolendar.API to get that running locally.
 
-Then, come back here to the UI and run `npm install` and `npm start`. The UI will open in a new tab and you should be able to login / signup and have all the functionality.
+Then, come back here to the UI and run `npm run docker-start`. The UI will open in a new tab and you should be able to login / signup and have all the functionality.
 
 ---
 
