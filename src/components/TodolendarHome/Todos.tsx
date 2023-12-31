@@ -46,14 +46,14 @@ const Todos = () => {
                 {
                     createTodoActive
                         ?
-                    <>
-                        <form onSubmit={handleCreateTodo}>
-                            <input type="text" name="title" placeholder="title" onChange={handleTitleChange}/>
-                            <textarea name="description" placeholder="description" onChange={handleDescriptionChange} />
-                            <input type="submit" value="save" />
+                    <div style={{ display: 'flex', flexDirection: 'column', maxWidth: '250px' }}>
+                        <form onSubmit={handleCreateTodo} style={{ maxWidth: '250px' }}>
+                            <input type="text" name="title" placeholder="title" onChange={handleTitleChange} style={{ width: '100%', marginBottom: '10px' }}/>
+                            <textarea name="description" placeholder="description" onChange={handleDescriptionChange} style={{ width: '100%', marginBottom: '6px'}}/>
+                            <input type="submit" value="save" style={{ width: '100%', marginBottom: '10px' }}/>
                         </form>
-                        <button onClick={() => setCreateTodoActive(false)}>Cancel</button>
-                    </>
+                        <button onClick={() => setCreateTodoActive(false)} style={{ width: '100%' }}>Cancel</button>
+                    </div>
                         :
                     <button onClick={() => setCreateTodoActive(true)}>Create Todo</button>
                 }
